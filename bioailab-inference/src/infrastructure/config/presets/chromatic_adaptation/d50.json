@@ -1,0 +1,8 @@
+{
+  "$schema": "../schema/chromatic_adaptation.schema.json",
+  "name": "d50",
+  "description": "Adaptação cromática D50 (horizonte) - alternativa para ambientes específicos",
+  "enabled": true,
+  "illuminant": "D50",
+  "method": "bradford"
+}

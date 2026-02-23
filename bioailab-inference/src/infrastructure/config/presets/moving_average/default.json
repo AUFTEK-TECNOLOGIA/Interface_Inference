@@ -1,0 +1,7 @@
+{
+  "$schema": "../schema/moving_average.schema.json",
+  "name": "default",
+  "description": "Média móvel padrão - bom equilíbrio entre suavização e responsividade",
+  "enabled": true,
+  "window": 20
+}

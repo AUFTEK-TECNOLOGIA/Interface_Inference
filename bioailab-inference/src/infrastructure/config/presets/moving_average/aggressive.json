@@ -1,0 +1,7 @@
+{
+  "$schema": "../schema/moving_average.schema.json",
+  "name": "aggressive",
+  "description": "Média móvel agressiva - máxima suavização para dados muito ruidosos",
+  "enabled": true,
+  "window": 50
+}

@@ -1,0 +1,70 @@
+{
+  "$schema": "./schema.json",
+  
+  "metadata": {
+    "name": "SENAI - Serviço Nacional de Aprendizagem Industrial",
+    "industry": "Educação e Pesquisa Industrial",
+    "state": "Rio Grande do Sul",
+    "city": "Estância Velha",
+    "email": "senai.estanciavelha@senairs.org.br",
+    "activated_at": "2025-01-01"
+  },
+
+  "analysis_mode": "presence_absence",
+
+  "preprocessing": {
+    "turbidimetry": {
+      "startIndex": 0,
+      "endIndex": null,
+      "filters": [
+        {
+          "type": "moving_average",
+          "window": 20
+        }
+      ]
+    },
+    "fluorescence": {
+      "startIndex": 0,
+      "endIndex": null,
+      "filters": [
+        {
+          "type": "moving_average",
+          "window": 20
+        }
+      ]
+    }
+  },
+
+  "presence_checks": [
+    {
+      "id": "presence_colitotais",
+      "description": "Presença de Coliformes Totais",
+      "sensor": "turbidimetry",
+      "channel": "f2",
+      "pipeline": {
+        "growth_detector": "combined"
+      },
+      "growth_detection": {
+        "min_amplitude_percent": 5.0,
+        "min_growth_ratio": 1.05,
+        "noise_threshold_percent": 1.0
+      }
+    },
+    {
+      "id": "presence_ecoli",
+      "description": "Presença de E. coli",
+      "sensor": "fluorescence",
+      "channel": "f2",
+      "pipeline": {
+        "growth_detector": "combined"
+      },
+      "growth_detection": {
+        "min_amplitude_percent": 20.0,
+        "min_growth_ratio": 1.25,
+        "noise_threshold_percent": 1.0
+      }
+    }
+  ]
+
+  
+}

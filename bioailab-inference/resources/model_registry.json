@@ -1,0 +1,190 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "version": "1.0.0",
+  "last_updated": "2026-01-06",
+  "description": "Registry de modelos ML disponíveis para inferência no pipeline",
+  
+  "models": {
+    "fluorescencia_NMP": {
+      "name": "Fluorescência → NMP",
+      "description": "Regressão linear treinada com features Richards para predição de NMP a partir de fluorescência",
+      "model_path": "resources/LINEARregression_richards_fluorescencia_R_NMP_20_01_ATE_03_09_2025.onnx",
+      "scaler_path": "resources/scaler_fluorescencia_R_NMP_20_01_ATE_03_09_2025.joblib",
+      
+      "metadata": {
+        "training_date": "2025-09-03",
+        "dataset": "fluorescencia_R_NMP_20_01_ATE_03_09_2025",
+        "algorithm": "LinearRegression",
+        "framework": "sklearn",
+        "samples_trained": null,
+        "cv_score": null
+      },
+      
+      "input": {
+        "recommended_feature": "inflection_time",
+        "supported_features": ["inflection_time", "asymptote", "growth_rate", "lag_time", "auc"],
+        "feature_ranges": {
+          "inflection_time": {"min": 0, "max": 48, "unit": "h"},
+          "asymptote": {"min": 0, "max": 100000, "unit": "AU"},
+          "growth_rate": {"min": 0, "max": 2, "unit": "1/h"}
+        }
+      },
+      
+      "output": {
+        "type": "regression",
+        "unit": "NMP/100mL",
+        "range": {"min": 0, "max": 100000000},
+        "log_transform": false
+      },
+      
+      "status": "active",
+      "tags": ["fluorescencia", "nmp", "producao"]
+    },
+    
+    "fluorescencia_UFC": {
+      "name": "Fluorescência → UFC",
+      "description": "Regressão linear treinada com features Richards para predição de UFC a partir de fluorescência",
+      "model_path": "resources/LINEARregression_richards_fluorescencia_R_UFC_01_07_ATE_03_09_2025.onnx",
+      "scaler_path": "resources/scaler_fluorescencia_R_UFC_01_07_ATE_03_09_2025.joblib",
+      
+      "metadata": {
+        "training_date": "2025-09-03",
+        "dataset": "fluorescencia_R_UFC_01_07_ATE_03_09_2025",
+        "algorithm": "LinearRegression",
+        "framework": "sklearn",
+        "samples_trained": null,
+        "cv_score": null
+      },
+      
+      "input": {
+        "recommended_feature": "inflection_time",
+        "supported_features": ["inflection_time", "asymptote", "growth_rate", "lag_time", "auc"],
+        "feature_ranges": {
+          "inflection_time": {"min": 0, "max": 48, "unit": "h"},
+          "asymptote": {"min": 0, "max": 100000, "unit": "AU"},
+          "growth_rate": {"min": 0, "max": 2, "unit": "1/h"}
+        }
+      },
+      
+      "output": {
+        "type": "regression",
+        "unit": "UFC/mL",
+        "range": {"min": 0, "max": 10000000000},
+        "log_transform": false
+      },
+      
+      "status": "active",
+      "tags": ["fluorescencia", "ufc", "producao"]
+    },
+    
+    "turbidimetria_NMP": {
+      "name": "Turbidimetria → NMP",
+      "description": "Regressão linear treinada com features Richards para predição de NMP a partir de turbidimetria",
+      "model_path": "resources/LINEARregression_richards_turbidimetria_R__NMP_20_01_ATE_03_09_2025.onnx",
+      "scaler_path": "resources/scaler_turb_R_NMP_20_01_ATE_03_09_2025.joblib",
+      
+      "metadata": {
+        "training_date": "2025-09-03",
+        "dataset": "turbidimetria_R_NMP_20_01_ATE_03_09_2025",
+        "algorithm": "LinearRegression",
+        "framework": "sklearn",
+        "samples_trained": null,
+        "cv_score": null
+      },
+      
+      "input": {
+        "recommended_feature": "inflection_time",
+        "supported_features": ["inflection_time", "asymptote", "growth_rate", "lag_time", "auc"],
+        "feature_ranges": {
+          "inflection_time": {"min": 0, "max": 48, "unit": "h"},
+          "asymptote": {"min": 0, "max": 50000, "unit": "AU"},
+          "growth_rate": {"min": 0, "max": 2, "unit": "1/h"}
+        }
+      },
+      
+      "output": {
+        "type": "regression",
+        "unit": "NMP/100mL",
+        "range": {"min": 0, "max": 100000000},
+        "log_transform": false
+      },
+      
+      "status": "active",
+      "tags": ["turbidimetria", "nmp", "producao"]
+    },
+    
+    "turbidimetria_UFC": {
+      "name": "Turbidimetria → UFC",
+      "description": "Regressão linear treinada com features Richards para predição de UFC a partir de turbidimetria",
+      "model_path": "resources/LINEARregression_richards_turbidimetria_R_UFC_01_07_ATE_03_09_2025.onnx",
+      "scaler_path": "resources/scaler_turb_R_UFC_01_07_ATE_03_09_2025.joblib",
+      
+      "metadata": {
+        "training_date": "2025-09-03",
+        "dataset": "turbidimetria_R_UFC_01_07_ATE_03_09_2025",
+        "algorithm": "LinearRegression",
+        "framework": "sklearn",
+        "samples_trained": null,
+        "cv_score": null
+      },
+      
+      "input": {
+        "recommended_feature": "inflection_time",
+        "supported_features": ["inflection_time", "asymptote", "growth_rate", "lag_time", "auc"],
+        "feature_ranges": {
+          "inflection_time": {"min": 0, "max": 48, "unit": "h"},
+          "asymptote": {"min": 0, "max": 50000, "unit": "AU"},
+          "growth_rate": {"min": 0, "max": 2, "unit": "1/h"}
+        }
+      },
+      
+      "output": {
+        "type": "regression",
+        "unit": "UFC/mL",
+        "range": {"min": 0, "max": 10000000000},
+        "log_transform": false
+      },
+      
+      "status": "active",
+      "tags": ["turbidimetria", "ufc", "producao"]
+    }
+  },
+  
+  "defaults": {
+    "resource": "fluorescencia_NMP",
+    "input_feature": "inflection_time"
+  },
+  
+  "feature_definitions": {
+    "inflection_time": {
+      "name": "Tempo de Inflexão",
+      "description": "Tempo em horas até o ponto de inflexão da curva de crescimento",
+      "unit": "h",
+      "typical_range": {"min": 2, "max": 24}
+    },
+    "asymptote": {
+      "name": "Assíntota",
+      "description": "Valor máximo assintótico da curva de crescimento",
+      "unit": "AU",
+      "typical_range": {"min": 1000, "max": 100000}
+    },
+    "growth_rate": {
+      "name": "Taxa de Crescimento",
+      "description": "Taxa máxima de crescimento (mu) em 1/h",
+      "unit": "1/h",
+      "typical_range": {"min": 0.1, "max": 1.5}
+    },
+    "lag_time": {
+      "name": "Tempo de Latência",
+      "description": "Tempo de lag (fase de adaptação) em horas",
+      "unit": "h",
+      "typical_range": {"min": 0, "max": 12}
+    },
+    "auc": {
+      "name": "Área sob a Curva",
+      "description": "Integral da curva de crescimento (AU * h)",
+      "unit": "AU*h",
+      "typical_range": {"min": 10000, "max": 1000000}
+    }
+  }
+}

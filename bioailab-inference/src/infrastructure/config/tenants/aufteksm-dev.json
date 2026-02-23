@@ -1,0 +1,127 @@
+{
+  "$schema": "./schema.json",
+  
+  "metadata": {
+    "name": "Aufteksm Development",
+    "industry": "Development & Testing",
+    "state": "Development",
+    "email": "dev@aufteksm.com",
+    "activated_at": "2025-01-01"
+  },
+
+  "analysis_mode": "prediction",
+
+  "pipeline": {
+    "feature_extractor": "fitted",
+    "normalizer": "minmax",
+    "growth_detector": "combined",
+    "validator": "sensor",
+    "fallback_extractor": "raw",
+    "fallback_curve_model": "logistic"
+  },
+
+  "preprocessing": {
+    "turbidimetry": {
+      "startIndex": 30,
+      "endIndex": -5,
+      "filters": [
+        {
+          "type": "moving_average",
+          "window": 20
+        }
+      ]
+    },
+    "fluorescence": {
+      "startIndex": 30,
+      "endIndex": -5,
+      "filters": [
+        {
+          "type": "moving_average",
+          "window": 20
+        }
+      ]
+    }
+  },
+
+  "spectral_conversion": {
+    "turbidimetry": {
+      "calculateMatrix": true,
+      "applyChromaticAdaptation": true,
+      "applyLuminosityCorrection": true,
+      "returnHueUnwrapped": true
+    },
+    "fluorescence": {
+      "calculateMatrix": true,
+      "applyChromaticAdaptation": false,
+      "applyLuminosityCorrection": false,
+      "returnHueUnwrapped": true
+    }
+  },
+
+  "predictions": [
+    {
+      "id": "predict_colitotais_nmp",
+      "description": "Total Coliforms - MPN",
+      "sensor": "turbidimetry",
+      "channel": "RGB_B",
+      "math_model": "richards",
+      "ml_model": "turbidimetry_nmp",
+      "pipeline": {
+        "growth_detector": "combined"
+      },
+      "growth_detection": {
+        "min_amplitude_percent": 20.0,
+        "min_growth_ratio": 1.25,
+        "noise_threshold_percent": 1.0
+      }
+    },
+    {
+      "id": "predict_colitotais_ufc",
+      "description": "Total Coliforms - CFU",
+      "sensor": "turbidimetry",
+      "channel": "RGB_B",
+      "math_model": "richards",
+      "ml_model": "turbidimetry_ufc",
+      "pipeline": {
+        "growth_detector": "combined"
+      },
+      "growth_detection": {
+        "min_amplitude_percent": 20.0,
+        "min_growth_ratio": 1.25,
+        "noise_threshold_percent": 1.0
+      }
+    },
+    {
+      "id": "predict_ecoli_nmp",
+      "description": "E. coli - MPN",
+      "sensor": "fluorescence",
+      "channel": "RGB_B",
+      "math_model": "baranyi",
+      "ml_model": "fluorescence_nmp",
+      "pipeline": {
+        "growth_detector": "combined"
+      },
+      "growth_detection": {
+        "min_amplitude_percent": 20.0,
+        "min_growth_ratio": 1.25,
+        "noise_threshold_percent": 1.0
+      }
+    },
+    {
+      "id": "predict_ecoli_ufc",
+      "description": "E. coli - CFU",
+      "sensor": "fluorescence",
+      "channel": "RGB_B",
+      "math_model": "baranyi",
+      "ml_model": "fluorescence_ufc",
+      "pipeline": {
+        "growth_detector": "combined"
+      },
+      "growth_detection": {
+        "min_amplitude_percent": 20.0,
+        "min_growth_ratio": 1.25,
+        "noise_threshold_percent": 1.0
+      }
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+[
+    {
+        "name": "Salmonella",
+        "UUID": "6accbeb1-860c-4668-a7be-8cff70aaf752",
+        "notes": "teste"
+    },
+    {
+        "name": "Escherichia coli",
+        "UUID": "97061dfb-0fb9-495f-94bd-a4c430359981",
+        "notes": "teste"
+    },
+    {
+        "name": "Bacillus cereus",
+        "UUID": "53fb4898-bc48-480d-82eb-028979fe5bad",
+        "notes": "teste"
+    },
+    {
+        "name": "Coliformes Totais",
+        "UUID": "e2bb08aa-27d2-459f-b4ba-92d43184f766",
+        "notes": "teste"
+    }
+]

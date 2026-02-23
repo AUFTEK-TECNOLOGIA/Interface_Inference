@@ -1,0 +1,31 @@
+version: "3.9"
+
+services:
+  api:
+    image: ${IMAGE:-bioailab/bioailab-inference:latest}
+    container_name: bioailab-inference
+    restart: unless-stopped
+    ports:
+      - "${PORT:-8000}:8000"
+    environment:
+      UVICORN_HOST: 0.0.0.0
+      UVICORN_PORT: 8000
+      UVICORN_WORKERS: ${UVICORN_WORKERS:-1}
+      MONGO_URI: ${MONGO_URI:-mongodb://mongo:27017}
+      TENANT_DB_PREFIX: ${TENANT_DB_PREFIX:-bioailab_}
+      TOKEN: ${TOKEN:-1337}
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo:6.0
+    container_name: bioailab-mongo
+    restart: unless-stopped
+    volumes:
+      - mongo-data:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USER:-root}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD:-example}
+
+volumes:
+  mongo-data:

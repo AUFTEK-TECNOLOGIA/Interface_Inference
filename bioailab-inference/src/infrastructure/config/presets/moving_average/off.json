@@ -1,0 +1,7 @@
+{
+  "$schema": "../schema/moving_average.schema.json",
+  "name": "off",
+  "description": "Média móvel desabilitada",
+  "enabled": false,
+  "window": 1
+}

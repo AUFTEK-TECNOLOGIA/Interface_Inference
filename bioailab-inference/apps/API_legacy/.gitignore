@@ -1,0 +1,60 @@
+# ---------------------------
+# Ambientes virtuais Python
+# ---------------------------
+.venv/
+venv/
+env/
+ENV/
+
+# ---------------------------
+# Python bytecode
+# ---------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+
+# ---------------------------
+# Distribuição / Packaging
+# ---------------------------
+build/
+dist/
+*.egg-info/
+pip-wheel-metadata/
+
+# ---------------------------
+# Testes / Cobertura
+# ---------------------------
+.coverage
+.coverage.*
+.cache
+.pytest_cache/
+nosetests.xml
+coverage.xml
+
+# ---------------------------
+# Configurações locais / variáveis de ambiente
+# ---------------------------
+.env
+*.env
+
+# ---------------------------
+# Logs e temporários
+# ---------------------------
+*.log
+*.tmp
+
+# ---------------------------
+# Jupyter
+# ---------------------------
+.ipynb_checkpoints/
+
+# ---------------------------
+# Sistema operacional
+# ---------------------------
+.DS_Store
+Thumbs.db
+
+# ---------------------------
+# Modelos gerados
+# ---------------------------
+models/

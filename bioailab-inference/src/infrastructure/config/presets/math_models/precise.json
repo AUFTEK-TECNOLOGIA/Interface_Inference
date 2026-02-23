@@ -1,0 +1,13 @@
+{
+    "name": "precise",
+    "description": "Configuração para ajuste preciso - mais tentativas, menor tolerância",
+    "model": "richards",
+    "fit_config": {
+        "max_attempts": 10000,
+        "tolerance": 0.0001,
+        "window_threshold_start": 0.03,
+        "window_threshold_end": 0.03,
+        "smooth_sigma": 7.0,
+        "min_window_size": 25
+    }
+}

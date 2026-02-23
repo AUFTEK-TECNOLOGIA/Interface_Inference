@@ -1,0 +1,8 @@
+{
+  "$schema": "../schema/growth_detection.schema.json",
+  "name": "conservative",
+  "description": "Detecção conservadora - alta especificidade, menos falsos positivos",
+  "min_amplitude_percent": 25.0,
+  "min_growth_ratio": 1.3,
+  "noise_threshold_percent": 3.0
+}

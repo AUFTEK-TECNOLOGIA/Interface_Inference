@@ -1,0 +1,8 @@
+{
+  "$schema": "../schema/growth_detection.schema.json",
+  "name": "default",
+  "description": "Detecção padrão - equilíbrio entre sensibilidade e especificidade",
+  "min_amplitude_percent": 15.0,
+  "min_growth_ratio": 1.2,
+  "noise_threshold_percent": 2.0
+}

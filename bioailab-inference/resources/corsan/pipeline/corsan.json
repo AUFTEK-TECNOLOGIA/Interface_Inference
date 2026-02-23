@@ -1,0 +1,1715 @@
+{
+  "version": "1.0",
+  "name": "pipeline_visual",
+  "savedAt": "2026-01-13T17:55:15.327526Z",
+  "editor": {
+    "nodes": [
+      {
+        "id": "experiment_fetch_1",
+        "type": "pipelineNode",
+        "position": {
+          "x": -4516.723514650433,
+          "y": 1387.774573557675
+        },
+        "data": {
+          "label": "Experimento 1",
+          "blockName": "experiment_fetch",
+          "config": {
+            "experimentId": "019ba200-3bf8-705a-9b40-8b68271e2367",
+            "analysisId": "68cb3fb380ac865ce0647ea8",
+            "tenant": "corsan",
+            "use_default_experiment": false,
+            "generate_output_graphs": true,
+            "plot_mode": "all",
+            "include_legend": true,
+            "include_labels": true,
+            "time_from_zero": true,
+            "sensors": [
+              "turbidimetry",
+              "nephelometry",
+              "fluorescence"
+            ],
+            "plot_channel": [
+              "f1",
+              "f2",
+              "f3",
+              "f4",
+              "f5",
+              "f6",
+              "f7",
+              "f8",
+              "clear",
+              "nir"
+            ],
+            "include_experiment_output": true,
+            "include_experiment_data_output": true,
+            "graph_config": {
+              "turbidimetry": [
+                "f1",
+                "f2",
+                "f3",
+                "f4",
+                "f5",
+                "f6",
+                "f7",
+                "f8",
+                "clear",
+                "nir"
+              ],
+              "nephelometry": [
+                "f1",
+                "f2",
+                "f3",
+                "f4",
+                "f5",
+                "f6",
+                "f7",
+                "f8",
+                "clear",
+                "nir"
+              ],
+              "fluorescence": [
+                "f1",
+                "f2",
+                "f3",
+                "f4",
+                "f5",
+                "f6",
+                "f7",
+                "f8",
+                "clear",
+                "nir"
+              ]
+            }
+          },
+          "description": "Busca documento de experimento e seus dados brutos no repositório"
+        }
+      },
+      {
+        "id": "turbidimetry_extraction_2",
+        "type": "pipelineNode",
+        "position": {
+          "x": -2774.55547332438,
+          "y": 360.5231897110373
+        },
+        "data": {
+          "label": "Turbidimetria 1",
+          "blockName": "turbidimetry_extraction",
+          "config": {
+            "generate_output_graphs": true,
+            "include_raw_output": true
+          },
+          "description": "Extrai dados do sensor de turbidimetria (10 canais espectrais)"
+        }
+      },
+      {
+        "id": "time_slice_4",
+        "type": "pipelineNode",
+        "position": {
+          "x": -1574.5554733243798,
+          "y": 360.5231897110373
+        },
+        "data": {
+          "label": "Corte temporal 1",
+          "blockName": "time_slice",
+          "config": {
+            "start_time_min": 60,
+            "end_time_min": 1440,
+            "generate_output_graphs": true,
+            "include_raw_output": true
+          },
+          "description": "Corta dados por intervalo de tempo (início e fim)"
+        }
+      },
+      {
+        "id": "moving_average_filter_6",
+        "type": "pipelineNode",
+        "position": {
+          "x": -1174.5554733243798,
+          "y": 360.5231897110373
+        },
+        "data": {
+          "label": "Média móvel 1",
+          "blockName": "moving_average_filter",
+          "config": {
+            "window_size": 60,
+            "generate_output_graphs": true,
+            "include_raw_output": true
+          },
+          "description": "Filtro de média móvel - suavização básica"
+        }
+      },
+      {
+        "id": "condition_branch_7",
+        "type": "pipelineNode",
+        "position": {
+          "x": -1974.5554733243798,
+          "y": 360.5231897110373
+        },
+        "data": {
+          "label": "Ramificação condicional 1",
+          "blockName": "condition_branch",
+          "config": {},
+          "description": "Ramifica o fluxo: se condição=true vai para if_true, senão para if_false"
+        }
+      },
+      {
+        "id": "fluorescence_extraction_9",
+        "type": "pipelineNode",
+        "position": {
+          "x": -2774.55547332438,
+          "y": 2043.1939987303656
+        },
+        "data": {
+          "label": "Fluorescência 1",
+          "blockName": "fluorescence_extraction",
+          "config": {
+            "include_raw_output": true,
+            "generate_output_graphs": true
+          },
+          "description": "Extrai dados do sensor de fluorescência (10 canais espectrais)"
+        }
+      },
+      {
+        "id": "condition_branch_1766239675295_0",
+        "type": "pipelineNode",
+        "position": {
+          "x": -1974.5554733243798,
+          "y": 2043.1939987303656
+        },
+        "data": {
+          "label": "Ramificação condicional 2",
+          "blockName": "condition_branch",
+          "config": {},
+          "description": "Ramifica o fluxo: se condição=true vai para if_true, senão para if_false"
+        }
+      },
+      {
+        "id": "time_slice_1766239766048_0",
+        "type": "pipelineNode",
+        "position": {
+          "x": -1574.5554733243798,
+          "y": 2043.1939987303656
+        },
+        "data": {
+          "label": "Corte temporal 2",
+          "blockName": "time_slice",
+          "config": {
+            "start_time_min": 60,
+            "end_time_min": 1440,
+            "generate_output_graphs": true,
+            "include_raw_output": true
+          },
+          "description": "Corta dados por intervalo de tempo (início e fim)"
+        }
+      },
+      {
+        "id": "moving_average_filter_1766239766048_1",
+        "type": "pipelineNode",
+        "position": {
+          "x": -1174.5554733243798,
+          "y": 2043.1939987303656
+        },
+        "data": {
+          "label": "Média móvel 2",
+          "blockName": "moving_average_filter",
+          "config": {
+            "window_size": 60,
+            "generate_output_graphs": true,
+            "include_raw_output": true
+          },
+          "description": "Filtro de média móvel - suavização básica"
+        }
+      },
+      {
+        "id": "amplitude_detector_16",
+        "type": "pipelineNode",
+        "position": {
+          "x": -2374.55547332438,
+          "y": 360.5231897110373
+        },
+        "data": {
+          "label": "Detector de amplitude 1",
+          "blockName": "amplitude_detector",
+          "config": {
+            "expected_direction": "decreasing",
+            "include_raw_output": true,
+            "generate_output_graphs": true
+          },
+          "description": "Detecta crescimento pela amplitude relativa do sinal (max-min)"
+        }
+      },
+      {
+        "id": "amplitude_detector_1766243749849_0",
+        "type": "pipelineNode",
+        "position": {
+          "x": -2374.55547332438,
+          "y": 2043.1939987303656
+        },
+        "data": {
+          "label": "Detector de amplitude 2",
+          "blockName": "amplitude_detector",
+          "config": {
+            "expected_direction": "increasing",
+            "include_raw_output": true,
+            "generate_output_graphs": true
+          },
+          "description": "Detecta crescimento pela amplitude relativa do sinal (max-min)"
+        }
+      },
+      {
+        "id": "curve_fit_14",
+        "type": "pipelineNode",
+        "position": {
+          "x": 18.444526675620182,
+          "y": 360.5231897110373
+        },
+        "data": {
+          "label": "Ajuste de curva 1",
+          "blockName": "curve_fit",
+          "config": {
+            "generate_output_graphs": true,
+            "model": "richards",
+            "include_raw_output": true,
+            "max_attempts": 500
+          },
+          "description": "Ajusta modelo matemático aos dados (Richards, Gompertz, etc.)"
+        }
+      },
+      {
+        "id": "rgb_conversion_15",
+        "type": "pipelineNode",
+        "position": {
+          "x": -780.5554733243798,
+          "y": 2043.1939987303656
+        },
+        "data": {
+          "label": "Conversão RGB 1",
+          "blockName": "rgb_conversion",
+          "config": {
+            "generate_output_graphs": true,
+            "include_raw_output": true,
+            "apply_luminosity_correction": true,
+            "apply_gamma": false,
+            "auto_exposure": true
+          },
+          "description": "Converte para RGB (vermelho, verde, azul)"
+        }
+      },
+      {
+        "id": "curve_fit_1766246804420_0",
+        "type": "pipelineNode",
+        "position": {
+          "x": 18.444526675620182,
+          "y": 2043.1939987303656
+        },
+        "data": {
+          "label": "Ajuste de curva 2",
+          "blockName": "curve_fit",
+          "config": {
+            "generate_output_graphs": true,
+            "model": "richards",
+            "include_raw_output": true
+          },
+          "description": "Ajusta modelo matemático aos dados (Richards, Gompertz, etc.)"
+        }
+      },
+      {
+        "id": "rgb_conversion_1766246829232_0",
+        "type": "pipelineNode",
+        "position": {
+          "x": -780.5554733243798,
+          "y": 360.5231897110373
+        },
+        "data": {
+          "label": "Conversão RGB 2",
+          "blockName": "rgb_conversion",
+          "config": {
+            "generate_output_graphs": true,
+            "include_raw_output": true,
+            "apply_gamma": false,
+            "auto_exposure": false
+          },
+          "description": "Converte para RGB (vermelho, verde, azul)"
+        }
+      },
+      {
+        "id": "growth_features_17",
+        "type": "pipelineNode",
+        "position": {
+          "x": 418.4445266756202,
+          "y": 360.5231897110373
+        },
+        "data": {
+          "label": "Features de crescimento 1",
+          "blockName": "growth_features",
+          "config": {
+            "features": [
+              "lag_time",
+              "growth_rate",
+              "asymptote",
+              "r_squared",
+              "doubling_time",
+              "inflection_time",
+              "y0",
+              "aic",
+              "rmse"
+            ],
+            "include_raw_output": true,
+            "channel": ""
+          },
+          "description": "Extrai parâmetros de crescimento do curve_fit (lag, µmax, assíntota)"
+        }
+      },
+      {
+        "id": "ml_inference_20",
+        "type": "pipelineNode",
+        "position": {
+          "x": 1218.4445266756202,
+          "y": 790.5231897110373
+        },
+        "data": {
+          "label": "Inferência ML 1",
+          "blockName": "ml_inference",
+          "config": {
+            "input_feature": "inflection_time",
+            "channel": "RGB_B",
+            "include_raw_output": true,
+            "resource": "",
+            "model_path": "",
+            "scaler_path": "",
+            "output_unit": "NMP/100mL",
+            "metadata_path": "resources/corsan/predict/selected/ml_inference_20/ml_inference_20_metadata.json"
+          },
+          "description": "Executa inferência ML com modelos ONNX (amostras sem diluição)"
+        }
+      },
+      {
+        "id": "ml_inference_diluted",
+        "type": "pipelineNode",
+        "position": {
+          "x": 1218.4445266756202,
+          "y": 360.5231897110373
+        },
+        "data": {
+          "label": "ML (diluído)",
+          "blockName": "ml_inference",
+          "config": {
+            "input_feature": "inflection_time",
+            "channel": "RGB_B",
+            "include_raw_output": true,
+            "resource": "",
+            "model_path": "",
+            "scaler_path": "",
+            "output_unit": "NMP/100mL",
+            "metadata_path": "resources/corsan/predict/selected/ml_inference_diluted/ml_inference_diluted_metadata.json"
+          },
+          "description": "Executa inferência ML para amostras DILUÍDAS"
+        }
+      },
+      {
+        "id": "numeric_compare_dilution",
+        "type": "pipelineNode",
+        "position": {
+          "x": -4014.55547332438,
+          "y": 360.5231897110373
+        },
+        "data": {
+          "label": "Tem diluição?",
+          "blockName": "numeric_compare",
+          "config": {
+            "threshold": 1,
+            "operator": "!=",
+            "invert": false
+          },
+          "description": "Verifica se dilution_factor != 1 (amostra diluída)"
+        }
+      },
+      {
+        "id": "condition_branch_dilution",
+        "type": "pipelineNode",
+        "position": {
+          "x": 818.4445266756202,
+          "y": 360.5231897110373
+        },
+        "data": {
+          "label": "Ramificação: diluição",
+          "blockName": "condition_branch",
+          "config": {},
+          "description": "Se diluído → modelo para diluídos, senão → modelo padrão"
+        }
+      },
+      {
+        "id": "response_builder_22",
+        "type": "pipelineNode",
+        "position": {
+          "x": 1818.4445266756202,
+          "y": 1374.8585942207014
+        },
+        "data": {
+          "label": "Saída do grupo 1",
+          "blockName": "response_pack",
+          "config": {
+            "include_raw_output": true,
+            "field_mappings": [],
+            "flatten_labels": false,
+            "inputs_count": 6
+          },
+          "description": "Empacota uma resposta parcial (para merge e saída única)"
+        }
+      },
+      {
+        "id": "label_24",
+        "type": "pipelineNode",
+        "position": {
+          "x": -3174.55547332438,
+          "y": 360.5231897110373
+        },
+        "data": {
+          "label": "Etiqueta 1",
+          "blockName": "label",
+          "config": {
+            "label": "coliformes_totais",
+            "label_color": "#2d30d7"
+          },
+          "description": "Adiciona uma label/tag para agrupar resultados"
+        }
+      },
+      {
+        "id": "label_1766268137429_0",
+        "type": "pipelineNode",
+        "position": {
+          "x": -3174.55547332438,
+          "y": 2043.1939987303656
+        },
+        "data": {
+          "label": "Etiqueta 2",
+          "blockName": "label",
+          "config": {
+            "label": "e_coli",
+            "label_color": "#1abc1c"
+          },
+          "description": "Adiciona uma label/tag para agrupar resultados"
+        }
+      },
+      {
+        "id": "growth_features_1766268194335_1",
+        "type": "pipelineNode",
+        "position": {
+          "x": 418.4445266756202,
+          "y": 2043.1939987303656
+        },
+        "data": {
+          "label": "Features de crescimento 2",
+          "blockName": "growth_features",
+          "config": {
+            "features": [
+              "lag_time",
+              "growth_rate",
+              "asymptote",
+              "r_squared",
+              "doubling_time",
+              "inflection_time",
+              "y0",
+              "aic",
+              "rmse"
+            ],
+            "include_raw_output": true
+          },
+          "description": "Extrai parâmetros de crescimento do curve_fit (lag, µmax, assíntota)"
+        }
+      },
+      {
+        "id": "condition_gate_35",
+        "type": "pipelineNode",
+        "position": {
+          "x": -3614.55547332438,
+          "y": 1390.8585942207014
+        },
+        "data": {
+          "label": "Portão condicional 1",
+          "blockName": "condition_gate",
+          "config": {},
+          "description": "Portão condicional: passa dados somente se condição == valor esperado"
+        }
+      },
+      {
+        "id": "value_in_list_35",
+        "type": "pipelineNode",
+        "position": {
+          "x": -4014.55547332438,
+          "y": 1390.8585942207014
+        },
+        "data": {
+          "label": "Verificar valor na lista 1",
+          "blockName": "value_in_list",
+          "config": {
+            "allowed_values": [
+              "68cb3fb380ac865ce0647ea8",
+              "1814debf-3dab-4289-a0b5-63bc62bb55b4",
+              "1aeea59b-3051-4c16-9033-3839fb728ef5",
+              "1f3fe520-5308-4800-81c6-29687fb3be35",
+              "7f49fe55-d856-4f2b-8c3d-43afa3b6a9cd",
+              "c50df395-b2cd-4bec-9f67-8d9a0c1f7d5d",
+              "ec3ac5be-7ab9-47c3-8186-9037c248de15",
+              "68cb3fb380ac865ce0647ea9"
+            ]
+          },
+          "description": "Verifica se um valor está em uma lista (gera condition)"
+        }
+      },
+      {
+        "id": "response_merge_1",
+        "type": "pipelineNode",
+        "position": {
+          "x": 2358.44452667562,
+          "y": 1430.8585942207014
+        },
+        "data": {
+          "label": "Unir saídas",
+          "blockName": "response_merge",
+          "config": {
+            "include_raw_output": true,
+            "fail_if_multiple": true,
+            "inputs_count": 2
+          },
+          "description": "Seleciona a resposta ativa entre múltiplas saídas parciais"
+        }
+      },
+      {
+        "id": "response_builder",
+        "type": "pipelineNode",
+        "position": {
+          "x": 2898.44452667562,
+          "y": 1444.8585942207014
+        },
+        "data": {
+          "label": "Saída (API)",
+          "blockName": "response_builder",
+          "config": {
+            "include_raw_output": true,
+            "field_mappings": [],
+            "flatten_labels": false,
+            "group_by_label": false,
+            "pass_through": true,
+            "inputs_count": 1
+          },
+          "description": "Monta o JSON de resposta final do pipeline"
+        }
+      },
+      {
+        "id": "condition_branch_1768248429676_0",
+        "type": "pipelineNode",
+        "position": {
+          "x": 818.4445266756202,
+          "y": 2043.1939987303656
+        },
+        "data": {
+          "label": "Ramificação: diluição",
+          "blockName": "condition_branch",
+          "config": {},
+          "description": "Se diluído → modelo para diluídos, senão → modelo padrão"
+        }
+      },
+      {
+        "id": "ml_inference_1768248493217_0",
+        "type": "pipelineNode",
+        "position": {
+          "x": 1211.651851115144,
+          "y": 2475.9110689545564
+        },
+        "data": {
+          "label": "Inferência ML 3",
+          "blockName": "ml_inference",
+          "config": {
+            "input_feature": "inflection_time",
+            "channel": "RGB_B",
+            "include_raw_output": true,
+            "resource": "",
+            "model_path": "",
+            "scaler_path": "",
+            "output_unit": "NMP/100mL",
+            "metadata_path": "resources/corsan/predict/selected/ml_inference_1768248493217_0/ml_inference_1768248493217_0_metadata.json"
+          },
+          "description": "Executa inferência ML com modelos ONNX"
+        }
+      },
+      {
+        "id": "normalize_32",
+        "type": "pipelineNode",
+        "position": {
+          "x": -381.5554733243798,
+          "y": 360.5231897110373
+        },
+        "data": {
+          "label": "Normalizacao 1",
+          "blockName": "normalize",
+          "config": {},
+          "description": "Normaliza os dados (minmax, zscore, robust)"
+        }
+      },
+      {
+        "id": "normalize_33",
+        "type": "pipelineNode",
+        "position": {
+          "x": -381.5554733243798,
+          "y": 2043.1939987303656
+        },
+        "data": {
+          "label": "Normalizacao 2",
+          "blockName": "normalize",
+          "config": {},
+          "description": "Normaliza os dados (minmax, zscore, robust)"
+        }
+      },
+      {
+        "id": "ml_inference_33",
+        "type": "pipelineNode",
+        "position": {
+          "x": 1212.9685371236887,
+          "y": 2018.0198216436934
+        },
+        "data": {
+          "label": "Inferencia ML 4",
+          "blockName": "ml_inference",
+          "config": {
+            "output_unit": "NMP/100mL",
+            "input_feature": "inflection_time",
+            "channel": "RGB_B",
+            "metadata_path": "resources/corsan/predict/selected/ml_inference_33/ml_inference_33_metadata.json",
+            "model_path": "",
+            "scaler_path": "",
+            "resource": ""
+          },
+          "description": "Executa inferência ML com modelos ONNX"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "xy-edge__time_slice_4time_slice-out-sensor_data-moving_average_filter_6moving_average_filter-in-sensor_data",
+        "source": "time_slice_4",
+        "target": "moving_average_filter_6",
+        "sourceHandle": "time_slice-out-sensor_data",
+        "targetHandle": "moving_average_filter-in-sensor_data",
+        "animated": true
+      },
+      {
+        "id": "e1766238615927",
+        "source": "condition_branch_7",
+        "target": "time_slice_4",
+        "sourceHandle": "condition_branch-out-data_if_true",
+        "targetHandle": "time_slice-in-sensor_data",
+        "animated": true
+      },
+      {
+        "id": "e1766239766048_1",
+        "source": "time_slice_1766239766048_0",
+        "target": "moving_average_filter_1766239766048_1",
+        "sourceHandle": "time_slice-out-sensor_data",
+        "targetHandle": "moving_average_filter-in-sensor_data",
+        "animated": true
+      },
+      {
+        "id": "e1766239781772",
+        "source": "condition_branch_1766239675295_0",
+        "target": "time_slice_1766239766048_0",
+        "sourceHandle": "condition_branch-out-data_if_true",
+        "targetHandle": "time_slice-in-sensor_data",
+        "animated": true
+      },
+      {
+        "id": "e1766243683090",
+        "source": "turbidimetry_extraction_2",
+        "target": "amplitude_detector_16",
+        "sourceHandle": "turbidimetry_extraction-out-sensor_data",
+        "targetHandle": "amplitude_detector-in-sensor_data",
+        "animated": true
+      },
+      {
+        "id": "e1766243691474",
+        "source": "turbidimetry_extraction_2",
+        "target": "condition_branch_7",
+        "sourceHandle": "turbidimetry_extraction-out-sensor_data",
+        "targetHandle": "condition_branch-in-data",
+        "animated": true
+      },
+      {
+        "id": "e1766243757827",
+        "source": "fluorescence_extraction_9",
+        "target": "amplitude_detector_1766243749849_0",
+        "sourceHandle": "fluorescence_extraction-out-sensor_data",
+        "targetHandle": "amplitude_detector-in-sensor_data",
+        "animated": true
+      },
+      {
+        "id": "e1766243783767",
+        "source": "amplitude_detector_1766243749849_0",
+        "target": "condition_branch_1766239675295_0",
+        "sourceHandle": "amplitude_detector-out-has_growth",
+        "targetHandle": "condition_branch-in-condition",
+        "animated": true
+      },
+      {
+        "id": "e1766243785901",
+        "source": "fluorescence_extraction_9",
+        "target": "condition_branch_1766239675295_0",
+        "sourceHandle": "fluorescence_extraction-out-sensor_data",
+        "targetHandle": "condition_branch-in-data",
+        "animated": true
+      },
+      {
+        "id": "e1766246810347",
+        "source": "moving_average_filter_1766239766048_1",
+        "target": "rgb_conversion_15",
+        "sourceHandle": "moving_average_filter-out-sensor_data",
+        "targetHandle": "rgb_conversion-in-sensor_data",
+        "animated": true
+      },
+      {
+        "id": "e1766246833928",
+        "source": "moving_average_filter_6",
+        "target": "rgb_conversion_1766246829232_0",
+        "sourceHandle": "moving_average_filter-out-sensor_data",
+        "targetHandle": "rgb_conversion-in-sensor_data",
+        "animated": true
+      },
+      {
+        "id": "e_dilution_compare",
+        "source": "experiment_fetch_1",
+        "target": "numeric_compare_dilution",
+        "sourceHandle": "experiment_fetch-out-dilution_factor",
+        "targetHandle": "numeric_compare-in-value",
+        "animated": true
+      },
+      {
+        "id": "e_dilution_cond",
+        "source": "numeric_compare_dilution",
+        "target": "condition_branch_dilution",
+        "sourceHandle": "numeric_compare-out-condition",
+        "targetHandle": "condition_branch-in-condition",
+        "animated": true
+      },
+      {
+        "id": "e_branch_to_diluted",
+        "source": "condition_branch_dilution",
+        "target": "ml_inference_diluted",
+        "sourceHandle": "condition_branch-out-data_if_true",
+        "targetHandle": "ml_inference-in-features",
+        "animated": true
+      },
+      {
+        "id": "e_branch_to_normal",
+        "source": "condition_branch_dilution",
+        "target": "ml_inference_20",
+        "sourceHandle": "condition_branch-out-data_if_false",
+        "targetHandle": "ml_inference-in-features",
+        "animated": true
+      },
+      {
+        "id": "xy-edge__amplitude_detector_16amplitude_detector-out-has_growth-condition_branch_7condition_branch-in-condition",
+        "source": "amplitude_detector_16",
+        "target": "condition_branch_7",
+        "sourceHandle": "amplitude_detector-out-has_growth",
+        "targetHandle": "condition_branch-in-condition",
+        "animated": true
+      },
+      {
+        "id": "e1766268177530",
+        "source": "amplitude_detector_1766243749849_0",
+        "target": "response_builder_22",
+        "sourceHandle": "amplitude_detector-out-growth_info",
+        "targetHandle": "response_pack-in-input_4",
+        "animated": true
+      },
+      {
+        "id": "xy-edge__label_24label-out-experiment_data-turbidimetry_extraction_2turbidimetry_extraction-in-experiment_data",
+        "source": "label_24",
+        "target": "turbidimetry_extraction_2",
+        "sourceHandle": "label-out-experiment_data",
+        "targetHandle": "turbidimetry_extraction-in-experiment_data",
+        "animated": true
+      },
+      {
+        "id": "xy-edge__label_1766268137429_0label-out-experiment_data-fluorescence_extraction_9fluorescence_extraction-in-experiment_data",
+        "source": "label_1766268137429_0",
+        "target": "fluorescence_extraction_9",
+        "sourceHandle": "label-out-experiment_data",
+        "targetHandle": "fluorescence_extraction-in-experiment_data",
+        "animated": true
+      },
+      {
+        "id": "e1766934815294",
+        "source": "condition_gate_35",
+        "target": "label_24",
+        "sourceHandle": "condition_gate-out-data",
+        "targetHandle": "label-in-experiment_data",
+        "animated": true
+      },
+      {
+        "id": "e1766934924248",
+        "source": "condition_gate_35",
+        "target": "label_1766268137429_0",
+        "sourceHandle": "condition_gate-out-data",
+        "targetHandle": "label-in-experiment_data",
+        "animated": true
+      },
+      {
+        "id": "e1766935009515",
+        "source": "experiment_fetch_1",
+        "target": "value_in_list_35",
+        "sourceHandle": "experiment_fetch-out-analysisId",
+        "targetHandle": "value_in_list-in-value",
+        "animated": true
+      },
+      {
+        "id": "e1766935012422",
+        "source": "value_in_list_35",
+        "target": "condition_gate_35",
+        "sourceHandle": "value_in_list-out-condition",
+        "targetHandle": "condition_gate-in-condition",
+        "animated": true
+      },
+      {
+        "id": "e1766935018631",
+        "source": "experiment_fetch_1",
+        "target": "condition_gate_35",
+        "sourceHandle": "experiment_fetch-out-experiment_data",
+        "targetHandle": "condition_gate-in-data",
+        "animated": true
+      },
+      {
+        "id": "e_auto_1",
+        "source": "response_builder_22",
+        "target": "response_merge_1",
+        "sourceHandle": "response_pack-out-response",
+        "targetHandle": "response_merge-in-input_1",
+        "animated": true
+      },
+      {
+        "id": "e_auto_3",
+        "source": "response_merge_1",
+        "target": "response_builder",
+        "sourceHandle": "response_merge-out-merged",
+        "targetHandle": "response_builder-in-input_1",
+        "animated": true
+      },
+      {
+        "id": "e1766956418231",
+        "source": "amplitude_detector_16",
+        "target": "response_builder_22",
+        "sourceHandle": "amplitude_detector-out-growth_info",
+        "targetHandle": "response_pack-in-input_1",
+        "animated": true
+      },
+      {
+        "id": "xy-edge__curve_fit_14curve_fit-out-fitted_data-growth_features_17growth_features-in-fit_results",
+        "source": "curve_fit_14",
+        "target": "growth_features_17",
+        "sourceHandle": "curve_fit-out-fitted_data",
+        "targetHandle": "growth_features-in-sensor_data",
+        "animated": true
+      },
+      {
+        "id": "e1768225845882",
+        "source": "curve_fit_1766246804420_0",
+        "target": "growth_features_1766268194335_1",
+        "sourceHandle": "curve_fit-out-fitted_data",
+        "targetHandle": "growth_features-in-sensor_data",
+        "animated": true
+      },
+      {
+        "id": "e1768248509492",
+        "source": "condition_branch_1768248429676_0",
+        "target": "ml_inference_1768248493217_0",
+        "sourceHandle": "condition_branch-out-data_if_false",
+        "targetHandle": "ml_inference-in-features",
+        "animated": true
+      },
+      {
+        "id": "e1768248538845",
+        "source": "experiment_fetch_1",
+        "target": "ml_inference_diluted",
+        "sourceHandle": "experiment_fetch-out-lab_results",
+        "targetHandle": "ml_inference-in-y",
+        "animated": true
+      },
+      {
+        "id": "e1768248550841",
+        "source": "experiment_fetch_1",
+        "target": "ml_inference_20",
+        "sourceHandle": "experiment_fetch-out-lab_results",
+        "targetHandle": "ml_inference-in-y",
+        "animated": true
+      },
+      {
+        "id": "e1768248559576",
+        "source": "experiment_fetch_1",
+        "target": "ml_inference_diluted",
+        "sourceHandle": "experiment_fetch-out-dilution_factor",
+        "targetHandle": "ml_inference-in-dilution_factor",
+        "animated": true
+      },
+      {
+        "id": "e1768248567228",
+        "source": "experiment_fetch_1",
+        "target": "ml_inference_20",
+        "sourceHandle": "experiment_fetch-out-dilution_factor",
+        "targetHandle": "ml_inference-in-dilution_factor",
+        "animated": true
+      },
+      {
+        "id": "e1768248575468",
+        "source": "experiment_fetch_1",
+        "target": "ml_inference_1768248493217_0",
+        "sourceHandle": "experiment_fetch-out-lab_results",
+        "targetHandle": "ml_inference-in-y",
+        "animated": true
+      },
+      {
+        "id": "e1768248584711",
+        "source": "experiment_fetch_1",
+        "target": "ml_inference_1768248493217_0",
+        "sourceHandle": "experiment_fetch-out-dilution_factor",
+        "targetHandle": "ml_inference-in-dilution_factor",
+        "animated": true
+      },
+      {
+        "id": "e1768248648936",
+        "source": "numeric_compare_dilution",
+        "target": "condition_branch_1768248429676_0",
+        "sourceHandle": "numeric_compare-out-condition",
+        "targetHandle": "condition_branch-in-condition",
+        "animated": true
+      },
+      {
+        "id": "e1768248738080",
+        "source": "ml_inference_1768248493217_0",
+        "target": "response_builder_22",
+        "sourceHandle": "ml_inference-out-prediction",
+        "targetHandle": "response_pack-in-input_6",
+        "animated": true
+      },
+      {
+        "id": "e1768248756018",
+        "source": "ml_inference_diluted",
+        "target": "response_builder_22",
+        "sourceHandle": "ml_inference-out-prediction",
+        "targetHandle": "response_pack-in-input_2",
+        "animated": true
+      },
+      {
+        "id": "e1768248759038",
+        "source": "ml_inference_20",
+        "target": "response_builder_22",
+        "sourceHandle": "ml_inference-out-prediction",
+        "targetHandle": "response_pack-in-input_3",
+        "animated": true
+      },
+      {
+        "id": "e1768312764013",
+        "source": "growth_features_17",
+        "target": "condition_branch_dilution",
+        "sourceHandle": "growth_features-out-features",
+        "targetHandle": "condition_branch-in-data",
+        "animated": true
+      },
+      {
+        "id": "e1768312775685",
+        "source": "growth_features_1766268194335_1",
+        "target": "condition_branch_1768248429676_0",
+        "sourceHandle": "growth_features-out-features",
+        "targetHandle": "condition_branch-in-data",
+        "animated": true
+      },
+      {
+        "id": "e1768312831531",
+        "source": "rgb_conversion_1766246829232_0",
+        "target": "normalize_32",
+        "sourceHandle": "rgb_conversion-out-sensor_data",
+        "targetHandle": "normalize-in-sensor_data",
+        "animated": true
+      },
+      {
+        "id": "e1768312833700",
+        "source": "normalize_32",
+        "target": "curve_fit_14",
+        "sourceHandle": "normalize-out-sensor_data",
+        "targetHandle": "curve_fit-in-sensor_data",
+        "animated": true
+      },
+      {
+        "id": "e1768312843971",
+        "source": "rgb_conversion_15",
+        "target": "normalize_33",
+        "sourceHandle": "rgb_conversion-out-sensor_data",
+        "targetHandle": "normalize-in-sensor_data",
+        "animated": true
+      },
+      {
+        "id": "e1768312847365",
+        "source": "normalize_33",
+        "target": "curve_fit_1766246804420_0",
+        "sourceHandle": "normalize-out-sensor_data",
+        "targetHandle": "curve_fit-in-sensor_data",
+        "animated": true
+      },
+      {
+        "id": "e1768323809606",
+        "source": "condition_branch_1768248429676_0",
+        "target": "ml_inference_33",
+        "sourceHandle": "condition_branch-out-data_if_true",
+        "targetHandle": "ml_inference-in-features",
+        "animated": true
+      },
+      {
+        "id": "e1768323812994",
+        "source": "ml_inference_33",
+        "target": "response_builder_22",
+        "sourceHandle": "ml_inference-out-prediction",
+        "targetHandle": "response_pack-in-input_5",
+        "animated": true
+      },
+      {
+        "id": "e1768323821350",
+        "source": "experiment_fetch_1",
+        "target": "ml_inference_33",
+        "sourceHandle": "experiment_fetch-out-lab_results",
+        "targetHandle": "ml_inference-in-y",
+        "animated": true
+      },
+      {
+        "id": "e1768323829341",
+        "source": "experiment_fetch_1",
+        "target": "ml_inference_33",
+        "sourceHandle": "experiment_fetch-out-dilution_factor",
+        "targetHandle": "ml_inference-in-dilution_factor",
+        "animated": true
+      }
+    ]
+  },
+  "execution": {
+    "name": "pipeline_visual",
+    "steps": [
+      {
+        "step_id": "experiment_fetch_1",
+        "block_name": "experiment_fetch",
+        "block_config": {
+          "experimentId": "019ba200-3bf8-705a-9b40-8b68271e2367",
+          "analysisId": "68cb3fb380ac865ce0647ea8",
+          "tenant": "corsan",
+          "use_default_experiment": false,
+          "generate_output_graphs": true,
+          "plot_mode": "all",
+          "include_legend": true,
+          "include_labels": true,
+          "time_from_zero": true,
+          "sensors": [
+            "turbidimetry",
+            "nephelometry",
+            "fluorescence"
+          ],
+          "plot_channel": [
+            "f1",
+            "f2",
+            "f3",
+            "f4",
+            "f5",
+            "f6",
+            "f7",
+            "f8",
+            "clear",
+            "nir"
+          ],
+          "include_experiment_output": true,
+          "include_experiment_data_output": true,
+          "graph_config": {
+            "turbidimetry": [
+              "f1",
+              "f2",
+              "f3",
+              "f4",
+              "f5",
+              "f6",
+              "f7",
+              "f8",
+              "clear",
+              "nir"
+            ],
+            "nephelometry": [
+              "f1",
+              "f2",
+              "f3",
+              "f4",
+              "f5",
+              "f6",
+              "f7",
+              "f8",
+              "clear",
+              "nir"
+            ],
+            "fluorescence": [
+              "f1",
+              "f2",
+              "f3",
+              "f4",
+              "f5",
+              "f6",
+              "f7",
+              "f8",
+              "clear",
+              "nir"
+            ]
+          }
+        },
+        "depends_on": [],
+        "input_mapping": {}
+      },
+      {
+        "step_id": "turbidimetry_extraction_2",
+        "block_name": "turbidimetry_extraction",
+        "block_config": {
+          "generate_output_graphs": true,
+          "include_raw_output": true
+        },
+        "depends_on": [
+          "label_24"
+        ],
+        "input_mapping": {
+          "experiment_data": "label_24.experiment_data"
+        }
+      },
+      {
+        "step_id": "time_slice_4",
+        "block_name": "time_slice",
+        "block_config": {
+          "start_time_min": 60,
+          "end_time_min": 1440,
+          "generate_output_graphs": true,
+          "include_raw_output": true
+        },
+        "depends_on": [
+          "condition_branch_7"
+        ],
+        "input_mapping": {
+          "sensor_data": "condition_branch_7.data_if_true"
+        }
+      },
+      {
+        "step_id": "moving_average_filter_6",
+        "block_name": "moving_average_filter",
+        "block_config": {
+          "window_size": 60,
+          "generate_output_graphs": true,
+          "include_raw_output": true
+        },
+        "depends_on": [
+          "time_slice_4"
+        ],
+        "input_mapping": {
+          "sensor_data": "time_slice_4.sensor_data"
+        }
+      },
+      {
+        "step_id": "condition_branch_7",
+        "block_name": "condition_branch",
+        "block_config": {},
+        "depends_on": [
+          "turbidimetry_extraction_2",
+          "amplitude_detector_16"
+        ],
+        "input_mapping": {
+          "data": "turbidimetry_extraction_2.sensor_data",
+          "condition": "amplitude_detector_16.has_growth"
+        }
+      },
+      {
+        "step_id": "fluorescence_extraction_9",
+        "block_name": "fluorescence_extraction",
+        "block_config": {
+          "include_raw_output": true,
+          "generate_output_graphs": true
+        },
+        "depends_on": [
+          "label_1766268137429_0"
+        ],
+        "input_mapping": {
+          "experiment_data": "label_1766268137429_0.experiment_data"
+        }
+      },
+      {
+        "step_id": "condition_branch_1766239675295_0",
+        "block_name": "condition_branch",
+        "block_config": {},
+        "depends_on": [
+          "amplitude_detector_1766243749849_0",
+          "fluorescence_extraction_9"
+        ],
+        "input_mapping": {
+          "condition": "amplitude_detector_1766243749849_0.has_growth",
+          "data": "fluorescence_extraction_9.sensor_data"
+        }
+      },
+      {
+        "step_id": "time_slice_1766239766048_0",
+        "block_name": "time_slice",
+        "block_config": {
+          "start_time_min": 60,
+          "end_time_min": 1440,
+          "generate_output_graphs": true,
+          "include_raw_output": true
+        },
+        "depends_on": [
+          "condition_branch_1766239675295_0"
+        ],
+        "input_mapping": {
+          "sensor_data": "condition_branch_1766239675295_0.data_if_true"
+        }
+      },
+      {
+        "step_id": "moving_average_filter_1766239766048_1",
+        "block_name": "moving_average_filter",
+        "block_config": {
+          "window_size": 60,
+          "generate_output_graphs": true,
+          "include_raw_output": true
+        },
+        "depends_on": [
+          "time_slice_1766239766048_0"
+        ],
+        "input_mapping": {
+          "sensor_data": "time_slice_1766239766048_0.sensor_data"
+        }
+      },
+      {
+        "step_id": "amplitude_detector_16",
+        "block_name": "amplitude_detector",
+        "block_config": {
+          "expected_direction": "decreasing",
+          "include_raw_output": true,
+          "generate_output_graphs": true
+        },
+        "depends_on": [
+          "turbidimetry_extraction_2"
+        ],
+        "input_mapping": {
+          "sensor_data": "turbidimetry_extraction_2.sensor_data"
+        }
+      },
+      {
+        "step_id": "amplitude_detector_1766243749849_0",
+        "block_name": "amplitude_detector",
+        "block_config": {
+          "expected_direction": "increasing",
+          "include_raw_output": true,
+          "generate_output_graphs": true
+        },
+        "depends_on": [
+          "fluorescence_extraction_9"
+        ],
+        "input_mapping": {
+          "sensor_data": "fluorescence_extraction_9.sensor_data"
+        }
+      },
+      {
+        "step_id": "curve_fit_14",
+        "block_name": "curve_fit",
+        "block_config": {
+          "generate_output_graphs": true,
+          "model": "richards",
+          "include_raw_output": true,
+          "max_attempts": 500
+        },
+        "depends_on": [
+          "normalize_32"
+        ],
+        "input_mapping": {
+          "sensor_data": "normalize_32.sensor_data"
+        }
+      },
+      {
+        "step_id": "rgb_conversion_15",
+        "block_name": "rgb_conversion",
+        "block_config": {
+          "generate_output_graphs": true,
+          "include_raw_output": true,
+          "apply_luminosity_correction": true,
+          "apply_gamma": false,
+          "auto_exposure": true
+        },
+        "depends_on": [
+          "moving_average_filter_1766239766048_1"
+        ],
+        "input_mapping": {
+          "sensor_data": "moving_average_filter_1766239766048_1.sensor_data"
+        }
+      },
+      {
+        "step_id": "curve_fit_1766246804420_0",
+        "block_name": "curve_fit",
+        "block_config": {
+          "generate_output_graphs": true,
+          "model": "richards",
+          "include_raw_output": true
+        },
+        "depends_on": [
+          "normalize_33"
+        ],
+        "input_mapping": {
+          "sensor_data": "normalize_33.sensor_data"
+        }
+      },
+      {
+        "step_id": "rgb_conversion_1766246829232_0",
+        "block_name": "rgb_conversion",
+        "block_config": {
+          "generate_output_graphs": true,
+          "include_raw_output": true,
+          "apply_gamma": false,
+          "auto_exposure": false
+        },
+        "depends_on": [
+          "moving_average_filter_6"
+        ],
+        "input_mapping": {
+          "sensor_data": "moving_average_filter_6.sensor_data"
+        }
+      },
+      {
+        "step_id": "growth_features_17",
+        "block_name": "growth_features",
+        "block_config": {
+          "features": [
+            "lag_time",
+            "growth_rate",
+            "asymptote",
+            "r_squared",
+            "doubling_time",
+            "inflection_time",
+            "y0",
+            "aic",
+            "rmse"
+          ],
+          "include_raw_output": true,
+          "channel": ""
+        },
+        "depends_on": [
+          "curve_fit_14"
+        ],
+        "input_mapping": {
+          "sensor_data": "curve_fit_14.fitted_data"
+        }
+      },
+      {
+        "step_id": "ml_inference_20",
+        "block_name": "ml_inference",
+        "block_config": {
+          "input_feature": "inflection_time",
+          "channel": "RGB_B",
+          "include_raw_output": true,
+          "resource": "",
+          "model_path": "",
+          "scaler_path": "",
+          "output_unit": "NMP/100mL",
+          "metadata_path": "resources/corsan/predict/selected/ml_inference_20/ml_inference_20_metadata.json"
+        },
+        "depends_on": [
+          "condition_branch_dilution",
+          "experiment_fetch_1",
+          "experiment_fetch_1"
+        ],
+        "input_mapping": {
+          "features": "condition_branch_dilution.data_if_false",
+          "y": "experiment_fetch_1.lab_results",
+          "dilution_factor": "experiment_fetch_1.dilution_factor"
+        }
+      },
+      {
+        "step_id": "ml_inference_diluted",
+        "block_name": "ml_inference",
+        "block_config": {
+          "input_feature": "inflection_time",
+          "channel": "RGB_B",
+          "include_raw_output": true,
+          "resource": "",
+          "model_path": "",
+          "scaler_path": "",
+          "output_unit": "NMP/100mL",
+          "metadata_path": "resources/corsan/predict/selected/ml_inference_diluted/ml_inference_diluted_metadata.json"
+        },
+        "depends_on": [
+          "condition_branch_dilution",
+          "experiment_fetch_1",
+          "experiment_fetch_1"
+        ],
+        "input_mapping": {
+          "features": "condition_branch_dilution.data_if_true",
+          "y": "experiment_fetch_1.lab_results",
+          "dilution_factor": "experiment_fetch_1.dilution_factor"
+        }
+      },
+      {
+        "step_id": "numeric_compare_dilution",
+        "block_name": "numeric_compare",
+        "block_config": {
+          "threshold": 1,
+          "operator": "!=",
+          "invert": false
+        },
+        "depends_on": [
+          "experiment_fetch_1"
+        ],
+        "input_mapping": {
+          "value": "experiment_fetch_1.dilution_factor"
+        }
+      },
+      {
+        "step_id": "condition_branch_dilution",
+        "block_name": "condition_branch",
+        "block_config": {},
+        "depends_on": [
+          "numeric_compare_dilution",
+          "growth_features_17"
+        ],
+        "input_mapping": {
+          "condition": "numeric_compare_dilution.condition",
+          "data": "growth_features_17.features"
+        }
+      },
+      {
+        "step_id": "response_builder_22",
+        "block_name": "response_pack",
+        "block_config": {
+          "include_raw_output": true,
+          "field_mappings": [],
+          "flatten_labels": false,
+          "inputs_count": 6
+        },
+        "depends_on": [
+          "amplitude_detector_1766243749849_0",
+          "amplitude_detector_16",
+          "ml_inference_1768248493217_0",
+          "ml_inference_diluted",
+          "ml_inference_20",
+          "ml_inference_33"
+        ],
+        "input_mapping": {
+          "input_4": "amplitude_detector_1766243749849_0.growth_info",
+          "input_1": "amplitude_detector_16.growth_info",
+          "input_6": "ml_inference_1768248493217_0.prediction",
+          "input_2": "ml_inference_diluted.prediction",
+          "input_3": "ml_inference_20.prediction",
+          "input_5": "ml_inference_33.prediction"
+        }
+      },
+      {
+        "step_id": "label_24",
+        "block_name": "label",
+        "block_config": {
+          "label": "coliformes_totais",
+          "label_color": "#2d30d7"
+        },
+        "depends_on": [
+          "condition_gate_35"
+        ],
+        "input_mapping": {
+          "experiment_data": "condition_gate_35.data"
+        }
+      },
+      {
+        "step_id": "label_1766268137429_0",
+        "block_name": "label",
+        "block_config": {
+          "label": "e_coli",
+          "label_color": "#1abc1c"
+        },
+        "depends_on": [
+          "condition_gate_35"
+        ],
+        "input_mapping": {
+          "experiment_data": "condition_gate_35.data"
+        }
+      },
+      {
+        "step_id": "growth_features_1766268194335_1",
+        "block_name": "growth_features",
+        "block_config": {
+          "features": [
+            "lag_time",
+            "growth_rate",
+            "asymptote",
+            "r_squared",
+            "doubling_time",
+            "inflection_time",
+            "y0",
+            "aic",
+            "rmse"
+          ],
+          "include_raw_output": true
+        },
+        "depends_on": [
+          "curve_fit_1766246804420_0"
+        ],
+        "input_mapping": {
+          "sensor_data": "curve_fit_1766246804420_0.fitted_data"
+        }
+      },
+      {
+        "step_id": "condition_gate_35",
+        "block_name": "condition_gate",
+        "block_config": {},
+        "depends_on": [
+          "value_in_list_35",
+          "experiment_fetch_1"
+        ],
+        "input_mapping": {
+          "condition": "value_in_list_35.condition",
+          "data": "experiment_fetch_1.experiment_data"
+        }
+      },
+      {
+        "step_id": "value_in_list_35",
+        "block_name": "value_in_list",
+        "block_config": {
+          "allowed_values": [
+            "68cb3fb380ac865ce0647ea8",
+            "1814debf-3dab-4289-a0b5-63bc62bb55b4",
+            "1aeea59b-3051-4c16-9033-3839fb728ef5",
+            "1f3fe520-5308-4800-81c6-29687fb3be35",
+            "7f49fe55-d856-4f2b-8c3d-43afa3b6a9cd",
+            "c50df395-b2cd-4bec-9f67-8d9a0c1f7d5d",
+            "ec3ac5be-7ab9-47c3-8186-9037c248de15",
+            "68cb3fb380ac865ce0647ea9"
+          ]
+        },
+        "depends_on": [
+          "experiment_fetch_1"
+        ],
+        "input_mapping": {
+          "value": "experiment_fetch_1.analysisId"
+        }
+      },
+      {
+        "step_id": "response_merge_1",
+        "block_name": "response_merge",
+        "block_config": {
+          "include_raw_output": true,
+          "fail_if_multiple": true,
+          "inputs_count": 2
+        },
+        "depends_on": [
+          "response_builder_22"
+        ],
+        "input_mapping": {
+          "input_1": "response_builder_22.response"
+        }
+      },
+      {
+        "step_id": "response_builder",
+        "block_name": "response_builder",
+        "block_config": {
+          "include_raw_output": true,
+          "field_mappings": [],
+          "flatten_labels": false,
+          "group_by_label": false,
+          "pass_through": true,
+          "inputs_count": 1
+        },
+        "depends_on": [
+          "response_merge_1"
+        ],
+        "input_mapping": {
+          "input_1": "response_merge_1.merged"
+        }
+      },
+      {
+        "step_id": "condition_branch_1768248429676_0",
+        "block_name": "condition_branch",
+        "block_config": {},
+        "depends_on": [
+          "numeric_compare_dilution",
+          "growth_features_1766268194335_1"
+        ],
+        "input_mapping": {
+          "condition": "numeric_compare_dilution.condition",
+          "data": "growth_features_1766268194335_1.features"
+        }
+      },
+      {
+        "step_id": "ml_inference_1768248493217_0",
+        "block_name": "ml_inference",
+        "block_config": {
+          "input_feature": "inflection_time",
+          "channel": "RGB_B",
+          "include_raw_output": true,
+          "resource": "",
+          "model_path": "",
+          "scaler_path": "",
+          "output_unit": "NMP/100mL",
+          "metadata_path": "resources/corsan/predict/selected/ml_inference_1768248493217_0/ml_inference_1768248493217_0_metadata.json"
+        },
+        "depends_on": [
+          "condition_branch_1768248429676_0",
+          "experiment_fetch_1",
+          "experiment_fetch_1"
+        ],
+        "input_mapping": {
+          "features": "condition_branch_1768248429676_0.data_if_false",
+          "y": "experiment_fetch_1.lab_results",
+          "dilution_factor": "experiment_fetch_1.dilution_factor"
+        }
+      },
+      {
+        "step_id": "normalize_32",
+        "block_name": "normalize",
+        "block_config": {},
+        "depends_on": [
+          "rgb_conversion_1766246829232_0"
+        ],
+        "input_mapping": {
+          "sensor_data": "rgb_conversion_1766246829232_0.sensor_data"
+        }
+      },
+      {
+        "step_id": "normalize_33",
+        "block_name": "normalize",
+        "block_config": {},
+        "depends_on": [
+          "rgb_conversion_15"
+        ],
+        "input_mapping": {
+          "sensor_data": "rgb_conversion_15.sensor_data"
+        }
+      },
+      {
+        "step_id": "ml_inference_33",
+        "block_name": "ml_inference",
+        "block_config": {
+          "output_unit": "NMP/100mL",
+          "input_feature": "inflection_time",
+          "channel": "RGB_B",
+          "metadata_path": "resources/corsan/predict/selected/ml_inference_33/ml_inference_33_metadata.json",
+          "model_path": "",
+          "scaler_path": "",
+          "resource": ""
+        },
+        "depends_on": [
+          "condition_branch_1768248429676_0",
+          "experiment_fetch_1",
+          "experiment_fetch_1"
+        ],
+        "input_mapping": {
+          "features": "condition_branch_1768248429676_0.data_if_true",
+          "y": "experiment_fetch_1.lab_results",
+          "dilution_factor": "experiment_fetch_1.dilution_factor"
+        }
+      }
+    ],
+    "initial_state": {}
+  },
+  "workspace": {
+    "title": "corsan",
+    "logo": "",
+    "accent_color": "#1e90ff"
+  }
+}

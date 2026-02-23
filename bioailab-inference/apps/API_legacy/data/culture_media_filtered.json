@@ -1,0 +1,11 @@
+[
+  {
+    "statusCode": 200,
+    "body": "{\"name\": \"Colilert\", \"UUID\": \"222e4567-e89b-12d3-a456-426614174002\"}",
+    "headers": {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type"
+    }
+  }
+]

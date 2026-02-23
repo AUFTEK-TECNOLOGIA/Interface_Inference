@@ -1,0 +1,168 @@
+{
+  "active": "v44",
+  "versions": [
+    {
+      "id": "v2",
+      "created_at": "2025-12-30T21:15:31.610993Z",
+      "based_on": "v1",
+      "history": [
+        {
+          "at": "2025-12-31T02:04:27.746676Z",
+          "action": "activate",
+          "reason": "Ativada"
+        },
+        {
+          "at": "2025-12-31T02:06:24.085886Z",
+          "action": "activate",
+          "reason": "Ativada"
+        },
+        {
+          "at": "2025-12-31T02:11:24.805320Z",
+          "action": "edit",
+          "reason": "Edição no editor"
+        },
+        {
+          "at": "2025-12-31T02:12:14.511287Z",
+          "action": "edit",
+          "reason": "Atualização de personalização"
+        },
+        {
+          "at": "2026-01-05T14:45:18.229289Z",
+          "action": "edit",
+          "reason": "Edição no editor"
+        },
+        {
+          "at": "2026-01-05T14:57:32.639143Z",
+          "action": "edit",
+          "reason": "Edição no editor\n- Layout atualizado: 1 blocos reposicionados"
+        },
+        {
+          "at": "2026-01-05T16:05:42.889391Z",
+          "action": "edit",
+          "reason": "Atualização de personalização"
+        },
+        {
+          "at": "2026-01-05T16:05:45.252757Z",
+          "action": "edit",
+          "reason": "Atualização de personalização"
+        },
+        {
+          "at": "2026-01-06T20:56:45.516228Z",
+          "action": "edit",
+          "reason": "Edição no editor\n- Layout atualizado: 3 blocos reposicionados"
+        },
+        {
+          "at": "2026-01-06T20:56:45.520963Z",
+          "action": "edit",
+          "reason": "Edição no editor"
+        },
+        {
+          "at": "2026-01-09T22:12:58.208321Z",
+          "action": "activate",
+          "reason": "Ativada"
+        },
+        {
+          "at": "2026-01-09T23:18:56.681526Z",
+          "action": "edit",
+          "reason": "Edição no editor"
+        },
+        {
+          "at": "2026-01-09T23:22:11.325172Z",
+          "action": "edit",
+          "reason": "Edição no editor"
+        },
+        {
+          "at": "2026-01-10T00:06:59.596579Z",
+          "action": "edit",
+          "reason": "Edição no editor"
+        },
+        {
+          "at": "2026-01-10T01:13:45.797276Z",
+          "action": "edit",
+          "reason": "Edição no editor"
+        },
+        {
+          "at": "2026-01-10T01:14:06.607353Z",
+          "action": "edit",
+          "reason": "Edição no editor"
+        },
+        {
+          "at": "2026-01-10T01:56:18.686625Z",
+          "action": "edit",
+          "reason": "Edição no editor"
+        },
+        {
+          "at": "2026-01-11T22:57:32.884531Z",
+          "action": "edit",
+          "reason": "Edição no editor"
+        },
+        {
+          "at": "2026-01-12T12:09:48.004611Z",
+          "action": "edit",
+          "reason": "Edição no editor"
+        },
+        {
+          "at": "2026-01-12T13:12:05.121866Z",
+          "action": "edit",
+          "reason": "Edição no editor"
+        },
+        {
+          "at": "2026-01-12T13:21:53.009025Z",
+          "action": "edit",
+          "reason": "Edição no editor"
+        },
+        {
+          "at": "2026-01-12T13:27:50.784241Z",
+          "action": "edit",
+          "reason": "Edição no editor"
+        },
+        {
+          "at": "2026-01-12T13:50:50.071944Z",
+          "action": "edit",
+          "reason": "Edição no editor"
+        },
+        {
+          "at": "2026-01-12T17:04:40.744023Z",
+          "action": "edit",
+          "reason": "Edição no editor"
+        },
+        {
+          "at": "2026-01-12T17:04:42.218678Z",
+          "action": "edit",
+          "reason": "Edição no editor"
+        }
+      ]
+    },
+    {
+      "id": "v44",
+      "created_at": "2026-01-13T17:09:23.066088Z",
+      "change_reason": "Regressão linear para ml_inference_33",
+      "history": [
+        {
+          "at": "2026-01-13T17:55:15.330309Z",
+          "action": "edit",
+          "reason": "Edição no editor"
+        },
+        {
+          "at": "2026-01-13T17:57:00.031123Z",
+          "action": "rename",
+          "reason": "Modelo testado com bom resultado"
+        }
+      ],
+      "name": "BOM_202601013"
+    },
+    {
+      "id": "v45",
+      "name": "v45",
+      "created_at": "2026-01-13T17:57:06.918348Z",
+      "based_on": "v44",
+      "history": [
+        {
+          "at": "2026-01-13T17:57:06.918358Z",
+          "action": "create_copy",
+          "reason": "Criada (cópia)"
+        }
+      ]
+    }
+  ]
+}

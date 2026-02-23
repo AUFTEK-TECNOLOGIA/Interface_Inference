@@ -1,0 +1,8 @@
+{
+  "$schema": "../schema/data_trimming.schema.json",
+  "name": "light",
+  "description": "Corte leve - remove referência inicial e últimos pontos instáveis",
+  "enabled": true,
+  "start_index": 1,
+  "end_index": -5
+}

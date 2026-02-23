@@ -1,0 +1,96 @@
+{
+  "$schema": "./schema.json",
+  "$comment": "Configurações padrão herdadas por todos os tenants. Não edite diretamente.",
+  
+  "pipeline": {
+    "feature_extractor": "fitted",
+    "normalizer": "minmax",
+    "growth_detector": "combined",
+    "curve_model": "richards",
+    "validator": "sensor",
+    "fallback_extractor": "raw",
+    "fallback_curve_model": "logistic"
+  },
+
+  "preprocessing": {
+    "turbidimetry": {
+      "startIndex": 0,
+      "endIndex": null,
+      "filters": [
+        {
+          "type": "moving_average",
+          "window": 20
+        }
+      ]
+    },
+    "fluorescence": {
+      "startIndex": 0,
+      "endIndex": null,
+      "filters": [
+        {
+          "type": "moving_average",
+          "window": 20
+        }
+      ]
+    }
+  },
+
+  "spectral_conversion": {
+    "turbidimetry": {
+      "calculateMatrix": true,
+      "applyChromaticAdaptation": true,
+      "autoExposure": false,
+      "chromaticityThreshold": 0.0,
+      "applyLuminosityCorrection": true,
+      "returnHueUnwrapped": true
+    },
+    "fluorescence": {
+      "calculateMatrix": true,
+      "applyChromaticAdaptation": false,
+      "autoExposure": false,
+      "chromaticityThreshold": 0.0,
+      "applyLuminosityCorrection": false,
+      "returnHueUnwrapped": true
+    }
+  },
+
+  "growth_detection": {
+    "min_amplitude_percent": 25.0,
+    "min_growth_ratio": 1.3,
+    "noise_threshold_percent": 1.0
+  },
+
+  "presence_absence_sensors": {
+    "turbidimetry": {
+      "channels": ["f2", "blue"],
+      "expected_direction": "decreasing"
+    },
+    "fluorescence": {
+      "channels": ["f2", "blue"],
+      "expected_direction": "increasing"
+    }
+  },
+
+  "ml_models": {
+    "turbidimetry_nmp": {
+      "model_file": "LINEARregression_richards_turbidimetria_R__NMP_20_01_ATE_03_09_2025.onnx",
+      "scaler_file": "scaler_turb_R_NMP_20_01_ATE_03_09_2025.joblib",
+      "feature_name": "TempoPontoInflexao"
+    },
+    "turbidimetry_ufc": {
+      "model_file": "LINEARregression_richards_turbidimetria_R_UFC_01_07_ATE_03_09_2025.onnx",
+      "scaler_file": "scaler_turb_R_UFC_01_07_ATE_03_09_2025.joblib",
+      "feature_name": "TempoPontoInflexao"
+    },
+    "fluorescence_nmp": {
+      "model_file": "LINEARregression_richards_fluorescencia_R_NMP_20_01_ATE_03_09_2025.onnx",
+      "scaler_file": "scaler_fluorescencia_R_NMP_20_01_ATE_03_09_2025.joblib",
+      "feature_name": "TempoPontoInflexao"
+    },
+    "fluorescence_ufc": {
+      "model_file": "LINEARregression_richards_fluorescencia_R_UFC_01_07_ATE_03_09_2025.onnx",
+      "scaler_file": "scaler_fluorescencia_R_UFC_01_07_ATE_03_09_2025.joblib",
+      "feature_name": "TempoPontoInflexao"
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+    "name": "aggressive",
+    "description": "Filtro agressivo - remove mais ruído, pode perder detalhes",
+    "enabled": true,
+    "filters": [
+        {
+            "name": "outlier_mad",
+            "threshold": 2.5,
+            "method": "interpolate"
+        },
+        {
+            "name": "median",
+            "window": 7
+        },
+        {
+            "name": "savgol",
+            "window": 21,
+            "polyorder": 3
+        }
+    ]
+}

@@ -1,0 +1,165 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "tenant-config-schema",
+  "title": "BioAI Lab Tenant Configuration",
+  "description": "Schema for tenant configuration files",
+  "type": "object",
+  
+  "properties": {
+    "$schema": { "type": "string" },
+    "$comment": { "type": "string" },
+    
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "description": "Client name" },
+        "industry": { "type": "string" },
+        "state": { "type": "string" },
+        "city": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "activated_at": { "type": "string", "format": "date" }
+      },
+      "required": ["name"]
+    },
+    
+    "analysis_mode": {
+      "type": "string",
+      "enum": ["prediction", "presence_absence"],
+      "default": "prediction",
+      "description": "prediction: full ML pipeline | presence_absence: growth detection only"
+    },
+    
+    "spectral_conversion": {
+      "type": "object",
+      "description": "Override spectral conversion settings per sensor type",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "calculateMatrix": { "type": "boolean" },
+          "applyChromaticAdaptation": { "type": "boolean" },
+          "autoExposure": { "type": "boolean" },
+          "applyMovingAverage": { "type": "boolean" },
+          "movingAverageWindow": { "type": "integer", "minimum": 1 },
+          "startIndex": { "type": "integer" },
+          "endIndex": { "type": "integer" },
+          "chromaticityThreshold": { "type": "number" },
+          "applyLuminosityCorrection": { "type": "boolean" },
+          "returnHueUnwrapped": { "type": "boolean" }
+        }
+      }
+    },
+    
+    "growth_detection": {
+      "type": "object",
+      "description": "Override growth detection thresholds",
+      "properties": {
+        "min_amplitude_percent": { "type": "number", "minimum": 0, "maximum": 100 },
+        "min_growth_ratio": { "type": "number", "minimum": 1 },
+        "noise_threshold_percent": { "type": "number", "minimum": 0 }
+      }
+    },
+    
+    "presence_absence_sensors": {
+      "type": "object",
+      "description": "Override presence/absence sensor settings",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "channels": { "type": "array", "items": { "type": "string" } },
+          "expected_direction": { "type": "string", "enum": ["increasing", "decreasing"] }
+        }
+      }
+    },
+    
+    "ml_models": {
+      "type": "object",
+      "description": "Override ML model paths (relative to resources/)",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "model_file": { "type": "string" },
+          "scaler_file": { "type": "string" },
+          "feature_name": { "type": "string" }
+        },
+        "required": ["model_file", "scaler_file"]
+      }
+    },
+    
+    "predictions": {
+      "type": "array",
+      "description": "Predictions to compute for this tenant",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": { 
+            "type": "string", 
+            "pattern": "^(predict|presence)_[a-z0-9_]+$",
+            "description": "Output key (e.g., predict_colitotais_nmp)"
+          },
+          "description": { "type": "string" },
+          "sensor": { 
+            "type": "string", 
+            "enum": ["turbidimetry", "fluorescence", "nephelometry"]
+          },
+          "channel": { 
+            "type": "string",
+            "description": "Channel format: ColorSpace_Subchannel (e.g., RGB_B) or native (e.g., f2)"
+          },
+          "math_model": {
+            "type": "string",
+            "enum": ["richards", "gompertz", "logistic", "baranyi"],
+            "description": "Obrigatório apenas para tenants em modo 'prediction'"
+          },
+          "ml_model": {
+            "type": "string",
+            "description": "Reference to ml_models key (required for prediction mode)"
+          },
+          "growth_detection": {
+            "type": "object",
+            "description": "Override growth detection for this prediction only"
+          },
+          "spectral_conversion": {
+            "type": "object",
+            "description": "Override spectral conversion for this prediction only"
+          }
+        },
+        "required": ["id", "sensor", "channel"]
+      }
+    },
+    
+    "presence_checks": {
+      "type": "array",
+      "description": "Presence/absence targets (used when analysis_mode = presence_absence and predictions are omitted)",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": { 
+            "type": "string", 
+            "pattern": "^(predict|presence)_[a-z0-9_]+$",
+            "description": "Output key (e.g., presence_colitotais)"
+          },
+          "description": { "type": "string" },
+          "sensor": { 
+            "type": "string", 
+            "enum": ["turbidimetry", "fluorescence", "nephelometry"]
+          },
+          "channel": { 
+            "type": "string",
+            "description": "Channel format: ColorSpace_Subchannel (e.g., RGB_B) or native (e.g., f2)"
+          },
+          "growth_detection": {
+            "type": "object",
+            "description": "Override growth detection for this target only"
+          },
+          "spectral_conversion": {
+            "type": "object",
+            "description": "Override spectral conversion for this target only"
+          }
+        },
+        "required": ["id", "sensor", "channel"]
+      }
+    }
+  },
+  
+  "required": []
+}

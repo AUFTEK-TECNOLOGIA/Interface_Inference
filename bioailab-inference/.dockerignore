@@ -1,0 +1,14 @@
+.git
+.github
+.idea
+.venv
+__pycache__
+*.pyc
+.dockerignore
+Dockerfile
+.github/workflows
+.vscode
+*.pyo
+*.pyd
+*.sqlite3
+*.log

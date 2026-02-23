@@ -1,0 +1,3056 @@
+/**
+ * TrainingStudio.css - Tema Claro (Light Theme)
+ */
+
+/* ============================================================================
+   Container
+   ============================================================================ */
+
+.ts-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 600px;
+  background: #ffffff;
+  color: #1a1a1a;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* ============================================================================
+   Header
+   ============================================================================ */
+
+.ts-header {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 16px 24px;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.08) 0%, rgba(139, 92, 246, 0.04) 100%);
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.ts-header-title {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ts-header-title h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.ts-header-pipeline {
+  font-size: 12px;
+  color: #6b7280;
+  font-family: "SF Mono", Monaco, monospace;
+}
+
+.ts-header-stats {
+  display: flex;
+  gap: 24px;
+  margin-left: auto;
+}
+
+.ts-header-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.ts-header-stat-value {
+  font-size: 20px;
+  font-weight: 600;
+  color: #6366f1;
+}
+
+.ts-header-stat-label {
+  font-size: 11px;
+  color: #9ca3af;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.ts-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: none;
+  background: rgba(0, 0, 0, 0.04);
+  border-radius: 8px;
+  color: #6b7280;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.ts-close:hover {
+  background: rgba(0, 0, 0, 0.08);
+  color: #111827;
+}
+
+/* ============================================================================
+   Progress
+   ============================================================================ */
+
+.ts-progress {
+  padding: 12px 24px;
+  background: rgba(99, 102, 241, 0.04);
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.ts-progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.ts-progress-current {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+}
+
+.ts-progress-current-label {
+  color: #6b7280;
+}
+
+.ts-progress-current-name {
+  font-weight: 600;
+  color: #111827;
+}
+
+.ts-progress-current-info {
+  color: #9ca3af;
+  font-size: 12px;
+}
+
+.ts-progress-spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid #e5e7eb;
+  border-top-color: #6366f1;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+.ts-progress-counter {
+  font-size: 13px;
+  font-weight: 500;
+  color: #6366f1;
+  background: rgba(99, 102, 241, 0.1);
+  padding: 4px 10px;
+  border-radius: 12px;
+}
+
+.ts-progress-bar {
+  height: 4px;
+  background: #e5e7eb;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.ts-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #6366f1, #8b5cf6);
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+.ts-progress-stats {
+  display: flex;
+  gap: 16px;
+  margin-top: 8px;
+  font-size: 12px;
+}
+
+.ts-stat-success { color: #16a34a; }
+.ts-stat-skip { color: #d97706; }
+.ts-stat-error { color: #dc2626; }
+
+/* ============================================================================
+   Main Layout
+   ============================================================================ */
+
+.ts-main {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* ============================================================================
+   Sidebar
+   ============================================================================ */
+
+.ts-sidebar {
+  width: 340px;
+  min-width: 340px;
+  background: #fafafa;
+  border-right: 1px solid #e5e7eb;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ============================================================================
+   Sections
+   ============================================================================ */
+
+.ts-section {
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.ts-section-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 14px 16px;
+  border: none;
+  background: transparent;
+  color: #374151;
+  font-size: 13px;
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.ts-section-header:hover {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.ts-section-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #9ca3af;
+}
+
+.ts-section-title {
+  flex: 1;
+}
+
+.ts-section-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 6px;
+  background: rgba(99, 102, 241, 0.1);
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #6366f1;
+}
+
+.ts-icon-chevron {
+  color: #9ca3af;
+  transition: transform 0.2s;
+}
+
+.ts-icon-chevron.is-open {
+  transform: rotate(180deg);
+}
+
+.ts-section-content {
+  padding: 0 16px 16px;
+}
+
+/* ============================================================================
+   Dataset List
+   ============================================================================ */
+
+.ts-dataset-loading,
+.ts-dataset-empty {
+  padding: 20px;
+  text-align: center;
+  color: #9ca3af;
+  font-size: 13px;
+}
+
+.ts-dataset-empty p {
+  margin: 0;
+}
+
+.ts-dataset-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ts-dataset-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #e5e7eb;
+  background: #fff;
+  border-radius: 8px;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.ts-dataset-item:hover {
+  border-color: rgba(99, 102, 241, 0.4);
+  background: rgba(99, 102, 241, 0.02);
+}
+
+.ts-dataset-item.is-selected {
+  border-color: #6366f1;
+  background: rgba(99, 102, 241, 0.06);
+}
+
+.ts-dataset-item:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.ts-dataset-item-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ts-dataset-item-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: #111827;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ts-dataset-item-meta {
+  font-size: 11px;
+  color: #9ca3af;
+  font-family: "SF Mono", Monaco, monospace;
+}
+
+.ts-dataset-item-count {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  height: 28px;
+  background: rgba(22, 163, 74, 0.1);
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #16a34a;
+}
+
+.ts-dataset-item {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  border: 1px solid #e5e7eb;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: all 0.15s;
+}
+
+.ts-dataset-item:hover {
+  border-color: rgba(99, 102, 241, 0.4);
+}
+
+.ts-dataset-item.is-selected {
+  border-color: #6366f1;
+  background: rgba(99, 102, 241, 0.03);
+}
+
+.ts-dataset-item-main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border: none;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+}
+
+.ts-dataset-item-main input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: #6366f1;
+}
+
+.ts-dataset-item-main:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.ts-dataset-item-edit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  border: none;
+  border-left: 1px solid #e5e7eb;
+  background: #fafafa;
+  color: #9ca3af;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.ts-dataset-item-edit:hover {
+  background: rgba(99, 102, 241, 0.1);
+  color: #6366f1;
+}
+
+.ts-dataset-item-edit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.ts-dataset-create {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 10px 12px;
+  margin-top: 8px;
+  border: 1px dashed #d1d5db;
+  background: transparent;
+  border-radius: 8px;
+  color: #6b7280;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.ts-dataset-create:hover {
+  border-color: #6366f1;
+  color: #6366f1;
+  background: rgba(99, 102, 241, 0.02);
+}
+
+.ts-dataset-create:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.ts-dataset-selected {
+  margin-top: 12px;
+  padding: 10px 12px;
+  background: rgba(99, 102, 241, 0.06);
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.ts-dataset-selected-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: #6366f1;
+}
+
+.ts-dataset-selected-protocol {
+  font-size: 11px;
+  color: #6b7280;
+  font-family: "SF Mono", Monaco, monospace;
+}
+
+.ts-dataset-selected-count {
+  font-size: 11px;
+  color: #16a34a;
+  font-weight: 500;
+}
+
+/* ============================================================================
+   Models
+   ============================================================================ */
+
+.ts-models {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ts-model-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.ts-model-card:hover {
+  border-color: rgba(99, 102, 241, 0.4);
+  background: rgba(99, 102, 241, 0.02);
+}
+
+.ts-model-card.is-selected {
+  border-color: #6366f1;
+  background: rgba(99, 102, 241, 0.06);
+}
+
+.ts-model-card.is-disabled {
+  opacity: 0.5;
+}
+
+/* Toggle */
+.ts-model-toggle {
+  position: relative;
+  display: inline-flex;
+  cursor: pointer;
+}
+
+.ts-model-toggle input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.ts-toggle-track {
+  display: block;
+  width: 32px;
+  height: 18px;
+  background: #d1d5db;
+  border-radius: 9px;
+  position: relative;
+  transition: background 0.2s;
+}
+
+.ts-toggle-track::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 14px;
+  height: 14px;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  transition: all 0.2s;
+}
+
+.ts-model-toggle input:checked + .ts-toggle-track {
+  background: #6366f1;
+}
+
+.ts-model-toggle input:checked + .ts-toggle-track::after {
+  transform: translateX(14px);
+}
+
+.ts-model-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ts-model-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: #111827;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ts-model-block {
+  font-size: 10px;
+  color: #9ca3af;
+  font-family: "SF Mono", Monaco, monospace;
+}
+
+.ts-model-meta {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.ts-model-unit {
+  font-size: 10px;
+  font-weight: 600;
+  color: #0ea5e9;
+  background: #e0f2fe;
+  padding: 1px 5px;
+  border-radius: 3px;
+}
+
+.ts-model-feature {
+  font-size: 10px;
+  color: #8b5cf6;
+  background: #ede9fe;
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-family: "SF Mono", Monaco, monospace;
+}
+
+.ts-model-channel {
+  font-size: 10px;
+  color: #f59e0b;
+  background: #fef3c7;
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-family: "SF Mono", Monaco, monospace;
+}
+
+.ts-model-tag {
+  font-size: 10px;
+  font-weight: 600;
+  color: #059669;
+  background: #d1fae5;
+  padding: 1px 6px;
+  border-radius: 3px;
+}
+
+.ts-model-bacteria {
+  font-size: 10px;
+  font-weight: 600;
+  color: #dc2626;
+  background: #fee2e2;
+  padding: 1px 6px;
+  border-radius: 3px;
+}
+
+.ts-model-algos {
+  display: flex;
+  gap: 3px;
+}
+
+.ts-model-algo {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
+  font-size: 9px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.ts-model-algo-gpu {
+  position: absolute;
+  right: -6px;
+  bottom: -6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 12px;
+  height: 12px;
+  padding: 0 4px;
+  border-radius: 999px;
+  font-size: 8px;
+  font-weight: 700;
+  line-height: 1;
+  color: #fff;
+  box-shadow: 0 0 0 2px #fff;
+}
+
+.ts-gpu-gpu {
+  background: #0ea5e9;
+}
+
+.ts-gpu-maybe {
+  background: #a855f7;
+}
+
+.ts-gpu-cpu {
+  background: #6b7280;
+}
+
+.ts-model-algo-more {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  background: #e5e7eb;
+  border-radius: 4px;
+  font-size: 10px;
+  color: #6b7280;
+}
+
+.ts-model-status {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #e5e7eb;
+}
+
+.ts-model-status.ts-status-training {
+  background: #f59e0b;
+  animation: pulse 1s infinite;
+}
+
+.ts-model-status.ts-status-trained {
+  background: #22c55e;
+}
+
+.ts-model-status.ts-status-error {
+  background: #ef4444;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* ============================================================================
+   Settings
+   ============================================================================ */
+
+.ts-settings {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ts-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ts-field label {
+  font-size: 11px;
+  font-weight: 500;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.ts-field select,
+.ts-field input {
+  padding: 8px 10px;
+  background: #fff;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  color: #111827;
+  font-size: 13px;
+}
+
+.ts-field select:focus,
+.ts-field input:focus {
+  outline: none;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.1);
+}
+
+.ts-field-row {
+  display: flex;
+  gap: 10px;
+}
+
+.ts-field-row .ts-field {
+  flex: 1;
+}
+
+.ts-toggle-group {
+  display: flex;
+  gap: 4px;
+}
+
+.ts-toggle-group button {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #d1d5db;
+  background: #fff;
+  border-radius: 6px;
+  color: #6b7280;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.ts-toggle-group button:hover {
+  background: #f9fafb;
+}
+
+.ts-toggle-group button.is-active {
+  background: rgba(99, 102, 241, 0.1);
+  border-color: #6366f1;
+  color: #6366f1;
+}
+
+/* ============================================================================
+   Content Panel
+   ============================================================================ */
+
+.ts-content {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+}
+
+.ts-tabs {
+  display: flex;
+  gap: 4px;
+  padding: 12px 24px;
+  background: #fafafa;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.ts-tabs button {
+  padding: 8px 16px;
+  border: none;
+  background: transparent;
+  border-radius: 6px;
+  color: #6b7280;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.ts-tabs button:hover:not(:disabled) {
+  background: rgba(0, 0, 0, 0.04);
+  color: #111827;
+}
+
+.ts-tabs button.is-active {
+  background: rgba(99, 102, 241, 0.1);
+  color: #6366f1;
+}
+
+.ts-tabs button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.ts-tab-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px;
+}
+
+.ts-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  color: #9ca3af;
+  font-size: 14px;
+}
+
+/* ============================================================================
+   Model Config
+   ============================================================================ */
+
+.ts-model-config {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.ts-model-config-header {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.ts-model-config-header h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.ts-model-config-header span {
+  font-size: 12px;
+  color: #9ca3af;
+  font-family: "SF Mono", Monaco, monospace;
+}
+
+.ts-algo-selector {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ts-algo-selector label {
+  font-size: 12px;
+  font-weight: 500;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.ts-algo-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.ts-algo-chip {
+  padding: 8px 14px;
+  border: 1px solid #e5e7eb;
+  background: #fff;
+  border-radius: 20px;
+  color: #6b7280;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.ts-algo-chip:hover {
+  border-color: var(--algo-color, #6366f1);
+  color: var(--algo-color, #6366f1);
+}
+
+.ts-algo-chip.is-selected {
+  background: var(--algo-color, #6366f1);
+  border-color: var(--algo-color, #6366f1);
+  color: #fff;
+}
+
+.ts-algo-chip-gpu {
+  margin-left: 6px;
+  padding: 2px 6px;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 600;
+  background: rgba(99, 102, 241, 0.1);
+  color: #4f46e5;
+}
+
+.ts-algo-chip:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.ts-algo-configs {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ============================================================================
+   Algorithm Config
+   ============================================================================ */
+
+.ts-algo-config {
+  background: #fafafa;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.ts-algo-header {
+  padding: 12px 16px;
+  background: #fff;
+  border-left: 3px solid #6366f1;
+}
+
+.ts-algo-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.ts-algo-params {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.ts-param {
+  display: grid;
+  grid-template-columns: 140px auto 1fr;
+  gap: 12px;
+  align-items: center;
+}
+
+.ts-param-name {
+  font-size: 12px;
+  font-weight: 500;
+  color: #6b7280;
+  font-family: "SF Mono", Monaco, monospace;
+}
+
+.ts-param-mode {
+  display: flex;
+  gap: 2px;
+}
+
+.ts-param-mode button {
+  padding: 4px 10px;
+  border: 1px solid #d1d5db;
+  background: #fff;
+  color: #6b7280;
+  font-size: 11px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.ts-param-mode button:first-child {
+  border-radius: 4px 0 0 4px;
+}
+
+.ts-param-mode button:last-child {
+  border-radius: 0 4px 4px 0;
+}
+
+.ts-param-mode button.is-active {
+  background: rgba(99, 102, 241, 0.1);
+  border-color: #6366f1;
+  color: #6366f1;
+}
+
+.ts-param-input {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ts-param-input input,
+.ts-param-input select {
+  padding: 6px 10px;
+  background: #fff;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  color: #111827;
+  font-size: 13px;
+  min-width: 80px;
+}
+
+.ts-param-input input:focus,
+.ts-param-input select:focus {
+  outline: none;
+  border-color: #6366f1;
+}
+
+.ts-param-input input:disabled,
+.ts-param-input select:disabled {
+  opacity: 0.5;
+  background: #f3f4f6;
+}
+
+.ts-param-null {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  color: #6b7280;
+  cursor: pointer;
+}
+
+.ts-param-null input {
+  width: 14px;
+  height: 14px;
+  min-width: 14px;
+}
+
+.ts-param-grid {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ts-param-range {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ts-param-range input {
+  width: 70px;
+  min-width: 70px;
+}
+
+.ts-param-range span {
+  color: #9ca3af;
+}
+
+.ts-param-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.ts-param-chips button {
+  padding: 4px 10px;
+  border: 1px solid #d1d5db;
+  background: #fff;
+  border-radius: 4px;
+  color: #6b7280;
+  font-size: 11px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.ts-param-chips button.is-selected {
+  background: rgba(99, 102, 241, 0.1);
+  border-color: #6366f1;
+  color: #6366f1;
+}
+
+/* ============================================================================
+   Results
+   ============================================================================ */
+
+.ts-results-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.ts-result {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.ts-result-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  background: #fafafa;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.ts-result-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.ts-result-badge {
+  padding: 3px 8px;
+  background: rgba(99, 102, 241, 0.1);
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 500;
+  color: #6366f1;
+}
+
+.ts-result-stats {
+  display: flex;
+  justify-content: space-around;
+  padding: 16px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.ts-result-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.ts-result-value {
+  font-size: 16px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.ts-result-label {
+  font-size: 10px;
+  color: #9ca3af;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.ts-result-btn {
+  display: block;
+  width: calc(100% - 24px);
+  margin: 12px;
+  padding: 10px;
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  background: rgba(99, 102, 241, 0.05);
+  border-radius: 6px;
+  color: #6366f1;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.ts-result-btn:hover {
+  background: rgba(99, 102, 241, 0.1);
+  border-color: #6366f1;
+}
+
+.ts-result-reason,
+.ts-result-error {
+  padding: 12px 16px;
+  margin: 0;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.ts-result-error {
+  color: #dc2626;
+}
+
+.ts-result.ts-result-trained {
+  border-color: rgba(22, 163, 74, 0.3);
+}
+
+.ts-result.ts-result-skipped {
+  border-color: rgba(217, 119, 6, 0.3);
+}
+
+.ts-result.ts-result-error {
+  border-color: rgba(220, 38, 38, 0.3);
+}
+
+/* ============================================================================
+   Error Banner
+   ============================================================================ */
+
+.ts-error {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 24px;
+  background: rgba(220, 38, 38, 0.08);
+  border-top: 1px solid rgba(220, 38, 38, 0.2);
+  color: #dc2626;
+  font-size: 13px;
+}
+
+.ts-error button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border: none;
+  background: transparent;
+  color: #dc2626;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+/* ============================================================================
+   Footer
+   ============================================================================ */
+
+.ts-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 24px;
+  background: #fafafa;
+  border-top: 1px solid #e5e7eb;
+}
+
+.ts-footer-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+/* Cache toggle */
+.ts-cache-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.15s;
+  user-select: none;
+}
+
+.ts-cache-toggle:hover:not(:has(input:disabled)) {
+  background: rgba(239, 68, 68, 0.08);
+}
+
+.ts-cache-toggle input {
+  display: none;
+}
+
+.ts-cache-toggle-icon {
+  font-size: 14px;
+  opacity: 0.5;
+  transition: all 0.15s;
+}
+
+.ts-cache-toggle-label {
+  font-size: 13px;
+  color: #6b7280;
+  transition: all 0.15s;
+}
+
+.ts-cache-toggle:has(input:checked) {
+  background: rgba(239, 68, 68, 0.1);
+}
+
+.ts-cache-toggle:has(input:checked) .ts-cache-toggle-icon {
+  opacity: 1;
+  animation: spin 1s linear infinite;
+}
+
+.ts-cache-toggle:has(input:checked) .ts-cache-toggle-label {
+  color: #ef4444;
+  font-weight: 500;
+}
+
+.ts-cache-toggle:has(input:disabled) {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.ts-btn-secondary,
+.ts-btn-primary {
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.ts-btn-secondary {
+  border: 1px solid #d1d5db;
+  background: #fff;
+  color: #6b7280;
+}
+
+.ts-btn-secondary:hover:not(:disabled) {
+  background: #f9fafb;
+  color: #111827;
+}
+
+.ts-btn-primary {
+  border: none;
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  color: #fff;
+}
+
+.ts-btn-primary:hover:not(:disabled) {
+  filter: brightness(1.05);
+}
+
+.ts-btn-primary:disabled,
+.ts-btn-secondary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.ts-btn-danger {
+  padding: 10px 24px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s;
+  border: none;
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  color: #fff;
+}
+
+.ts-btn-danger:hover {
+  filter: brightness(1.1);
+}
+
+/* ============================================================================
+   Dataset Editor (inline)
+   ============================================================================ */
+
+.ts-editor {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.ts-editor-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  border-bottom: 1px solid #e5e7eb;
+  background: #fafafa;
+}
+
+.ts-editor-back {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  background: #fff;
+  color: #6b7280;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.ts-editor-back:hover {
+  border-color: #6366f1;
+  color: #6366f1;
+}
+
+.ts-editor-header h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.ts-editor-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+}
+
+.ts-editor-field {
+  margin-bottom: 16px;
+}
+
+.ts-editor-field label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #374151;
+}
+
+.ts-editor-field input,
+.ts-editor-field select,
+.ts-editor-field textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #111827;
+  background: #fff;
+  transition: border-color 0.15s;
+}
+
+.ts-editor-field input:focus,
+.ts-editor-field select:focus,
+.ts-editor-field textarea:focus {
+  outline: none;
+  border-color: #6366f1;
+}
+
+.ts-editor-field textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.ts-experiment-section {
+  margin-top: 20px;
+}
+
+.ts-experiment-section h4 {
+  margin: 0 0 12px 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.ts-experiment-search {
+  margin-bottom: 12px;
+}
+
+.ts-experiment-search input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #111827;
+  background: #fff;
+}
+
+.ts-experiment-search input:focus {
+  outline: none;
+  border-color: #6366f1;
+}
+
+.ts-experiment-actions {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.ts-experiment-actions button {
+  padding: 6px 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  background: #fff;
+  color: #6b7280;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.ts-experiment-actions button:hover {
+  border-color: #6366f1;
+  color: #6366f1;
+}
+
+.ts-experiment-list {
+  max-height: 300px;
+  overflow-y: auto;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: #fafafa;
+}
+
+.ts-experiment-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-bottom: 1px solid #f3f4f6;
+  cursor: pointer;
+  transition: background 0.1s;
+}
+
+.ts-experiment-item:last-child {
+  border-bottom: none;
+}
+
+.ts-experiment-item:hover {
+  background: rgba(99, 102, 241, 0.04);
+}
+
+.ts-experiment-item.is-selected {
+  background: rgba(99, 102, 241, 0.08);
+}
+
+.ts-experiment-item input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: #6366f1;
+  cursor: pointer;
+}
+
+.ts-experiment-item-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.ts-experiment-item-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: #111827;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ts-experiment-item-meta {
+  font-size: 11px;
+  color: #9ca3af;
+  margin-top: 2px;
+}
+
+.ts-experiment-count {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  background: #f3f4f6;
+  border-radius: 0 0 8px 8px;
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.ts-experiment-count strong {
+  color: #6366f1;
+  font-weight: 600;
+}
+
+.ts-editor-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 16px;
+  border-top: 1px solid #e5e7eb;
+  background: #fafafa;
+}
+
+.ts-editor-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  color: #9ca3af;
+  font-size: 14px;
+  text-align: center;
+}
+
+.ts-editor-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  color: #6b7280;
+}
+
+.ts-loading-spinner {
+  width: 24px;
+  height: 24px;
+  border: 2px solid #e5e7eb;
+  border-top-color: #6366f1;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin-bottom: 12px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ============================================================================
+   Dataset Selector Overlay
+   ============================================================================ */
+
+.ts-dataset-selector-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 100;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  border-radius: inherit;
+  overflow: hidden;
+}
+
+/* Ajustar o DatasetSelector para caber no container */
+.ts-dataset-selector-overlay .ds2-container {
+  height: 100%;
+  max-height: 100%;
+  border-radius: inherit;
+}
+
+/* ============================================================================
+   Candidates View - Design Limpo com Tabela
+   ============================================================================ */
+
+.ts-candidates-clean {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #fff;
+}
+
+/* Header */
+.ts-cand-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 20px;
+  border-bottom: 1px solid #e5e7eb;
+  background: #fafafa;
+}
+
+.ts-cand-back {
+  padding: 8px 14px;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  background: #fff;
+  color: #6b7280;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.ts-cand-back:hover {
+  border-color: #6366f1;
+  color: #6366f1;
+}
+
+.ts-cand-title {
+  flex: 1;
+}
+
+.ts-cand-title h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.ts-cand-title span {
+  font-size: 12px;
+  color: #9ca3af;
+}
+
+.ts-cand-error {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background: #fef2f2;
+  color: #dc2626;
+  font-size: 13px;
+  border-bottom: 1px solid #fecaca;
+}
+
+.ts-cand-error button {
+  background: none;
+  border: none;
+  color: #dc2626;
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 1;
+}
+
+/* Tabela */
+.ts-cand-table-wrap {
+  flex: 1;
+  overflow: auto;
+  padding: 16px 20px;
+}
+
+.ts-cand-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.ts-cand-table thead th {
+  text-align: left;
+  padding: 10px 12px;
+  font-weight: 600;
+  color: #6b7280;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 2px solid #e5e7eb;
+  background: #fafafa;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.ts-cand-table tbody tr {
+  cursor: pointer;
+  transition: background 0.1s;
+}
+
+.ts-cand-table tbody td {
+  padding: 12px;
+  border-bottom: 1px solid #f3f4f6;
+  vertical-align: middle;
+}
+
+.ts-cand-row:hover {
+  background: rgba(99, 102, 241, 0.04);
+}
+
+.ts-cand-row.is-best {
+  background: rgba(34, 197, 94, 0.04);
+}
+
+.ts-cand-row.is-best:hover {
+  background: rgba(34, 197, 94, 0.08);
+}
+
+.ts-cand-row.is-expanded {
+  background: rgba(99, 102, 241, 0.08);
+}
+
+.ts-cand-rank {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.ts-cand-star {
+  color: #f59e0b;
+  font-size: 14px;
+}
+
+.ts-cand-algo {
+  font-weight: 600;
+}
+
+.ts-cand-params-cell {
+  font-family: "SF Mono", Monaco, "Consolas", monospace;
+  font-size: 11px;
+  color: #6b7280;
+  max-width: 180px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ts-cand-metric {
+  font-family: "SF Mono", Monaco, "Consolas", monospace;
+  font-size: 12px;
+  color: #374151;
+}
+
+.ts-cand-apply-btn {
+  padding: 6px 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 5px;
+  background: #fff;
+  color: #6366f1;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.ts-cand-apply-btn:hover:not(:disabled) {
+  background: #6366f1;
+  border-color: #6366f1;
+  color: #fff;
+}
+
+.ts-cand-apply-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Linha expandida */
+.ts-cand-expanded-row td {
+  padding: 0 !important;
+  background: #fafafa;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.ts-cand-details {
+  padding: 20px 24px;
+  animation: slideDown 0.2s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.ts-cand-section {
+  margin-bottom: 20px;
+}
+
+.ts-cand-section:last-child {
+  margin-bottom: 0;
+}
+
+.ts-cand-section h4 {
+  margin: 0 0 12px 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: #374151;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Métricas grid */
+.ts-cand-metrics-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.ts-cand-metric-item {
+  display: flex;
+  gap: 8px;
+  padding: 8px 12px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  font-size: 12px;
+}
+
+.ts-cand-metric-key {
+  color: #6b7280;
+}
+
+.ts-cand-metric-val {
+  font-weight: 600;
+  color: #111827;
+  font-family: "SF Mono", Monaco, monospace;
+}
+
+/* Gráficos */
+.ts-cand-charts {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.ts-cand-legend {
+  grid-column: span 2;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  font-size: 12px;
+}
+
+.ts-cand-loading,
+.ts-cand-no-data {
+  grid-column: span 2;
+  padding: 24px;
+  text-align: center;
+  color: #9ca3af;
+  font-size: 13px;
+}
+
+/* Parâmetros */
+.ts-cand-params {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.ts-cand-param {
+  padding: 6px 10px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 5px;
+  font-size: 11px;
+  color: #6b7280;
+}
+
+.ts-cand-param strong {
+  color: #111827;
+}
+
+/* Charts em linha */
+.ts-cand-charts .ts-chart {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.ts-chart-title {
+  font-size: 11px;
+  fill: #374151;
+  font-weight: 600;
+}
+
+.ts-chart-label {
+  font-size: 10px;
+  fill: #6b7280;
+}
+
+.ts-axis-tick {
+  font-size: 9px;
+  fill: #9ca3af;
+  font-family: "SF Mono", Monaco, monospace;
+}
+
+/* Result card selected state */
+.ts-result.is-selected {
+  border-color: #6366f1;
+  background: rgba(99, 102, 241, 0.03);
+}
+
+.ts-result.is-selected .ts-result-btn {
+  background: #6366f1;
+  color: #fff;
+}
+
+/* ============================================================================
+   Results Row (Lista de resultados)
+   ============================================================================ */
+
+.ts-result-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  padding: 14px 16px;
+  margin-bottom: 8px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.15s;
+  text-align: left;
+  font-family: inherit;
+}
+
+.ts-result-row:hover {
+  border-color: #c7d2fe;
+  background: rgba(99, 102, 241, 0.03);
+}
+
+.ts-result-row:focus {
+  outline: none;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+}
+
+.ts-result-row-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.ts-result-row-main h4 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #111827;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ts-result-row-meta {
+  font-size: 12px;
+  color: #9ca3af;
+  margin-top: 2px;
+}
+
+.ts-result-row-stats {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ts-result-row-algo {
+  padding: 4px 10px;
+  border-radius: 5px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.ts-result-row-score {
+  font-family: "SF Mono", Monaco, monospace;
+  font-size: 13px;
+  font-weight: 600;
+  color: #22c55e;
+  min-width: 70px;
+  text-align: right;
+}
+
+.ts-result-row-arrow {
+  color: #c7d2fe;
+  font-size: 16px;
+  transition: transform 0.2s;
+}
+
+.ts-result-row:hover .ts-result-row-arrow {
+  color: #6366f1;
+  transform: translateX(3px);
+}
+
+.ts-result-row.ts-result-skipped {
+  opacity: 0.6;
+}
+
+.ts-result-row.ts-result-error {
+  border-color: #fecaca;
+  background: #fef2f2;
+}
+
+.ts-result-row-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.ts-result-row-skip {
+  color: #6b7280;
+}
+
+.ts-result-row-error {
+  color: #dc2626;
+}
+
+.ts-result-row-r2 {
+  font-family: "SF Mono", Monaco, monospace;
+  font-size: 12px;
+  font-weight: 600;
+  color: #22c55e;
+  background: rgba(34, 197, 94, 0.1);
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+
+/* ============================================================================
+   Model Type Selector (ML vs Regression)
+   ============================================================================ */
+
+.ts-model-type-selector {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.ts-model-type-selector > label {
+  font-size: 12px;
+  font-weight: 500;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.ts-model-type-chips {
+  display: flex;
+  gap: 10px;
+}
+
+.ts-model-type-chip {
+  flex: 1;
+  padding: 12px 16px;
+  border: 2px solid #e5e7eb;
+  background: #fff;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.15s;
+}
+
+.ts-model-type-chip:hover {
+  border-color: rgba(99, 102, 241, 0.4);
+  background: rgba(99, 102, 241, 0.03);
+}
+
+.ts-model-type-chip.is-selected {
+  border-color: #6366f1;
+  background: rgba(99, 102, 241, 0.08);
+}
+
+.ts-model-type-chip-icon {
+  font-size: 20px;
+}
+
+.ts-model-type-chip-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ts-model-type-chip-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.ts-model-type-chip-desc {
+  font-size: 11px;
+  color: #9ca3af;
+}
+
+/* ============================================================================
+   Regression Config
+   ============================================================================ */
+
+.ts-regression-config {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px;
+  background: linear-gradient(135deg, rgba(156, 39, 176, 0.05), rgba(103, 58, 183, 0.05));
+  border: 1px solid rgba(156, 39, 176, 0.2);
+  border-radius: 10px;
+}
+
+.ts-regression-config > label {
+  font-size: 12px;
+  font-weight: 500;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.ts-regression-options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ts-regression-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.ts-regression-chip {
+  padding: 8px 14px;
+  border: 1px solid #e5e7eb;
+  background: #fff;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 13px;
+  color: #374151;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ts-regression-chip:hover {
+  border-color: rgba(156, 39, 176, 0.4);
+  background: rgba(156, 39, 176, 0.05);
+}
+
+.ts-regression-chip.is-selected {
+  border-color: #9c27b0;
+  background: rgba(156, 39, 176, 0.1);
+  color: #9c27b0;
+  font-weight: 600;
+}
+
+.ts-regression-chip.is-disabled {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.ts-regression-auto-select {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.ts-regression-auto-select:hover {
+  border-color: rgba(156, 39, 176, 0.4);
+}
+
+.ts-regression-auto-select input {
+  width: 16px;
+  height: 16px;
+  accent-color: #9c27b0;
+}
+
+.ts-regression-auto-select span {
+  font-size: 13px;
+  color: #374151;
+}
+
+.ts-regression-polynomial {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+}
+
+.ts-regression-polynomial label {
+  font-size: 13px;
+  color: #374151;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.ts-regression-polynomial input {
+  width: 60px;
+  padding: 6px 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 13px;
+  text-align: center;
+}
+
+.ts-regression-polynomial input:focus {
+  outline: none;
+  border-color: #9c27b0;
+  box-shadow: 0 0 0 3px rgba(156, 39, 176, 0.1);
+}
+
+.ts-regression-preview {
+  padding: 12px 16px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+}
+
+.ts-regression-preview-formula {
+  font-family: "SF Mono", Monaco, monospace;
+  font-size: 14px;
+  color: #9c27b0;
+  font-weight: 500;
+}
+
+/* Regression badge in model card */
+.ts-regression-badge {
+  min-width: 60px !important;
+  justify-content: center;
+}
+
+/* Model type hint text */
+.ts-model-type-hint {
+  font-size: 12px;
+  color: #6b7280;
+  line-height: 1.4;
+  margin-top: 6px;
+}
+
+/* Regression type selector */
+.ts-regression-type-selector {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ts-regression-type-selector > label {
+  font-size: 12px;
+  font-weight: 500;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Regression degree input */
+.ts-regression-degree {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ts-regression-degree > label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #374151;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.ts-regression-degree input {
+  width: 70px;
+  padding: 8px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.ts-regression-degree input:focus {
+  outline: none;
+  border-color: #9c27b0;
+  box-shadow: 0 0 0 3px rgba(156, 39, 176, 0.1);
+}
+
+/* Outlier removal selector */
+.ts-regression-outliers {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ts-regression-outliers > label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #374151;
+}
+
+.ts-regression-outliers select {
+  padding: 8px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 14px;
+  background: #fff;
+  cursor: pointer;
+  max-width: 200px;
+}
+
+.ts-regression-outliers select:focus {
+  outline: none;
+  border-color: #9c27b0;
+  box-shadow: 0 0 0 3px rgba(156, 39, 176, 0.1);
+}
+
+.ts-outlier-hint {
+  font-size: 11px;
+  color: #6b7280;
+  font-style: italic;
+  line-height: 1.4;
+}
+
+/* Regression equation preview */
+.ts-regression-equation {
+  font-family: "SF Mono", Monaco, monospace;
+  font-size: 14px;
+  color: #9c27b0;
+  padding: 12px 16px;
+  background: #fff;
+  border: 1px solid rgba(156, 39, 176, 0.2);
+  border-radius: 8px;
+}
+
+.ts-regression-equation strong {
+  color: #6b7280;
+  font-weight: 500;
+  margin-right: 8px;
+}
+
+/* Checkbox label styling */
+.ts-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #374151;
+  cursor: pointer;
+}
+
+.ts-checkbox-label input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: #9c27b0;
+}
+
+/* ============================================================================
+   Regression Result View
+   ============================================================================ */
+
+.ts-regression-view {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 16px;
+}
+
+.ts-regression-view-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.ts-regression-view-title {
+  flex: 1;
+}
+
+.ts-regression-view-title h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.ts-regression-view-type {
+  font-size: 13px;
+  color: #9c27b0;
+  font-weight: 500;
+}
+
+.ts-regression-equation-box {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ts-regression-equation-box > label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.ts-regression-equation-display {
+  font-family: "SF Mono", Monaco, monospace;
+  font-size: 18px;
+  font-weight: 600;
+  color: #9c27b0;
+  padding: 16px 20px;
+  background: linear-gradient(135deg, rgba(156, 39, 176, 0.08), rgba(103, 58, 183, 0.08));
+  border: 1px solid rgba(156, 39, 176, 0.2);
+  border-radius: 10px;
+}
+
+.ts-regression-transform-note {
+  font-size: 12px;
+  color: #d97706;
+  margin-top: 8px;
+  padding: 8px 12px;
+  background: rgba(217, 119, 6, 0.1);
+  border-radius: 6px;
+}
+
+.ts-regression-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.ts-regression-metric {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 16px 12px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+}
+
+.ts-regression-metric-value {
+  font-family: "SF Mono", Monaco, monospace;
+  font-size: 20px;
+  font-weight: 700;
+  color: #22c55e;
+}
+
+.ts-regression-metric-label {
+  font-size: 11px;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Outliers metric styling */
+.ts-outliers-metric .ts-regression-metric-value {
+  color: #f59e0b;
+}
+
+.ts-regression-outlier-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+  border-radius: 8px;
+  border: 1px solid #fcd34d;
+}
+
+.ts-outlier-badge {
+  font-size: 11px;
+  font-weight: 600;
+  color: #92400e;
+  background: rgba(255, 255, 255, 0.7);
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.ts-outlier-text {
+  font-size: 12px;
+  color: #78350f;
+}
+
+.ts-regression-plot-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px 16px;
+  background: #f9fafb;
+  border-radius: 8px;
+}
+
+.ts-regression-plot-info > label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+}
+
+.ts-regression-plot-stats {
+  display: flex;
+  gap: 24px;
+  font-family: "SF Mono", Monaco, monospace;
+  font-size: 12px;
+  color: #374151;
+}
+
+.ts-regression-comparison {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ts-regression-comparison > label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.ts-regression-comparison-table {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ts-regression-comparison-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+}
+
+.ts-regression-comparison-row.is-selected {
+  background: rgba(156, 39, 176, 0.08);
+  border-color: #9c27b0;
+}
+
+.ts-regression-comparison-type {
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+  min-width: 100px;
+}
+
+.ts-regression-comparison-row.is-selected .ts-regression-comparison-type {
+  color: #9c27b0;
+}
+
+.ts-regression-comparison-eq {
+  flex: 1;
+  font-family: "SF Mono", Monaco, monospace;
+  font-size: 12px;
+  color: #6b7280;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ts-regression-comparison-r2 {
+  font-family: "SF Mono", Monaco, monospace;
+  font-size: 13px;
+  font-weight: 600;
+  color: #22c55e;
+}
+
+.ts-regression-coefficients {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ts-regression-coefficients > label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.ts-regression-coefficients-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.ts-regression-coeff {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: #f3f4f6;
+  border-radius: 6px;
+}
+
+.ts-regression-coeff-name {
+  font-size: 12px;
+  font-weight: 600;
+  color: #6b7280;
+}
+
+.ts-regression-coeff-value {
+  font-family: "SF Mono", Monaco, monospace;
+  font-size: 12px;
+  color: #111827;
+}
+
+.ts-regression-applied {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  background: rgba(34, 197, 94, 0.1);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  border-radius: 8px;
+  color: #16a34a;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.ts-regression-applied-icon {
+  font-size: 16px;
+}
+
+.ts-regression-error {
+  padding: 12px 16px;
+  background: rgba(220, 38, 38, 0.1);
+  border: 1px solid rgba(220, 38, 38, 0.3);
+  border-radius: 8px;
+  color: #dc2626;
+  font-size: 13px;
+}
+
+.ts-regression-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding-top: 8px;
+  border-top: 1px solid #e5e7eb;
+  margin-top: 8px;
+}
+
+.ts-regression-warnings {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ts-regression-warnings details {
+  padding: 10px 14px;
+  background: #fffbeb;
+  border: 1px solid #fcd34d;
+  border-radius: 8px;
+}
+
+.ts-regression-warnings summary {
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  color: #92400e;
+}
+
+.ts-regression-warnings ul {
+  margin: 10px 0 0 0;
+  padding-left: 20px;
+  font-size: 12px;
+  color: #78350f;
+}
+
+.ts-regression-warnings li {
+  margin-bottom: 4px;
+}
+
+/* Regression algo styling in result card */
+.ts-regression-algo {
+  font-weight: 600;
+}
+
+/* ============================================================================
+   Regression Chart
+   ============================================================================ */
+
+.ts-regression-chart-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ts-regression-chart-container > label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.ts-regression-chart {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  overflow: visible;
+}
+
+.ts-regression-chart-equation {
+  font-family: "SF Mono", Monaco, monospace;
+  font-size: 13px;
+  color: #9c27b0;
+  text-align: center;
+  padding: 8px;
+  background: rgba(156, 39, 176, 0.05);
+  border-radius: 6px;
+}
+
+/* ============================================================================
+   History View
+   ============================================================================ */
+
+.ts-history {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.ts-history-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 48px;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.ts-history-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 64px 24px;
+  text-align: center;
+}
+
+.ts-history-empty-icon {
+  font-size: 48px;
+  opacity: 0.5;
+}
+
+.ts-history-empty h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.ts-history-empty p {
+  margin: 0;
+  font-size: 14px;
+  color: #6b7280;
+  max-width: 300px;
+}
+
+.ts-history-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
+  padding: 8px;
+}
+
+/* History Card */
+.ts-history-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.ts-history-card:hover {
+  border-color: #6366f1;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.15);
+  transform: translateY(-2px);
+}
+
+.ts-history-card.is-applied {
+  border-color: #22c55e;
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.05) 0%, rgba(34, 197, 94, 0.02) 100%);
+}
+
+.ts-history-card.is-active {
+  border-color: #0ea5e9;
+  background: linear-gradient(135deg, rgba(14, 165, 233, 0.08) 0%, rgba(14, 165, 233, 0.02) 100%);
+}
+
+.ts-history-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.ts-history-card-type {
+  font-size: 12px;
+  font-weight: 500;
+  color: #6b7280;
+}
+
+.ts-history-card-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  background: rgba(34, 197, 94, 0.15);
+  color: #15803d;
+  font-size: 10px;
+  font-weight: 600;
+  border-radius: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.ts-history-card-badge.is-active {
+  background: rgba(14, 165, 233, 0.2);
+  color: #0369a1;
+}
+
+.ts-history-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+
+.ts-history-card-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.ts-history-card-equation {
+  font-family: "SF Mono", Monaco, monospace;
+  font-size: 12px;
+  color: #9c27b0;
+  background: rgba(156, 39, 176, 0.08);
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ts-history-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.ts-history-card-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  font-size: 11px;
+  color: #475569;
+  background: #f1f5f9;
+  border-radius: 999px;
+}
+
+.ts-history-card-metric {
+  font-size: 14px;
+  font-weight: 600;
+  color: #6366f1;
+  margin-top: 4px;
+}
+
+.ts-history-card-footer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #f3f4f6;
+}
+
+.ts-history-card-date {
+  font-size: 12px;
+  color: #9ca3af;
+}
+
+.ts-history-card-time {
+  font-size: 12px;
+  color: #9ca3af;
+}
+
+.ts-history-card-delete {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border: none;
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  opacity: 0;
+  transition: all 0.15s;
+}
+
+.ts-history-card:hover .ts-history-card-delete {
+  opacity: 1;
+}
+
+.ts-history-card-delete:hover {
+  background: rgba(239, 68, 68, 0.2);
+}
+
+/* New Training Card */
+.ts-history-card.ts-history-card-new {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 180px;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, rgba(139, 92, 246, 0.03) 100%);
+  border: 2px dashed #d1d5db;
+  color: #6b7280;
+}
+
+.ts-history-card.ts-history-card-new:hover {
+  border-color: #6366f1;
+  color: #6366f1;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.05) 100%);
+}
+
+.ts-history-card-plus {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  background: rgba(99, 102, 241, 0.1);
+  border-radius: 50%;
+  transition: all 0.2s;
+}
+
+.ts-history-card.ts-history-card-new:hover .ts-history-card-plus {
+  background: rgba(99, 102, 241, 0.2);
+  transform: scale(1.05);
+}
+
+.ts-history-card-label {
+  font-size: 14px;
+  font-weight: 500;
+}

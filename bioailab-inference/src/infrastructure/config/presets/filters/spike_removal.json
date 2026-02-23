@@ -1,0 +1,17 @@
+{
+    "name": "spike_removal",
+    "description": "Focado em remoção de spikes e picos anômalos",
+    "enabled": true,
+    "filters": [
+        {
+            "name": "adaptive_median",
+            "min_window": 3,
+            "max_window": 11
+        },
+        {
+            "name": "outlier_mad",
+            "threshold": 3.0,
+            "method": "median"
+        }
+    ]
+}

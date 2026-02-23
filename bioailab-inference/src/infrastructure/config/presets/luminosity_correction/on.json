@@ -1,0 +1,6 @@
+{
+  "$schema": "../schema/luminosity_correction.schema.json",
+  "name": "on",
+  "description": "Correção de luminosidade habilitada - padrão para turbidimetria",
+  "enabled": true
+}

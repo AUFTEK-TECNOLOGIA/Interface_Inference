@@ -1,0 +1,8 @@
+{
+  "$schema": "../schema/chromatic_adaptation.schema.json",
+  "name": "d65",
+  "description": "Adaptação cromática D65 (luz do dia) - padrão para turbidimetria",
+  "enabled": true,
+  "illuminant": "D65",
+  "method": "bradford"
+}

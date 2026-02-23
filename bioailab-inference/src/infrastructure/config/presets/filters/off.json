@@ -1,0 +1,6 @@
+{
+    "name": "off",
+    "description": "Sem filtros aplicados",
+    "enabled": false,
+    "filters": []
+}

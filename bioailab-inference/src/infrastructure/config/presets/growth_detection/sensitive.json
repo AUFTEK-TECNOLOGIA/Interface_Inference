@@ -1,0 +1,8 @@
+{
+  "$schema": "../schema/growth_detection.schema.json",
+  "name": "sensitive",
+  "description": "Detecção sensível - detecta crescimentos sutis, mais falsos positivos",
+  "min_amplitude_percent": 5.0,
+  "min_growth_ratio": 1.1,
+  "noise_threshold_percent": 1.0
+}

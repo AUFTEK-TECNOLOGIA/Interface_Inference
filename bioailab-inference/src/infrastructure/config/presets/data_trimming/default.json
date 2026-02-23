@@ -1,0 +1,8 @@
+{
+  "$schema": "../schema/data_trimming.schema.json",
+  "name": "default",
+  "description": "Corte padrão - remove transiente inicial de estabilização",
+  "enabled": true,
+  "start_index": 20,
+  "end_index": -5
+}

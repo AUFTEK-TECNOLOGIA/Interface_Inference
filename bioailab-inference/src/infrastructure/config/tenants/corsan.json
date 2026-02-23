@@ -1,0 +1,103 @@
+{
+  "$schema": "./schema.json",
+  
+  "metadata": {
+    "name": "CORSAN - Companhia Riograndense de Saneamento",
+    "industry": "Saneamento e Tratamento de Água",
+    "state": "Rio Grande do Sul",
+    "email": "corsan@corsan.com.br",
+    "activated_at": "2025-01-01"
+  },
+
+  "analysis_mode": "prediction",
+
+  "preprocessing": {
+    "turbidimetry": {
+      "startIndex": 20,
+      "endIndex": -5,
+      "filters": [
+        {
+          "type": "moving_average",
+          "window": 20
+        }
+      ]
+    },
+    "fluorescence": {
+      "startIndex": 20,
+      "endIndex": -5,
+      "filters": [
+        {
+          "type": "moving_average",
+          "window": 20
+        }
+      ]
+    }
+  },
+
+  "predictions": [
+    {
+      "id": "predict_colitotais_nmp",
+      "description": "Total Coliforms - MPN",
+      "sensor": "turbidimetry",
+      "channel": "RGB_B",
+      "math_model": "richards",
+      "ml_model": "turbidimetry_nmp",
+      "pipeline": {
+        "growth_detector": "combined"
+      },
+      "growth_detection": {
+        "min_amplitude_percent": 25.0,
+        "min_growth_ratio": 1.3,
+        "noise_threshold_percent": 1.0
+      }
+    },
+    {
+      "id": "predict_colitotais_ufc",
+      "description": "Total Coliforms - CFU",
+      "sensor": "turbidimetry",
+      "channel": "RGB_B",
+      "math_model": "richards",
+      "ml_model": "turbidimetry_ufc",
+      "pipeline": {
+        "growth_detector": "combined"
+      },
+      "growth_detection": {
+        "min_amplitude_percent": 25.0,
+        "min_growth_ratio": 1.3,
+        "noise_threshold_percent": 1.0
+      }
+    },
+    {
+      "id": "predict_ecoli_nmp",
+      "description": "E. coli - MPN",
+      "sensor": "fluorescence",
+      "channel": "RGB_B",
+      "math_model": "baranyi",
+      "ml_model": "fluorescence_nmp",
+      "pipeline": {
+        "growth_detector": "combined"
+      },
+      "growth_detection": {
+        "min_amplitude_percent": 25.0,
+        "min_growth_ratio": 1.3,
+        "noise_threshold_percent": 1.0
+      }
+    },
+    {
+      "id": "predict_ecoli_ufc",
+      "description": "E. coli - CFU",
+      "sensor": "fluorescence",
+      "channel": "RGB_B",
+      "math_model": "baranyi",
+      "ml_model": "fluorescence_ufc",
+      "pipeline": {
+        "growth_detector": "combined"
+      },
+      "growth_detection": {
+        "min_amplitude_percent": 25.0,
+        "min_growth_ratio": 1.3,
+        "noise_threshold_percent": 1.0
+      }
+    }
+  ]
+}

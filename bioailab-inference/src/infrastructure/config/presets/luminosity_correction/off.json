@@ -1,0 +1,6 @@
+{
+  "$schema": "../schema/luminosity_correction.schema.json",
+  "name": "off",
+  "description": "Correção de luminosidade desabilitada - usar para fluorescência",
+  "enabled": false
+}

@@ -1,0 +1,11 @@
+{
+    "name": "light",
+    "description": "Filtro leve - apenas suavização básica",
+    "enabled": true,
+    "filters": [
+        {
+            "name": "ema",
+            "alpha": 0.4
+        }
+    ]
+}

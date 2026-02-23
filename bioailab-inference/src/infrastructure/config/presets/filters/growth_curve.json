@@ -1,0 +1,17 @@
+{
+    "name": "growth_curve",
+    "description": "Otimizado para curvas de crescimento bacteriano - preserva fases",
+    "enabled": true,
+    "filters": [
+        {
+            "name": "outlier_iqr",
+            "k": 2.0,
+            "method": "interpolate"
+        },
+        {
+            "name": "savgol",
+            "window": 15,
+            "polyorder": 3
+        }
+    ]
+}

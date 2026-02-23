@@ -1,0 +1,17 @@
+{
+    "name": "default",
+    "description": "Filtro padrão - balanceado entre ruído e preservação de features",
+    "enabled": true,
+    "filters": [
+        {
+            "name": "outlier_std",
+            "threshold": 3.0,
+            "method": "interpolate"
+        },
+        {
+            "name": "savgol",
+            "window": 11,
+            "polyorder": 3
+        }
+    ]
+}

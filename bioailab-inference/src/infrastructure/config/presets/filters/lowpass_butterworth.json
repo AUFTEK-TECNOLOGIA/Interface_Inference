@@ -1,0 +1,13 @@
+{
+    "name": "lowpass_butterworth",
+    "description": "Filtro passa-baixa Butterworth - resposta suave",
+    "enabled": true,
+    "filters": [
+        {
+            "name": "butterworth",
+            "cutoff_freq": 0.1,
+            "order": 4,
+            "filtfilt": true
+        }
+    ]
+}

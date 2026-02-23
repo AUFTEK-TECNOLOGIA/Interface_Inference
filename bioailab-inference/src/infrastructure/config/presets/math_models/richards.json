@@ -1,0 +1,13 @@
+{
+    "name": "richards",
+    "description": "Modelo de Richards - logístico generalizado, bom para crescimento com saturação",
+    "model": "richards",
+    "fit_config": {
+        "max_attempts": 5000,
+        "tolerance": 0.001,
+        "window_threshold_start": 0.05,
+        "window_threshold_end": 0.05,
+        "smooth_sigma": 5.0,
+        "min_window_size": 20
+    }
+}

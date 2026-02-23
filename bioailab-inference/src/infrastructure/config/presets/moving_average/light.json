@@ -1,0 +1,7 @@
+{
+  "$schema": "../schema/moving_average.schema.json",
+  "name": "light",
+  "description": "Média móvel leve - suavização mínima, preserva detalhes",
+  "enabled": true,
+  "window": 5
+}

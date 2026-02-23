@@ -1,0 +1,20 @@
+[
+  {
+    "statusCode": 200,
+    "body": "{\"name\": \"Escherichia coli\", \"UUID\": \"97061dfb-0fb9-495f-94bd-a4c430359981\", \"notes\": \"teste\"}",
+    "headers": {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET,POST,PUT,DELETE,OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type"
+    }
+  },
+  {
+    "statusCode": 200,
+    "body": "{\"name\": \"Coliformes Totais\", \"UUID\": \"e2bb08aa-27d2-459f-b4ba-92d43184f766\", \"notes\": \"teste\"}",
+    "headers": {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET,POST,PUT,DELETE,OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type"
+    }
+  }
+]

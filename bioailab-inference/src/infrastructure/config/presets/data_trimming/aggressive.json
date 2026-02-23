@@ -1,0 +1,8 @@
+{
+  "$schema": "../schema/data_trimming.schema.json",
+  "name": "aggressive",
+  "description": "Corte agressivo - para experimentos com longo transiente",
+  "enabled": true,
+  "start_index": 50,
+  "end_index": -10
+}

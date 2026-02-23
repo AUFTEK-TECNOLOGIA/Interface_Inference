@@ -1,0 +1,11 @@
+[
+  {
+    "statusCode": 200,
+    "body": "{\"cultureMediaUUID\": \"111e4567-e89b-12d3-a456-426614174001\", \"heatExchangerTemperatureControl\": {\"reference\": 36, \"maxPower\": 0, \"kp\": 0.25, \"ki\": 0}, \"lightIntensityControl\": {\"reference\": 40000, \"kp\": 10, \"ki\": 0}, \"calibrationSets\": [{\"bacteria_uuid\": \"e2bb08aa-27d2-459f-b4ba-92d43184f766\", \"unit\": \"UFC/g\"}], \"partnerUUID\": \"e77a03c6-5264-11ee-be56-0242ac120002\", \"analysis\": [{\"name\": \"Fermentação\", \"active\": true, \"color\": \"ffffc107\", \"uuid\": \"7f49fe55-d856-4f2b-8c3d-43afa3b6a9cd\"}], \"UUID\": \"e266f8c5-ad00-4cad-845f-9a9824775961\", \"name\": \"Saccharomyces \", \"lowerChamberTemperatureControl\": {\"reference\": 25, \"minPower\": 0, \"kp\": 0.1, \"ki\": 0.1}, \"sampleTemperatureControl\": {\"reference\": 0, \"kpe\": 8, \"kp\": 0, \"kpi\": 0.25, \"kie\": 0.044728, \"maxPower\": 0, \"ki\": 0, \"rpm\": 500, \"sampleReference\": 36}, \"upperChamberTemperatureControl\": {\"reference\": 36, \"maxPower\": 0.4, \"kp\": 0.27, \"ki\": 0.003}, \"color\": \"#ffffc107\", \"type\": \"Análise microbiológica\"}",
+    "headers": {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type"
+    }
+  }
+]

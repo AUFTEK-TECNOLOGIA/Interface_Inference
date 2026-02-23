@@ -1,0 +1,6 @@
+{
+  "$schema": "../schema/chromatic_adaptation.schema.json",
+  "name": "off",
+  "description": "Adaptação cromática desabilitada - usar para fluorescência",
+  "enabled": false
+}
