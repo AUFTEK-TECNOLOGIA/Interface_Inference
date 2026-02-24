@@ -1,3 +1,4 @@
+import { createPortal } from "react-dom";
 import { TRAINING_ALGORITHM_ITEMS, TRAINING_ALGO_PARAM_SCHEMA, REGRESSION_ITEMS, buildTrainingParamsForAlgorithm } from "../modulos/trainingModule";
 
 export default function TrainingModalBody({
@@ -12,6 +13,7 @@ export default function TrainingModalBody({
   setTrainBlockModal,
   setCandidatesModal,
   setNodes,
+  trainBlockModal,
   runTraining,
 }) {
 
@@ -56,51 +58,7 @@ export default function TrainingModalBody({
       { key: "mlp", label: "MLP" },
     ];
 
-    const algoParamSchema = {
-      ridge: {
-        defaults: { alpha: 1.0 },
-        fields: [
-          { key: "alpha", label: "alpha", type: "number", step: 0.1, min: 0 },
-        ],
-        gridDefaults: { alpha: [0.1, 1.0, 10.0] },
-      },
-      rf: {
-        defaults: { n_estimators: 300, max_depth: null, n_jobs: -1 },
-        fields: [
-          { key: "n_estimators", label: "n_estimators", type: "number", step: 50, min: 10 },
-          { key: "max_depth", label: "max_depth", type: "number", step: 1, min: 1, allowNull: true },
-          { key: "n_jobs", label: "n_jobs", type: "number", step: 1, min: -1 },
-        ],
-        gridDefaults: { n_estimators: [200, 400], max_depth: [null, 6, 12] },
-      },
-      gbm: {
-        defaults: { n_estimators: 400, learning_rate: 0.03, max_depth: 3 },
-        fields: [
-          { key: "n_estimators", label: "n_estimators", type: "number", step: 50, min: 10 },
-          { key: "learning_rate", label: "learning_rate", type: "number", step: 0.01, min: 0.0001 },
-          { key: "max_depth", label: "max_depth", type: "number", step: 1, min: 1 },
-        ],
-        gridDefaults: { n_estimators: [200, 400], learning_rate: [0.01, 0.03], max_depth: [2, 3, 4] },
-      },
-      svr: {
-        defaults: { kernel: "rbf", C: 1.0, epsilon: 0.1 },
-        fields: [
-          { key: "kernel", label: "kernel", type: "select", options: ["rbf", "linear", "poly", "sigmoid"] },
-          { key: "C", label: "C", type: "number", step: 0.5, min: 0.0 },
-          { key: "epsilon", label: "epsilon", type: "number", step: 0.05, min: 0.0 },
-        ],
-        gridDefaults: { C: [0.5, 1.0, 2.0], epsilon: [0.05, 0.1, 0.2], kernel: ["rbf", "linear"] },
-      },
-      mlp: {
-        defaults: { hidden_layer_sizes: "128,64", max_iter: 800, learning_rate_init: 0.001 },
-        fields: [
-          { key: "hidden_layer_sizes", label: "hidden_layer_sizes", type: "text", placeholder: "Ex: 128,64" },
-          { key: "max_iter", label: "max_iter", type: "number", step: 50, min: 50 },
-          { key: "learning_rate_init", label: "learning_rate_init", type: "number", step: 0.0005, min: 0.00001 },
-        ],
-        gridDefaults: { hidden_layer_sizes: ["128,64", "256,128"], max_iter: [500, 800], learning_rate_init: [0.001, 0.0005] },
-      },
-    };
+
 
     return (
       <div className="training-stepper">

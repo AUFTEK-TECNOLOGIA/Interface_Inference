@@ -1,5 +1,4 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, useRef } from "react";
-import { createPortal } from "react-dom";
 import {
   ReactFlow,
   ReactFlowProvider,
@@ -5528,6 +5527,7 @@ function App() {
               setTrainBlockModal={setTrainBlockModal}
               setCandidatesModal={setCandidatesModal}
               setNodes={setNodes}
+              trainBlockModal={trainBlockModal}
               runTraining={runTraining}
             />
           </div>
