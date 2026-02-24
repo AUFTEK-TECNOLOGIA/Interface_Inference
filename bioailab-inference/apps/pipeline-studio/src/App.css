@@ -1426,7 +1426,7 @@ aside::-webkit-scrollbar-thumb:hover {
 
 /* Floating train button */
 .floating-train-button {
-  background: rgba(255, 255, 255, 0.9);
+  background: color-mix(in srgb, var(--md-sys-color-surface) 92%, transparent);
   color: var(--md-sys-color-primary);
   border: 1px solid color-mix(in srgb, var(--md-sys-color-primary) 22%, var(--md-sys-color-outline));
   border-radius: 999px;
@@ -1634,7 +1634,7 @@ aside::-webkit-scrollbar-thumb:hover {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: rgba(255, 255, 255, 0.9);
+  background: color-mix(in srgb, var(--md-sys-color-surface) 92%, transparent);
   border: none;
   border-radius: 50%;
   width: 48px;
@@ -3473,7 +3473,7 @@ aside::-webkit-scrollbar-thumb:hover {
     radial-gradient(900px 600px at 50% 40%, rgba(99, 102, 241, 0.14), rgba(255, 255, 255, 0) 55%),
     radial-gradient(900px 600px at 30% 72%, rgba(34, 211, 238, 0.10), rgba(255, 255, 255, 0) 60%),
     radial-gradient(900px 600px at 70% 70%, rgba(245, 158, 11, 0.08), rgba(255, 255, 255, 0) 60%),
-    linear-gradient(180deg, rgba(248, 250, 252, 0.92), rgba(241, 245, 249, 0.92));
+    linear-gradient(180deg, color-mix(in srgb, var(--md-sys-color-surface-container-low) 92%, transparent), color-mix(in srgb, var(--md-sys-color-surface) 92%, transparent));
   filter: saturate(1.05);
 }
 
@@ -3482,7 +3482,7 @@ aside::-webkit-scrollbar-thumb:hover {
   width: min(920px, 100%);
   border-radius: 18px;
   border: 1px solid var(--md-sys-color-outline-variant);
-  background: rgba(255, 255, 255, 0.82);
+  background: color-mix(in srgb, var(--md-sys-color-surface) 86%, transparent);
   backdrop-filter: blur(14px);
   box-shadow: var(--md-sys-elevation-2);
   padding: 26px 26px 22px;
@@ -3519,7 +3519,7 @@ aside::-webkit-scrollbar-thumb:hover {
 
 .workspace-home-close {
   border: 1px solid var(--md-sys-color-outline);
-  background: rgba(255, 255, 255, 0.7);
+  background: color-mix(in srgb, var(--md-sys-color-surface-container-high) 70%, transparent);
   color: var(--md-sys-color-on-surface);
   border-radius: 10px;
   padding: 8px 10px;
@@ -3582,7 +3582,7 @@ aside::-webkit-scrollbar-thumb:hover {
   height: 36px;
   border-radius: 12px;
   border: 1px solid var(--md-sys-color-outline-variant);
-  background: rgba(255, 255, 255, 0.86);
+  background: color-mix(in srgb, var(--md-sys-color-surface) 88%, transparent);
   color: var(--md-sys-color-on-surface-variant);
   display: grid;
   place-items: center;
@@ -3590,7 +3590,7 @@ aside::-webkit-scrollbar-thumb:hover {
 }
 
 .workspace-pipeline-action-btn:hover {
-  background: rgba(255, 255, 255, 0.98);
+  background: color-mix(in srgb, var(--md-sys-color-surface-container-high) 98%, transparent);
   color: var(--md-sys-color-on-surface);
   border-color: var(--md-sys-color-outline);
 }
@@ -3603,7 +3603,7 @@ aside::-webkit-scrollbar-thumb:hover {
   width: min(220px, 70vw);
   border-radius: 14px;
   border: 1px solid var(--md-sys-color-outline-variant);
-  background: rgba(255, 255, 255, 0.96);
+  background: color-mix(in srgb, var(--md-sys-color-surface) 96%, transparent);
   box-shadow: var(--md-sys-elevation-2);
   padding: 6px;
   display: flex;
@@ -3661,7 +3661,7 @@ aside::-webkit-scrollbar-thumb:hover {
   position: fixed;
   inset: 0;
   z-index: 6000;
-  background: rgba(15, 23, 42, 0.22);
+  background: color-mix(in srgb, var(--md-sys-color-surface) 45%, transparent);
   backdrop-filter: blur(10px);
   display: grid;
   place-items: center;
@@ -3672,7 +3672,7 @@ aside::-webkit-scrollbar-thumb:hover {
   width: min(560px, 100%);
   border-radius: 18px;
   border: 1px solid var(--md-sys-color-outline-variant);
-  background: rgba(255, 255, 255, 0.9);
+  background: color-mix(in srgb, var(--md-sys-color-surface) 92%, transparent);
   box-shadow: var(--md-sys-elevation-2);
   padding: 18px;
   max-height: calc(100vh - 48px);
@@ -3683,6 +3683,18 @@ aside::-webkit-scrollbar-thumb:hover {
   width: min(760px, 100%);
 }
 
+
+:root[data-theme="dark"] .workspace-home-bg {
+  background:
+    radial-gradient(900px 600px at 50% 40%, rgba(99, 102, 241, 0.22), rgba(255, 255, 255, 0) 55%),
+    radial-gradient(900px 600px at 30% 72%, rgba(34, 211, 238, 0.14), rgba(255, 255, 255, 0) 60%),
+    radial-gradient(900px 600px at 70% 70%, rgba(245, 158, 11, 0.10), rgba(255, 255, 255, 0) 60%),
+    linear-gradient(180deg, rgba(2, 6, 23, 0.76), rgba(15, 23, 42, 0.7));
+}
+
+:root[data-theme="dark"] .workspace-modal-overlay {
+  background: rgba(2, 6, 23, 0.62);
+}
 /* Treinamento: footer fixo e conte├║do com scroll interno */
 .workspace-modal.training-modal {
   overflow: hidden;
@@ -3929,7 +3941,7 @@ aside::-webkit-scrollbar-thumb:hover {
   padding: 4px 8px;
   font-size: 11px;
   border: 1px solid var(--md-sys-color-outline-variant);
-  background: rgba(255, 255, 255, 0.7);
+  background: color-mix(in srgb, var(--md-sys-color-surface-container-high) 70%, transparent);
   color: var(--md-sys-color-on-surface);
 }
 
@@ -4062,7 +4074,7 @@ aside::-webkit-scrollbar-thumb:hover {
   width: 100%;
   border-radius: 10px;
   border: 1px solid var(--md-sys-color-outline);
-  background: rgba(255, 255, 255, 0.7);
+  background: color-mix(in srgb, var(--md-sys-color-surface-container-high) 70%, transparent);
   color: var(--md-sys-color-on-surface);
   padding: 10px 12px;
   outline: none;
@@ -4118,7 +4130,7 @@ aside::-webkit-scrollbar-thumb:hover {
   padding: 10px 12px;
   border-radius: 10px;
   border: 1px solid var(--md-sys-color-outline);
-  background: rgba(255, 255, 255, 0.7);
+  background: color-mix(in srgb, var(--md-sys-color-surface-container-high) 70%, transparent);
 }
 
 .workspace-train-params {
@@ -4299,7 +4311,7 @@ aside::-webkit-scrollbar-thumb:hover {
 .training-advanced-toggle {
   border-radius: 999px;
   border: 1px solid var(--md-sys-color-outline-variant);
-  background: rgba(255, 255, 255, 0.7);
+  background: color-mix(in srgb, var(--md-sys-color-surface-container-high) 70%, transparent);
   color: var(--md-sys-color-on-surface);
   font-weight: 700;
   padding: 8px 12px;
@@ -4452,7 +4464,7 @@ aside::-webkit-scrollbar-thumb:hover {
   border-radius: 999px;
   padding: 6px 10px;
   border: 1px solid var(--md-sys-color-outline-variant);
-  background: rgba(255, 255, 255, 0.7);
+  background: color-mix(in srgb, var(--md-sys-color-surface-container-high) 70%, transparent);
   font-weight: 700;
   cursor: pointer;
 }
@@ -4567,7 +4579,7 @@ aside::-webkit-scrollbar-thumb:hover {
   gap: 6px;
   padding: 4px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.7);
+  background: color-mix(in srgb, var(--md-sys-color-surface-container-high) 70%, transparent);
   border: 1px solid var(--md-sys-color-outline-variant);
 }
 
@@ -4940,7 +4952,7 @@ aside::-webkit-scrollbar-thumb:hover {
   font-weight: 700;
   padding: 6px 10px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.7);
+  background: color-mix(in srgb, var(--md-sys-color-surface-container-high) 70%, transparent);
   border: 1px solid var(--md-sys-color-outline-variant);
 }
 
@@ -5065,7 +5077,7 @@ aside::-webkit-scrollbar-thumb:hover {
   border-radius: 999px;
   padding: 6px 10px;
   border: 1px solid var(--md-sys-color-outline-variant);
-  background: rgba(255, 255, 255, 0.7);
+  background: color-mix(in srgb, var(--md-sys-color-surface-container-high) 70%, transparent);
   color: var(--md-sys-color-on-surface);
   font-weight: 700;
   cursor: pointer;
@@ -5292,7 +5304,7 @@ aside::-webkit-scrollbar-thumb:hover {
 
 .workspace-pipeline-card:hover {
   border-color: var(--md-sys-color-outline);
-  background: rgba(255, 255, 255, 0.86);
+  background: color-mix(in srgb, var(--md-sys-color-surface) 88%, transparent);
 }
 
 .workspace-pipeline-logo {
@@ -5314,7 +5326,7 @@ aside::-webkit-scrollbar-thumb:hover {
 
 .workspace-color-row input[type="color"] {
   border: 1px solid var(--md-sys-color-outline-variant);
-  background: rgba(255, 255, 255, 0.7);
+  background: color-mix(in srgb, var(--md-sys-color-surface-container-high) 70%, transparent);
 }
 
 @media (max-width: 860px) {
