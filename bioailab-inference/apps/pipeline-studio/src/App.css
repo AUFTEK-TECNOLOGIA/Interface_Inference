@@ -106,6 +106,34 @@
   --md-sys-elevation-2: 0 4px 10px rgba(15, 23, 42, 0.10), 0 2px 6px rgba(15, 23, 42, 0.06);
 }
 
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --md-sys-color-primary: #8b9cff;
+    --md-sys-color-on-primary: #0f1732;
+    --md-sys-color-primary-container: #1d2a57;
+    --md-sys-color-on-primary-container: #dce3ff;
+
+    --md-sys-color-surface: #111827;
+    --md-sys-color-surface-container-low: #0b1220;
+    --md-sys-color-surface-container: #151e2e;
+    --md-sys-color-surface-container-high: #1f2a3d;
+
+    --md-sys-color-on-surface: #e5edf9;
+    --md-sys-color-on-surface-variant: #9fb1cc;
+    --md-sys-color-outline: #334155;
+    --md-sys-color-outline-variant: #253142;
+
+    --md-sys-elevation-1: 0 1px 2px rgba(2, 6, 23, 0.45), 0 1px 3px rgba(2, 6, 23, 0.35);
+    --md-sys-elevation-2: 0 6px 14px rgba(2, 6, 23, 0.42), 0 2px 8px rgba(2, 6, 23, 0.3);
+  }
+
+  body {
+    color: var(--md-sys-color-on-surface);
+    background: var(--md-sys-color-surface-container-low);
+  }
+}
+
 /* Ensure app occupies full viewport and page does not scroll; each panel handles its own scrolling */
 html, body, #root {
   height: 100%;
@@ -337,7 +365,7 @@ main.five-column-layout {
   max-height: calc(100vh - 48px);
   border-radius: var(--md-sys-shape-corner-large);
   box-shadow: var(--md-sys-elevation-2);
-  border: 1px solid var(--md-sys-color-outline-variant);
+  border: 1px solid color-mix(in srgb, var(--block-accent, var(--md-sys-color-outline-variant)) 18%, var(--md-sys-color-outline-variant));
   overflow: hidden;
   background: var(--md-sys-color-surface);
 }
@@ -523,7 +551,7 @@ aside::-webkit-scrollbar-thumb:hover {
   gap: 12px;
   padding: 12px 14px;
   background: var(--md-sys-color-surface);
-  border: 1px solid var(--md-sys-color-outline-variant);
+  border: 1px solid color-mix(in srgb, var(--block-accent, var(--md-sys-color-primary)) 22%, var(--md-sys-color-outline-variant));
   border-radius: var(--md-sys-shape-corner-medium);
   cursor: grab;
   transition: all var(--transition-fast);
@@ -725,32 +753,14 @@ aside::-webkit-scrollbar-thumb:hover {
   box-shadow: 0 0 0 3px var(--md-sys-color-primary-container);
 }
 
-.block-card::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 3px;
-  background: var(--block-accent, var(--color-primary-400));
-  border-radius: var(--radius-md) 0 0 var(--radius-md);
-  transform: scaleY(0);
-  transition: transform var(--transition-fast);
-}
-
 .block-card:hover,
 .block-card.active {
-  border-color: color-mix(in srgb, var(--md-sys-color-primary) 35%, var(--md-sys-color-outline-variant));
+  border-color: color-mix(in srgb, var(--block-accent, var(--md-sys-color-primary)) 65%, var(--md-sys-color-outline-variant));
   background: var(--md-sys-color-surface-container-low);
 }
 
-.block-card:hover::before,
-.block-card.active::before {
-  transform: scaleY(1);
-}
-
 .block-card.active {
-  box-shadow: 0 0 0 2px color-mix(in srgb, var(--md-sys-color-primary) 25%, transparent);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--block-accent, var(--md-sys-color-primary)) 30%, transparent);
 }
 
 .block-card:active {
@@ -809,9 +819,6 @@ aside::-webkit-scrollbar-thumb:hover {
   text-transform: capitalize;
 }
 
-.block-card.mini::before {
-  width: 2px;
-}
 
 /* ─────────────────────────────────────────────────────────────────────────────
    Initial State Section
