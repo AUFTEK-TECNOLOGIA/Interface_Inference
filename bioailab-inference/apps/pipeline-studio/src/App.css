@@ -1326,25 +1326,49 @@ aside::-webkit-scrollbar-thumb:hover {
 }
 
 .react-flow__controls {
-  box-shadow: var(--shadow-lg) !important;
-  border-radius: var(--radius-lg) !important;
+  box-shadow: var(--md-sys-elevation-2) !important;
+  border-radius: 12px !important;
   border: 1px solid var(--md-sys-color-outline-variant) !important;
   overflow: hidden;
+  background: color-mix(in srgb, var(--md-sys-color-surface) 94%, transparent) !important;
+  backdrop-filter: blur(6px);
 }
 
 .react-flow__controls-button {
+  display: grid !important;
+  place-items: center !important;
   background: var(--md-sys-color-surface) !important;
+  color: var(--md-sys-color-on-surface) !important;
+  border: none !important;
   border-bottom: 1px solid var(--md-sys-color-outline-variant) !important;
-  width: 28px !important;
-  height: 28px !important;
+  width: 34px !important;
+  height: 34px !important;
+  transition: background var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
+}
+
+.react-flow__controls-button svg {
+  width: 16px !important;
+  height: 16px !important;
+  stroke: currentColor !important;
+  fill: none !important;
+  stroke-width: 2.1 !important;
 }
 
 .react-flow__controls-button:hover {
   background: var(--md-sys-color-surface-container) !important;
+  color: var(--md-sys-color-primary) !important;
+}
+
+.react-flow__controls-button:active {
+  transform: scale(0.96);
 }
 
 .react-flow__controls-button:last-child {
   border-bottom: none !important;
+}
+
+:root[data-theme="dark"] .react-flow__controls {
+  background: color-mix(in srgb, var(--md-sys-color-surface-container) 88%, transparent) !important;
 }
 
 /* Floating actions on canvas */
