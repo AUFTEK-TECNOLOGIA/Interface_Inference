@@ -11,6 +11,8 @@ export default function AppHeader({
   hasNodes,
   canAutoLayout,
   hasSimulation,
+  isDarkTheme,
+  onToggleTheme,
 }) {
   return (
     <header>
@@ -45,6 +47,10 @@ export default function AppHeader({
         <button onClick={onOpenResults} disabled={!hasSimulation} className="btn-load" title={t("actions.viewResults")} type="button">
           {t("actions.viewResults")}
         </button>
+        <label className="header-theme-switch" title="Alternar tema escuro">
+          <input type="checkbox" checked={!!isDarkTheme} onChange={(e) => onToggleTheme(e.target.checked)} />
+          <span className="header-theme-slider" aria-hidden="true" />
+        </label>
       </div>
     </header>
   );

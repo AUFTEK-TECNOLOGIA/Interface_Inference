@@ -347,6 +347,13 @@ const defaultLibrary = {
 
 function App() {
   const { t } = useI18n();
+  const [isDarkTheme, setIsDarkTheme] = useState(() => {
+    try {
+      return localStorage.getItem("pipelineStudio.theme") === "dark";
+    } catch {
+      return false;
+    }
+  });
   const {
     helpModal, setHelpModal, helpTab, setHelpTab, blockResultsModal, setBlockResultsModal,
     resultsModalOpen, setResultsModalOpen, configModalOpen, setConfigModalOpen, valueInListDraft, setValueInListDraft,
@@ -369,6 +376,14 @@ function App() {
     contextMenu, setContextMenu, useDefaultExperiment, setUseDefaultExperiment,
     viewport, setViewport, reactFlowWrapper, reactFlowInstance,
   } = usePipelineStudioState(defaultLibrary);
+
+  useEffect(() => {
+    const root = document.documentElement;
+    root.setAttribute("data-theme", isDarkTheme ? "dark" : "light");
+    try {
+      localStorage.setItem("pipelineStudio.theme", isDarkTheme ? "dark" : "light");
+    } catch {}
+  }, [isDarkTheme]);
 
   // Compatibilidade: normaliza handles de edges para evitar erros quando o schema muda (ex: growth_features fit_results -> data)
   useEffect(() => {
@@ -5681,6 +5696,8 @@ function App() {
         hasNodes={nodes.length > 0}
         canAutoLayout={nodes.length >= 2}
         hasSimulation={!!simulation}
+        isDarkTheme={isDarkTheme}
+        onToggleTheme={setIsDarkTheme}
       />
 
       <main className="five-column-layout">
