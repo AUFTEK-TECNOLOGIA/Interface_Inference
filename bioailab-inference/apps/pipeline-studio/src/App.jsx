@@ -4744,9 +4744,17 @@ function App() {
                     >
                       {workspaceActionLoading ? t("workspace.creating") : t("workspace.create")}
                     </button>
-                    <button className="workspace-tertiary workspace-back-action" type="button" onClick={() => setWorkspaceHomeMode("available")}>
+                    <div
+                      className="workspace-mode-link workspace-back-action"
+                      role="button"
+                      tabIndex={0}
+                      onClick={() => setWorkspaceHomeMode("available")}
+                      onKeyDown={(event) => {
+                        if (event.key === "Enter" || event.key === " ") setWorkspaceHomeMode("available");
+                      }}
+                    >
                       {t("workspace.backToAvailable")}
-                    </button>
+                    </div>
                   </>
                 ) : (
                   <>
@@ -4920,9 +4928,17 @@ function App() {
                     <button className="workspace-tertiary" type="button" onClick={triggerLoadPipeline} disabled={workspaceActionLoading}>
                       {t("workspace.loadFromFile")}
                     </button>
-                    <button className="workspace-tertiary workspace-create-switch" type="button" onClick={() => setWorkspaceHomeMode("create")}>
+                    <div
+                      className="workspace-mode-link workspace-create-switch"
+                      role="button"
+                      tabIndex={0}
+                      onClick={() => setWorkspaceHomeMode("create")}
+                      onKeyDown={(event) => {
+                        if (event.key === "Enter" || event.key === " ") setWorkspaceHomeMode("create");
+                      }}
+                    >
                       {t("workspace.createClientCta")}
-                    </button>
+                    </div>
                   </>
                 )}
               </div>

@@ -3468,7 +3468,8 @@ aside::-webkit-scrollbar-thumb:hover {
 
 .workspace-home-card {
   position: relative;
-  width: min(920px, 100%);
+  width: min(960px, 100%);
+  max-width: 960px;
   border-radius: 18px;
   border: 1px solid var(--md-sys-color-outline-variant);
   background: color-mix(in srgb, var(--md-sys-color-surface) 86%, transparent);
@@ -4040,6 +4041,8 @@ aside::-webkit-scrollbar-thumb:hover {
   background: var(--md-sys-color-surface-container-low);
   border-radius: 16px;
   padding: 18px;
+  max-width: 860px;
+  margin: 0 auto;
 }
 
 .workspace-panel-title {
@@ -5268,7 +5271,30 @@ aside::-webkit-scrollbar-thumb:hover {
 
 .workspace-create-switch,
 .workspace-back-action {
-  margin-top: 10px;
+  margin-top: 12px;
+}
+
+.workspace-mode-link {
+  display: block;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--md-sys-color-primary);
+  cursor: pointer;
+  user-select: none;
+  transition: color var(--transition-fast), opacity var(--transition-fast);
+}
+
+.workspace-mode-link:hover {
+  color: color-mix(in srgb, var(--md-sys-color-primary) 86%, var(--md-sys-color-on-surface));
+}
+
+.workspace-mode-link:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--md-sys-color-primary) 45%, transparent);
+  outline-offset: 4px;
+  border-radius: 8px;
 }
 
 .workspace-divider {
