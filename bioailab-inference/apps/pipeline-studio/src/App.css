@@ -431,15 +431,15 @@ main.five-column-layout {
 .panel-config {
   display: flex;
   flex-direction: column;
-  background: white;
-  border-right: 1px solid var(--color-gray-200);
+  background: var(--md-sys-color-surface);
+  border-right: 1px solid var(--md-sys-color-outline-variant);
   position: relative;
   flex-shrink: 0;
 }
 
 .panel-config {
   border-right: none;
-  border-left: 1px solid var(--color-gray-200);
+  border-left: 1px solid var(--md-sys-color-outline-variant);
 }
 
 .config-modal-overlay {
@@ -483,16 +483,16 @@ main.five-column-layout {
 .panel-results {
   display: flex;
   flex-direction: column;
-  background: white;
-  border-left: 1px solid var(--color-gray-200);
+  background: var(--md-sys-color-surface);
+  border-left: 1px solid var(--md-sys-color-outline-variant);
   position: relative;
   flex-shrink: 0;
 }
 
 .panel-header {
   padding: var(--space-3) var(--space-4);
-  border-bottom: 1px solid var(--color-gray-200);
-  background: var(--color-gray-50);
+  border-bottom: 1px solid var(--md-sys-color-outline-variant);
+  background: var(--md-sys-color-surface-container-low);
 }
 
 .panel-tabs {
@@ -604,7 +604,7 @@ aside::-webkit-scrollbar-thumb:hover {
   gap: var(--space-2);
   margin-bottom: var(--space-2);
   padding-bottom: var(--space-2);
-  border-bottom: 1px solid var(--color-gray-200);
+  border-bottom: 1px solid var(--md-sys-color-outline-variant);
 }
 
 .stage-number {
@@ -1203,7 +1203,7 @@ aside::-webkit-scrollbar-thumb:hover {
 .canvas {
   flex: 1;
   min-width: 300px;
-  background: var(--color-gray-50);
+  background: var(--md-sys-color-surface-container-low);
   position: relative;
   overflow: visible; /* permitir elementos flutuantes visíveis sobre o canvas */
 }
@@ -1314,33 +1314,33 @@ aside::-webkit-scrollbar-thumb:hover {
 }
 
 .react-flow__background {
-  background: var(--color-gray-50) !important;
+  background: var(--md-sys-color-surface-container-low) !important;
 }
 
 .react-flow__minimap {
-  background: white !important;
+  background: var(--md-sys-color-surface) !important;
   border-radius: var(--radius-lg) !important;
   box-shadow: var(--shadow-lg) !important;
-  border: 1px solid var(--color-gray-200) !important;
+  border: 1px solid var(--md-sys-color-outline-variant) !important;
   overflow: hidden;
 }
 
 .react-flow__controls {
   box-shadow: var(--shadow-lg) !important;
   border-radius: var(--radius-lg) !important;
-  border: 1px solid var(--color-gray-200) !important;
+  border: 1px solid var(--md-sys-color-outline-variant) !important;
   overflow: hidden;
 }
 
 .react-flow__controls-button {
-  background: white !important;
-  border-bottom: 1px solid var(--color-gray-200) !important;
+  background: var(--md-sys-color-surface) !important;
+  border-bottom: 1px solid var(--md-sys-color-outline-variant) !important;
   width: 28px !important;
   height: 28px !important;
 }
 
 .react-flow__controls-button:hover {
-  background: var(--color-gray-100) !important;
+  background: var(--md-sys-color-surface-container) !important;
 }
 
 .react-flow__controls-button:last-child {
@@ -1481,7 +1481,7 @@ aside::-webkit-scrollbar-thumb:hover {
   left: 50%;
   transform: translateX(-50%);
   z-index: 1200;
-  background: white;
+  background: var(--md-sys-color-surface);
   border-radius: var(--radius-lg);
   padding: 8px 12px;
   box-shadow: var(--shadow-lg);
@@ -1536,7 +1536,7 @@ aside::-webkit-scrollbar-thumb:hover {
   width: 28px;
   height: 28px;
   border: 1px solid var(--color-gray-200);
-  background: var(--color-gray-50);
+  background: var(--md-sys-color-surface-container-low);
   border-radius: var(--radius-md);
   cursor: pointer;
   display: flex;
@@ -1565,7 +1565,7 @@ aside::-webkit-scrollbar-thumb:hover {
 }
 
 .alignment-toolbar button:disabled:hover {
-  background: var(--color-gray-50);
+  background: var(--md-sys-color-surface-container-low);
   border-color: var(--color-gray-200);
   color: var(--color-gray-600);
   transform: none;
@@ -1606,7 +1606,7 @@ aside::-webkit-scrollbar-thumb:hover {
   z-index: 9999;
 }
 .graph-modal-inner {
-  background: white;
+  background: var(--md-sys-color-surface);
   padding: 16px;
   border-radius: 8px;
   max-width: 90%;
@@ -1652,7 +1652,7 @@ aside::-webkit-scrollbar-thumb:hover {
 }
 
 .graph-modal-nav:hover {
-  background: white;
+  background: var(--md-sys-color-surface);
   color: var(--color-primary-600);
   transform: translateY(-50%) scale(1.1);
   box-shadow: var(--shadow-xl);
@@ -1685,7 +1685,7 @@ aside::-webkit-scrollbar-thumb:hover {
   z-index: 3000;
 }
 .confirm-modal-inner {
-  background: white;
+  background: var(--md-sys-color-surface);
   border-radius: 8px;
   padding: 20px;
   width: 420px;
@@ -1707,7 +1707,7 @@ aside::-webkit-scrollbar-thumb:hover {
   padding: 8px 12px;
   border-radius: 6px;
   border: 1px solid var(--color-gray-200);
-  background: white;
+  background: var(--md-sys-color-surface);
   cursor: pointer;
 }
 .btn-danger {
@@ -1928,7 +1928,7 @@ aside::-webkit-scrollbar-thumb:hover {
 }
 .config-group-debug {
   border-color: var(--color-gray-300);
-  background: var(--color-gray-50);
+  background: var(--md-sys-color-surface-container-low);
 }
 .config-group-debug legend {
   color: var(--color-gray-500);
@@ -1965,7 +1965,7 @@ aside::-webkit-scrollbar-thumb:hover {
   font-size: 11px;
   border: 1px solid var(--color-gray-300);
   border-radius: 16px;
-  background: var(--color-gray-50);
+  background: var(--md-sys-color-surface-container-low);
   color: var(--color-gray-600);
   cursor: pointer;
   transition: all 0.15s ease;
@@ -1991,7 +1991,7 @@ aside::-webkit-scrollbar-thumb:hover {
 .chip-group-section {
   margin-top: 10px;
   padding: 8px;
-  background: var(--color-gray-50);
+  background: var(--md-sys-color-surface-container-low);
   border-radius: var(--radius-md);
   border: 1px solid var(--color-gray-200);
 }
@@ -2046,7 +2046,7 @@ aside::-webkit-scrollbar-thumb:hover {
   gap: 6px;
   padding: 6px 10px;
   cursor: pointer;
-  background: var(--color-gray-50);
+  background: var(--md-sys-color-surface-container-low);
   transition: all var(--transition-fast);
   user-select: none;
 }
@@ -2116,7 +2116,7 @@ aside::-webkit-scrollbar-thumb:hover {
   flex-wrap: wrap;
   gap: 3px;
   padding: 6px 10px;
-  background: white;
+  background: var(--md-sys-color-surface);
   border-top: 1px solid var(--color-gray-100);
 }
 
@@ -2611,7 +2611,7 @@ aside::-webkit-scrollbar-thumb:hover {
 .node-handle {
   width: 12px !important;
   height: 12px !important;
-  background: white !important;
+  background: var(--md-sys-color-surface) !important;
   border: 2px solid var(--color-gray-300) !important;
   flex-shrink: 0;
 }
@@ -2654,7 +2654,7 @@ aside::-webkit-scrollbar-thumb:hover {
 .react-flow__handle {
   width: 12px !important;
   height: 12px !important;
-  background: white !important;
+  background: var(--md-sys-color-surface) !important;
   border: 2px solid var(--color-gray-300) !important;
 }
 
@@ -2675,7 +2675,7 @@ aside::-webkit-scrollbar-thumb:hover {
    Panels
    ───────────────────────────────────────────────────────────────────────────── */
 .panel {
-  background: var(--color-gray-50);
+  background: var(--md-sys-color-surface-container-low);
   border: 1px solid var(--color-gray-200);
   border-radius: var(--radius-lg);
   padding: var(--space-4);
@@ -2794,7 +2794,7 @@ aside::-webkit-scrollbar-thumb:hover {
   justify-content: space-between;
   gap: var(--space-2);
   padding: var(--space-2);
-  background: var(--color-gray-50);
+  background: var(--md-sys-color-surface-container-low);
   border: 1px solid var(--color-gray-200);
   border-radius: var(--radius-sm);
   font-size: 11px;
@@ -2840,7 +2840,7 @@ aside::-webkit-scrollbar-thumb:hover {
 
 .library-list li {
   padding: var(--space-2);
-  background: var(--color-gray-50);
+  background: var(--md-sys-color-surface-container-low);
   border: 1px solid var(--color-gray-100);
   border-radius: var(--radius-sm);
   transition: all var(--transition-fast);
@@ -2897,7 +2897,7 @@ aside::-webkit-scrollbar-thumb:hover {
   color: var(--color-gray-500);
   font-style: italic;
   padding: 6px 10px;
-  background: var(--color-gray-50);
+  background: var(--md-sys-color-surface-container-low);
   border-radius: var(--radius-sm);
   border-left: 3px solid var(--color-primary-300);
 }
@@ -2953,7 +2953,7 @@ aside::-webkit-scrollbar-thumb:hover {
   left: 2px;
   width: 16px;
   height: 16px;
-  background: white;
+  background: var(--md-sys-color-surface);
   border-radius: 50%;
   box-shadow: var(--shadow-sm);
   transition: transform var(--transition-fast);
@@ -3008,7 +3008,7 @@ aside::-webkit-scrollbar-thumb:hover {
   color: var(--color-gray-700);
   white-space: pre;
   padding: var(--space-2);
-  background: var(--color-gray-50);
+  background: var(--md-sys-color-surface-container-low);
   border-radius: var(--radius-sm);
   border: 1px dashed var(--color-gray-300);
 }
@@ -3029,7 +3029,7 @@ aside::-webkit-scrollbar-thumb:hover {
   margin-top: var(--space-4);
   border: 1px dashed var(--color-gray-300);
   border-radius: var(--radius-md);
-  background: var(--color-gray-50);
+  background: var(--md-sys-color-surface-container-low);
   overflow: hidden;
 }
 
@@ -3311,7 +3311,7 @@ aside::-webkit-scrollbar-thumb:hover {
   border: 1px solid var(--color-gray-200);
   border-radius: var(--radius-md);
   overflow: hidden;
-  background: white;
+  background: var(--md-sys-color-surface);
 }
 
 .results-flow-header {
@@ -3320,7 +3320,7 @@ aside::-webkit-scrollbar-thumb:hover {
   justify-content: space-between;
   gap: var(--space-2);
   padding: var(--space-2) var(--space-3);
-  background: var(--color-gray-50);
+  background: var(--md-sys-color-surface-container-low);
   border-bottom: 1px solid var(--color-gray-100);
 }
 
@@ -3359,7 +3359,7 @@ aside::-webkit-scrollbar-thumb:hover {
   border: 1px solid var(--color-gray-200);
   border-radius: var(--radius-sm);
   overflow: hidden;
-  background: white;
+  background: var(--md-sys-color-surface);
 }
 
 .step-item-header {
@@ -3367,7 +3367,7 @@ aside::-webkit-scrollbar-thumb:hover {
   justify-content: space-between;
   align-items: center;
   padding: var(--space-2) var(--space-3);
-  background: var(--color-gray-50);
+  background: var(--md-sys-color-surface-container-low);
   cursor: pointer;
   transition: background-color var(--transition-fast);
 }
@@ -3440,7 +3440,7 @@ aside::-webkit-scrollbar-thumb:hover {
   align-items: center;
   gap: var(--space-1);
   border: 1px solid var(--color-gray-300);
-  background: var(--color-gray-50);
+  background: var(--md-sys-color-surface-container-low);
   color: var(--color-gray-800);
   font-size: 11px;
   padding: 6px 10px;
@@ -5331,7 +5331,7 @@ aside::-webkit-scrollbar-thumb:hover {
 }
 
 .step-graph-item {
-  background: var(--color-gray-50);
+  background: var(--md-sys-color-surface-container-low);
   border-radius: var(--radius-sm);
   overflow: hidden;
   border: 1px solid var(--color-gray-200);
@@ -5343,7 +5343,7 @@ aside::-webkit-scrollbar-thumb:hover {
   font-size: 11px;
   font-weight: 600;
   color: var(--color-gray-700);
-  border-bottom: 1px solid var(--color-gray-200);
+  border-bottom: 1px solid var(--md-sys-color-outline-variant);
 }
 
 .step-graph-img {
@@ -5368,12 +5368,12 @@ aside::-webkit-scrollbar-thumb:hover {
   font-size: 11px;
   line-height: 1.4;
   resize: vertical;
-  background: var(--color-gray-50);
+  background: var(--md-sys-color-surface-container-low);
 }
 
 .json-editor-textarea:focus {
   outline: none;
-  background: white;
+  background: var(--md-sys-color-surface);
   box-shadow: inset 0 0 0 1px var(--color-primary-300);
 }
 
@@ -5385,7 +5385,7 @@ aside::-webkit-scrollbar-thumb:hover {
 }
 
 .context-menu {
-  background: white;
+  background: var(--md-sys-color-surface);
   border: 1px solid var(--color-gray-300);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-lg);
