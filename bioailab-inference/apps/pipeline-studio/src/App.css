@@ -3568,10 +3568,12 @@ aside::-webkit-scrollbar-thumb:hover {
   display: flex;
   align-items: center;
   gap: 12px;
+  flex: 1;
   min-width: 0;
 }
 
 .workspace-pipeline-main {
+  flex: 1;
   min-width: 0;
 }
 
@@ -3579,6 +3581,7 @@ aside::-webkit-scrollbar-thumb:hover {
   display: flex;
   gap: 8px;
   align-items: center;
+  flex-shrink: 0;
   position: relative;
 }
 
@@ -4020,6 +4023,9 @@ aside::-webkit-scrollbar-thumb:hover {
   font-weight: 700;
   color: var(--md-sys-color-on-surface);
   line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .workspace-pipeline-sub {
