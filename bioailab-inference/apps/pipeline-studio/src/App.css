@@ -1317,53 +1317,6 @@ aside::-webkit-scrollbar-thumb:hover {
   background: var(--md-sys-color-surface-container-low) !important;
 }
 
-.studio-map-controls {
-  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.24) !important;
-  border-radius: 11px !important;
-  border: 1px solid var(--md-sys-color-outline-variant) !important;
-  overflow: hidden;
-  background: color-mix(in srgb, var(--md-sys-color-surface) 94%, transparent) !important;
-  backdrop-filter: blur(6px);
-  margin: 0 0 20px 16px !important;
-}
-
-.react-flow__controls-button {
-  display: grid !important;
-  place-items: center !important;
-  background: var(--md-sys-color-surface) !important;
-  color: var(--md-sys-color-on-surface) !important;
-  border: none !important;
-  border-bottom: 1px solid var(--md-sys-color-outline-variant) !important;
-  width: 36px !important;
-  height: 36px !important;
-  transition: background var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
-}
-
-.react-flow__controls-button svg {
-  width: 16px !important;
-  height: 16px !important;
-  stroke: currentColor !important;
-  fill: none !important;
-  stroke-width: 2.1 !important;
-}
-
-.react-flow__controls-button:hover {
-  background: var(--md-sys-color-surface-container) !important;
-  color: var(--md-sys-color-primary) !important;
-}
-
-.react-flow__controls-button:active {
-  transform: scale(0.96);
-}
-
-.react-flow__controls-button:last-child {
-  border-bottom: none !important;
-}
-
-:root[data-theme="dark"] .studio-map-controls {
-  background: color-mix(in srgb, var(--md-sys-color-surface-container) 88%, transparent) !important;
-}
-
 /* Floating actions on canvas */
 .floating-actions {
   position: absolute;
