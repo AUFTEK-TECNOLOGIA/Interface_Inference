@@ -1,4 +1,5 @@
 import ResultsPanel from "./ResultsPanel";
+import "./PipelineSupportModals.css";
 
 export default function PipelineSupportModals({
   t,
@@ -30,7 +31,7 @@ export default function PipelineSupportModals({
                 {t("actions.close")}
               </button>
             </div>
-            <div style={{ marginTop: 12 }}>
+            <div className="pipeline-support-modal-results-content">
               <ResultsPanel
                 simulation={simulation}
                 onGraphClick={openGraphModal}
