@@ -50,16 +50,6 @@ export default function TrainingModalBody({
       setTrainModal((prev) => ({ ...prev, step: Math.max(0, (Number(prev.step) || 0) - 1), error: "" }));
     };
 
-    const algorithmItems = [
-      { key: "ridge", label: "Ridge" },
-      { key: "rf", label: "Random Forest" },
-      { key: "gbm", label: "Gradient Boosting" },
-      { key: "svr", label: "SVR" },
-      { key: "mlp", label: "MLP" },
-    ];
-
-
-
     return (
       <div className="training-stepper">
         <div className="training-steps" aria-label={t("training.steps.label")}>
@@ -1542,7 +1532,7 @@ export default function TrainingModalBody({
                       <div className="workspace-field">
                         <label>{t("training.algorithmLabel")}</label>
                         <div className="training-chip-group">
-                          {algorithmItems.map((item) => (
+                          {TRAINING_ALGORITHM_ITEMS.map((item) => (
                             <button
                               key={item.key}
                               type="button"
@@ -1580,7 +1570,7 @@ export default function TrainingModalBody({
                           <div className="workspace-field">
                             <label>{t("training.grid.algorithms")}</label>
                             <div className="training-chip-group">
-                              {algorithmItems.map((item) => {
+                              {TRAINING_ALGORITHM_ITEMS.map((item) => {
                                 const list = Array.isArray(spec?.algorithms) ? spec.algorithms : [];
                                 const selected = list.includes(item.key);
                                 return (
