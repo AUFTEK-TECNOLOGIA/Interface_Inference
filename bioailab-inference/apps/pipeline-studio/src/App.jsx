@@ -1,11 +1,5 @@
 import { useCallback, useEffect, useMemo, useState, useRef } from "react";
-import {
-  ReactFlow,
-  ReactFlowProvider,
-  Background,
-  reconnectEdge,
-  SelectionMode,
-} from "@xyflow/react";
+import { reconnectEdge } from "@xyflow/react";
 import axios from "axios";
 import "@xyflow/react/dist/style.css";
 import "./App.css";
@@ -14,22 +8,17 @@ import AppHeader from "./components/AppHeader";
 import PipelineBlocksPanel from "./components/PipelineBlocksPanel";
 import PipelineGlobalModals from "./components/PipelineGlobalModals";
 import PipelineSupportModals from "./components/PipelineSupportModals";
-import PipelineCanvasOverlays from "./components/PipelineCanvasOverlays";
-import ModelCandidatesPanel from "./components/ModelCandidatesPanel";
-import DatasetSelector from "./components/DatasetSelector";
-import TrainingStudio from "./components/TrainingStudio";
-import TrainingModalBody from "./components/TrainingModalBody";
-import PipelineNode from "./components/PipelineNode";
 import BlockCard from "./components/BlockCard";
-import CanvasSelectionToolbar from "./components/CanvasSelectionToolbar";
 import WorkspaceQuickModals from "./components/WorkspaceQuickModals";
+import WorkspaceManagementModals from "./components/WorkspaceManagementModals";
+import PipelineTrainingModals from "./components/PipelineTrainingModals";
+import PipelineCanvasSection from "./components/PipelineCanvasSection";
 import { useI18n } from "./locale/i18n";
 import { TRAINING_ALGO_PARAM_SCHEMA, parseExperimentIdsText as parseExperimentIdsInput, buildTrainingParamsForAlgorithm as buildTrainingParamsByAlgorithm } from "./modulos/trainingModule";
 import { getFlowColorFromLabel, getBlockCardCategory as getBlockCardCategoryModule } from "./modulos/flowEditorModule";
 import { sanitizeColor, resolveWorkspaceLogoSrc as resolveWorkspaceLogoSrcModule, workspaceInitials } from "./modulos/workspaceModule";
 import { buildPreparedSteps as buildPreparedStepsModule, collectSimulationGraphs } from "./modulos/simulationModule";
 import usePipelineStudioState from "./hooks/usePipelineStudioState";
-import useFlowCanvasViewModel from "./hooks/useFlowCanvasViewModel";
 
 
 const API_URL = process.env.REACT_APP_API_URL || "http://localhost:8001";
@@ -4392,31 +4381,6 @@ function App() {
     );
   };
 
-  const {
-    canvasNodes,
-    canvasEdges,
-  } = useFlowCanvasViewModel({
-    nodes,
-    edges,
-    selectedNodes,
-    selectedNode,
-    selectedEdge,
-    nodeFlowMetaById,
-    noneLabel: t("flows.none"),
-  });
-
-  const pipelineStudioContextValue = useMemo(
-    () => ({ openHelpModal, openBlockResultsModal, openConfigModalForNode, library, simulation }),
-    [openHelpModal, openBlockResultsModal, openConfigModalForNode, library, simulation]
-  );
-
-  const nodeTypes = useMemo(
-    () => ({
-      pipelineNode: (props) => <PipelineNode {...props} studio={pipelineStudioContextValue} />,
-    }),
-    [pipelineStudioContextValue]
-  );
-
   return (
     <div className="app-container">
       {workspaceHomeOpen && (
@@ -4688,618 +4652,59 @@ function App() {
         handleSaveWorkspaceAppearanceFromModal={handleSaveWorkspaceAppearanceFromModal}
       />
 
-      {versionsModal?.open && (
-        <div
-          className="workspace-modal-overlay"
-          role="dialog"
-          aria-modal="true"
-          onMouseDown={() => {
-            setVersionActionsModal({ open: false, version: null });
-            setVersionLogsModal({ open: false, version: null, query: "" });
-            setVersionsModal({ open: false, target: null, active: "", versions: [], loading: false, reasonDraft: "", page: 0, query: "" });
-          }}
-        >
-          <div className="workspace-modal workspace-modal-wide" onMouseDown={(e) => e.stopPropagation()}>
-            <div className="workspace-modal-header">
-              <div>
-                <div className="workspace-home-kicker">{t("workspace.versionsTitle")}</div>
-                <div className="workspace-modal-title">{versionsModal?.target?.title || ""}</div>
-              </div>
-              <button
-                className="workspace-home-close"
-                type="button"
-                onClick={() => {
-                  setVersionActionsModal({ open: false, version: null });
-                  setVersionLogsModal({ open: false, version: null, query: "" });
-                  setVersionsModal({ open: false, target: null, active: "", versions: [], loading: false, reasonDraft: "", page: 0, query: "" });
-                }}
-              >
-                {t("actions.close")}
-              </button>
-            </div>
+      <WorkspaceManagementModals
+        t={t}
+        versionsModal={versionsModal}
+        setVersionsModal={setVersionsModal}
+        versionActionsModal={versionActionsModal}
+        setVersionActionsModal={setVersionActionsModal}
+        versionLogsModal={versionLogsModal}
+        setVersionLogsModal={setVersionLogsModal}
+        renameVersionModal={renameVersionModal}
+        setRenameVersionModal={setRenameVersionModal}
+        deleteVersionModal={deleteVersionModal}
+        setDeleteVersionModal={setDeleteVersionModal}
+        deleteModal={deleteModal}
+        setDeleteModal={setDeleteModal}
+        workspaceActionLoading={workspaceActionLoading}
+        versionsPageStart={versionsPageStart}
+        versionsPageEnd={versionsPageEnd}
+        versionsSorted={versionsSorted}
+        versionsPageItems={versionsPageItems}
+        versionsCurrentPage={versionsCurrentPage}
+        versionsTotalPages={versionsTotalPages}
+        formatDateTime={formatDateTime}
+        handleOpenVersionInEditor={handleOpenVersionInEditor}
+        handleCreateNewVersionClean={handleCreateNewVersionClean}
+        handleCreateNewVersionCopy={handleCreateNewVersionCopy}
+        handleActivateVersion={handleActivateVersion}
+        handleRenameVersion={handleRenameVersion}
+        handleDeleteVersion={handleDeleteVersion}
+        handleDeleteWorkspace={handleDeleteWorkspace}
+      />
 
-            <div className="workspace-muted">{t("workspace.versionsHint")}</div>
-
-            <div className="workspace-versions-toolbar">
-              <div className="workspace-field">
-                <label>{t("workspace.changeReasonLabel")}</label>
-                <input
-                  value={versionsModal?.reasonDraft || ""}
-                  onChange={(e) => setVersionsModal((prev) => ({ ...prev, reasonDraft: e.target.value }))}
-                  placeholder={t("workspace.changeReasonPlaceholder")}
-                  disabled={workspaceActionLoading}
-                />
-              </div>
-              <div className="workspace-field">
-                <label>{t("workspace.searchVersionsLabel")}</label>
-                <input
-                  value={versionsModal?.query || ""}
-                  onChange={(e) => setVersionsModal((prev) => ({ ...prev, query: e.target.value, page: 0 }))}
-                  placeholder={t("workspace.searchVersionsPlaceholder")}
-                  disabled={workspaceActionLoading}
-                />
-              </div>
-            </div>
-
-            {!versionsModal.loading && (
-              <div className="workspace-version-summary">
-                {t("workspace.versionsShowing", { start: versionsPageStart, end: versionsPageEnd, total: versionsSorted.length })}
-                {versionsModal?.active ? ` • ${t("workspace.activeVersionShort", { id: versionsModal.active })}` : ""}
-              </div>
-            )}
-
-            {versionsModal.loading ? (
-              <div className="workspace-muted">{t("workspace.loadingVersions")}</div>
-            ) : (
-              <div className="workspace-version-list" role="list">
-                {versionsPageItems.map((v) => {
-                  const history = Array.isArray(v.history) ? v.history : [];
-                  const lastChange = history.length ? history[history.length - 1] : null;
-
-                  return (
-                    <div key={v.id} className={`workspace-version-row ${v.is_active ? "active" : ""}`} role="listitem">
-                      <div className="workspace-version-main">
-                        <div className="workspace-version-top">
-                          <div className="workspace-version-name">{String(v.name || v.id)}</div>
-                          <div className="workspace-version-id">{v.id}</div>
-                        </div>
-                        <div className="workspace-version-meta">
-                          {v.is_active ? t("workspace.activeVersionLabel") : t("workspace.inactiveVersionLabel")}
-                          {v.based_on ? ` • ${t("workspace.basedOnLabel")} ${v.based_on}` : ""}
-                          {v.created_at ? ` • ${t("workspace.versionCreatedAt", { date: formatDateTime(v.created_at) })}` : ""}
-                          {v.updated_at ? ` • ${t("workspace.versionUpdatedAt", { date: formatDateTime(v.updated_at) })}` : ""}
-                        </div>
-                        {lastChange?.at && (
-                          <div className="workspace-version-lastchange">
-                            {t("workspace.versionLastChangeLabel", { date: formatDateTime(lastChange.at) })}
-                            {lastChange?.reason ? ` — ${String(lastChange.reason).trim()}` : ""}
-                          </div>
-                        )}
-                      </div>
-
-                      <div className="workspace-version-actions">
-                        <button
-                          className="workspace-secondary"
-                          type="button"
-                          disabled={workspaceActionLoading || versionsModal.loading}
-                          onClick={() => handleOpenVersionInEditor(v.id)}
-                        >
-                          {t("workspace.openVersionAction")}
-                        </button>
-                        <button
-                          className="workspace-tertiary"
-                          type="button"
-                          disabled={workspaceActionLoading}
-                          onClick={() => setVersionActionsModal({ open: true, version: v })}
-                        >
-                          {t("actions.more")}
-                        </button>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            )}
-
-            {!versionsModal.loading && versionsSorted.length > 0 && (
-              <div className="workspace-version-pagination" aria-label={t("workspace.paginationLabel")}>
-                <button
-                  className="workspace-tertiary"
-                  type="button"
-                  disabled={workspaceActionLoading || versionsCurrentPage <= 0}
-                  onClick={() => setVersionsModal((prev) => ({ ...prev, page: Math.max(0, (prev.page || 0) - 1) }))}
-                >
-                  {t("workspace.paginationPrev")}
-                </button>
-                <div className="workspace-version-pagination-meta">
-                  {t("workspace.paginationMeta", { page: versionsCurrentPage + 1, total: versionsTotalPages })}
-                </div>
-                <button
-                  className="workspace-tertiary"
-                  type="button"
-                  disabled={workspaceActionLoading || versionsCurrentPage >= versionsTotalPages - 1}
-                  onClick={() =>
-                    setVersionsModal((prev) => ({
-                      ...prev,
-                      page: Math.min(versionsTotalPages - 1, (prev.page || 0) + 1),
-                    }))
-                  }
-                >
-                  {t("workspace.paginationNext")}
-                </button>
-              </div>
-            )}
-
-            <div className="workspace-modal-actions">
-              <button
-                className="workspace-tertiary"
-                type="button"
-                disabled={workspaceActionLoading}
-                onClick={() => {
-                  setVersionActionsModal({ open: false, version: null });
-                  setVersionLogsModal({ open: false, version: null, query: "" });
-                  setVersionsModal({ open: false, target: null, active: "", versions: [], loading: false, reasonDraft: "", page: 0, query: "" });
-                }}
-              >
-                {t("actions.cancel")}
-              </button>
-              <button className="workspace-secondary" type="button" disabled={workspaceActionLoading || versionsModal.loading} onClick={handleCreateNewVersionClean}>
-                {workspaceActionLoading ? t("workspace.creatingVersion") : t("workspace.createVersionCleanAction")}
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {versionActionsModal?.open && (
-        <div
-          className="workspace-modal-overlay"
-          role="dialog"
-          aria-modal="true"
-          onMouseDown={() => setVersionActionsModal({ open: false, version: null })}
-        >
-          <div className="workspace-modal" onMouseDown={(e) => e.stopPropagation()}>
-            <div className="workspace-modal-header">
-              <div>
-                <div className="workspace-home-kicker">{t("workspace.versionActionsTitle")}</div>
-                <div className="workspace-modal-title">{String(versionActionsModal?.version?.name || versionActionsModal?.version?.id || "")}</div>
-              </div>
-              <button className="workspace-home-close" type="button" onClick={() => setVersionActionsModal({ open: false, version: null })}>
-                {t("actions.close")}
-              </button>
-            </div>
-
-            <div className="workspace-version-actions-groups">
-              <div className="workspace-version-actions-group">
-                <div className="workspace-version-actions-group-title">{t("workspace.versionActionsViewTitle")}</div>
-                <div className="workspace-version-actions-group-buttons">
-                  <button
-                    className="workspace-secondary"
-                    type="button"
-                    disabled={workspaceActionLoading || versionsModal.loading}
-                    onClick={() => handleOpenVersionInEditor(versionActionsModal.version.id)}
-                  >
-                    {t("workspace.openVersionAction")}
-                  </button>
-                  <button
-                    className="workspace-tertiary"
-                    type="button"
-                    disabled={workspaceActionLoading}
-                    onClick={() => setVersionLogsModal({ open: true, version: versionActionsModal.version, query: "" })}
-                  >
-                    {t("workspace.openVersionLogsAction")}
-                  </button>
-                </div>
-              </div>
-
-              <div className="workspace-version-actions-group">
-                <div className="workspace-version-actions-group-title">{t("workspace.versionActionsEditTitle")}</div>
-                <div className="workspace-version-actions-group-buttons">
-                  <button
-                    className="workspace-tertiary"
-                    type="button"
-                    disabled={workspaceActionLoading || versionsModal.loading}
-                    onClick={() => handleCreateNewVersionCopy(versionActionsModal.version.id, { activate: false })}
-                  >
-                    {t("workspace.copyVersionAction")}
-                  </button>
-                  <button
-                    className="workspace-tertiary"
-                    type="button"
-                    disabled={workspaceActionLoading}
-                    onClick={() =>
-                      setRenameVersionModal({
-                        open: true,
-                        version: versionActionsModal.version.id,
-                        name: String(versionActionsModal.version.name || ""),
-                        reason: String(versionsModal?.reasonDraft || "").trim(),
-                      })
-                    }
-                  >
-                    {t("workspace.renameVersionAction")}
-                  </button>
-                </div>
-              </div>
-
-              <div className="workspace-version-actions-group">
-                <div className="workspace-version-actions-group-title">{t("workspace.versionActionsActivationTitle")}</div>
-                <div className="workspace-version-actions-group-buttons">
-                  <button
-                    className="workspace-tertiary"
-                    type="button"
-                    disabled={workspaceActionLoading || Boolean(versionActionsModal?.version?.is_active)}
-                    onClick={() => handleActivateVersion(versionActionsModal.version.id)}
-                  >
-                    {t("workspace.activateVersionAction")}
-                  </button>
-                </div>
-              </div>
-
-              <div className="workspace-version-actions-group danger">
-                <div className="workspace-version-actions-group-title">{t("workspace.versionActionsDangerTitle")}</div>
-                <div className="workspace-version-actions-group-buttons">
-                  <button
-                    className="workspace-tertiary danger"
-                    type="button"
-                    disabled={
-                      workspaceActionLoading ||
-                      Boolean(versionActionsModal?.version?.is_active && (versionsSorted || []).length <= 1)
-                    }
-                    onClick={() => setDeleteVersionModal({ open: true, version: versionActionsModal.version.id })}
-                  >
-                    {t("workspace.deleteVersionAction")}
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <div className="workspace-modal-actions">
-              <button className="workspace-tertiary" type="button" disabled={workspaceActionLoading} onClick={() => setVersionActionsModal({ open: false, version: null })}>
-                {t("actions.cancel")}
-              </button>
-              <button className="workspace-secondary" type="button" disabled={workspaceActionLoading} onClick={() => setVersionActionsModal({ open: false, version: null })}>
-                {t("actions.close")}
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {versionLogsModal?.open && (
-        <div
-          className="workspace-modal-overlay"
-          role="dialog"
-          aria-modal="true"
-          onMouseDown={() => setVersionLogsModal({ open: false, version: null, query: "" })}
-        >
-          <div className="workspace-modal workspace-modal-wide" onMouseDown={(e) => e.stopPropagation()}>
-            <div className="workspace-modal-header">
-              <div>
-                <div className="workspace-home-kicker">{t("workspace.versionLogsTitle")}</div>
-                <div className="workspace-modal-title">{String(versionLogsModal?.version?.name || versionLogsModal?.version?.id || "")}</div>
-              </div>
-              <button className="workspace-home-close" type="button" onClick={() => setVersionLogsModal({ open: false, version: null, query: "" })}>
-                {t("actions.close")}
-              </button>
-            </div>
-
-            <div className="workspace-versions-toolbar">
-              <div className="workspace-field">
-                <label>{t("workspace.searchLogsLabel")}</label>
-                <input
-                  value={versionLogsModal?.query || ""}
-                  onChange={(e) => setVersionLogsModal((prev) => ({ ...prev, query: e.target.value }))}
-                  placeholder={t("workspace.searchLogsPlaceholder")}
-                />
-              </div>
-            </div>
-
-            <div className="workspace-version-history workspace-version-history-full" aria-label={t("workspace.versionHistoryTitle")}>
-              <div className="workspace-version-history-list">
-                {(() => {
-                  const history = Array.isArray(versionLogsModal?.version?.history) ? versionLogsModal.version.history : [];
-                  const q = String(versionLogsModal?.query || "").trim().toLowerCase();
-                  const filtered = q
-                    ? history.filter((h) => String(h?.reason || "").toLowerCase().includes(q) || String(h?.action || "").toLowerCase().includes(q))
-                    : history;
-                  const items = [...filtered].reverse();
-                  if (!items.length) {
-                    return <div className="workspace-muted">{t("workspace.noLogs")}</div>;
-                  }
-                  return items.map((h, idx) => (
-                    <div key={`vh-${idx}`} className="workspace-version-history-item">
-                      <span className="workspace-version-history-when">{formatDateTime(h.at)}</span>
-                      <span className="workspace-version-history-reason">{String(h.reason || "").trim() || "-"}</span>
-                    </div>
-                  ));
-                })()}
-              </div>
-            </div>
-
-            <div className="workspace-modal-actions">
-              <button className="workspace-tertiary" type="button" onClick={() => setVersionLogsModal({ open: false, version: null, query: "" })}>
-                {t("actions.close")}
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {renameVersionModal?.open && (
-        <div
-          className="workspace-modal-overlay"
-          role="dialog"
-          aria-modal="true"
-          onMouseDown={() => setRenameVersionModal({ open: false, version: "", name: "", reason: "" })}
-        >
-          <div className="workspace-modal" onMouseDown={(e) => e.stopPropagation()}>
-            <div className="workspace-modal-header">
-              <div>
-                <div className="workspace-home-kicker">{t("workspace.renameVersionTitle")}</div>
-                <div className="workspace-modal-title">{renameVersionModal.version}</div>
-              </div>
-              <button
-                className="workspace-home-close"
-                type="button"
-                onClick={() => setRenameVersionModal({ open: false, version: "", name: "", reason: "" })}
-              >
-                {t("actions.close")}
-              </button>
-            </div>
-
-            <div className="workspace-field">
-              <label>{t("workspace.versionNameLabel")}</label>
-              <input
-                value={renameVersionModal.name}
-                onChange={(e) => setRenameVersionModal((prev) => ({ ...prev, name: e.target.value }))}
-                placeholder={t("workspace.versionNamePlaceholder")}
-                disabled={workspaceActionLoading}
-                autoFocus
-              />
-            </div>
-
-            <div className="workspace-field">
-              <label>{t("workspace.changeReasonLabel")}</label>
-              <input
-                value={renameVersionModal.reason}
-                onChange={(e) => setRenameVersionModal((prev) => ({ ...prev, reason: e.target.value }))}
-                placeholder={t("workspace.changeReasonPlaceholder")}
-                disabled={workspaceActionLoading}
-              />
-            </div>
-
-            <div className="workspace-modal-actions">
-              <button
-                className="workspace-tertiary"
-                type="button"
-                disabled={workspaceActionLoading}
-                onClick={() => setRenameVersionModal({ open: false, version: "", name: "", reason: "" })}
-              >
-                {t("actions.cancel")}
-              </button>
-              <button
-                className="workspace-secondary"
-                type="button"
-                disabled={workspaceActionLoading || !String(renameVersionModal?.name || "").trim()}
-                onClick={handleRenameVersion}
-              >
-                {workspaceActionLoading ? t("workspace.savingVersionName") : t("workspace.saveVersionNameAction")}
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {deleteVersionModal?.open && (
-        <div
-          className="workspace-modal-overlay"
-          role="dialog"
-          aria-modal="true"
-          onMouseDown={() => setDeleteVersionModal({ open: false, version: "" })}
-        >
-          <div className="workspace-modal" onMouseDown={(e) => e.stopPropagation()}>
-            <div className="workspace-modal-header">
-              <div>
-                <div className="workspace-home-kicker">{t("workspace.deleteVersionTitle")}</div>
-                <div className="workspace-modal-title">{deleteVersionModal.version}</div>
-              </div>
-              <button className="workspace-home-close" type="button" onClick={() => setDeleteVersionModal({ open: false, version: "" })}>
-                {t("actions.close")}
-              </button>
-            </div>
-            <div className="workspace-muted">{t("workspace.deleteVersionConfirm")}</div>
-            <div className="workspace-modal-actions">
-              <button className="workspace-tertiary" type="button" disabled={workspaceActionLoading} onClick={() => setDeleteVersionModal({ open: false, version: "" })}>
-                {t("actions.cancel")}
-              </button>
-              <button className="workspace-secondary danger" type="button" disabled={workspaceActionLoading} onClick={handleDeleteVersion}>
-                {workspaceActionLoading ? t("workspace.deletingVersion") : t("workspace.deleteVersionAction")}
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {deleteModal?.open && (
-        <div
-          className="workspace-modal-overlay"
-          role="dialog"
-          aria-modal="true"
-          onMouseDown={() => setDeleteModal({ open: false, target: null })}
-        >
-          <div className="workspace-modal" onMouseDown={(e) => e.stopPropagation()}>
-            <div className="workspace-modal-header">
-              <div>
-                <div className="workspace-home-kicker">{t("workspace.deleteTitle")}</div>
-                <div className="workspace-modal-title">{deleteModal?.target?.title || ""}</div>
-              </div>
-              <button className="workspace-home-close" type="button" onClick={() => setDeleteModal({ open: false, target: null })}>
-                {t("actions.close")}
-              </button>
-            </div>
-
-            <div className="workspace-muted">{t("workspace.deleteConfirm")}</div>
-
-            <div className="workspace-modal-actions">
-              <button
-                className="workspace-tertiary"
-                type="button"
-                disabled={workspaceActionLoading}
-                onClick={() => setDeleteModal({ open: false, target: null })}
-              >
-                {t("actions.cancel")}
-              </button>
-              <button className="workspace-secondary danger" type="button" disabled={workspaceActionLoading} onClick={handleDeleteWorkspace}>
-                {workspaceActionLoading ? t("workspace.deleting") : t("workspace.deleteAction")}
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {trainModal?.open && (
-        <div
-          className="workspace-modal-overlay"
-          role="dialog"
-          aria-modal="true"
-          onMouseDown={() => setTrainModal((prev) => ({ ...prev, open: false, running: false }))}
-        >
-          <div className="workspace-modal workspace-modal-wide training-modal" onMouseDown={(e) => e.stopPropagation()}>
-            <div className="workspace-modal-header">
-              <div>
-                <div className="workspace-home-kicker">{t("actions.train")}</div>
-                <div className="workspace-modal-title">{t("training.title")}</div>
-                <div className="workspace-muted">{t("training.subtitle")}</div>
-              </div>
-              <button
-                className="workspace-home-close"
-                type="button"
-                onClick={() => setTrainModal((prev) => ({ ...prev, open: false, running: false }))}
-              >
-                {t("actions.close")}
-              </button>
-            </div>
-
-            <TrainingModalBody
-              t={t}
-              trainModal={trainModal}
-              setTrainModal={setTrainModal}
-              parseExperimentIdsText={parseExperimentIdsText}
-              trainModelsDraft={trainModelsDraft}
-              setTrainModelsDraft={setTrainModelsDraft}
-              nodes={nodes}
-              setDatasetSelectorOpen={setDatasetSelectorOpen}
-              setTrainBlockModal={setTrainBlockModal}
-              setCandidatesModal={setCandidatesModal}
-              setNodes={setNodes}
-              trainBlockModal={trainBlockModal}
-              runTraining={runTraining}
-            />
-          </div>
-        </div>
-      )}
-
-      {/* Modal de seleção de candidatos do grid search */}
-      {candidatesModal?.open && (
-        <div
-          className="workspace-modal-overlay"
-          role="dialog"
-          aria-modal="true"
-          onMouseDown={() => setCandidatesModal({ open: false, sessionPath: "", stepId: "" })}
-        >
-          <div className="workspace-modal workspace-modal-candidates" onMouseDown={(e) => e.stopPropagation()}>
-            <ModelCandidatesPanel
-              tenant={workspace?.tenant}
-              sessionPath={candidatesModal.sessionPath}
-              stepId={candidatesModal.stepId}
-              onSelect={async (candidateId) => {
-                console.log("Candidato selecionado:", candidateId);
-                setCandidatesModal({ open: false, sessionPath: "", stepId: "" });
-                // Recarrega o pipeline para pegar o novo modelo
-                if (workspace?.tenant && workspace?.pipeline) {
-                  try {
-                    const res = await axios.get(`${API_URL}/pipelines/workspaces/${workspace.tenant}/${workspace.pipeline}`);
-                    loadPipelineFromJson(res.data, { tenant: workspace.tenant, pipeline: workspace.pipeline, version: workspace.version });
-                  } catch (err) {
-                    console.error("Erro ao recarregar pipeline:", err);
-                  }
-                }
-              }}
-              onBack={() => {
-                // Fecha o modal de candidatos e volta para o modal de treinamento
-                setCandidatesModal({ open: false, sessionPath: "", stepId: "" });
-                // O trainModal já deve estar aberto, apenas garante que está visível
-                setTrainModal((prev) => ({ ...prev, open: true }));
-              }}
-              onClose={() => setCandidatesModal({ open: false, sessionPath: "", stepId: "" })}
-            />
-          </div>
-        </div>
-      )}
-
-      {/* Modal de seleção de dataset para treinamento */}
-      {datasetSelectorOpen && (
-        <div
-          className="workspace-modal-overlay"
-          role="dialog"
-          aria-modal="true"
-          onMouseDown={() => setDatasetSelectorOpen(false)}
-        >
-          <div className="workspace-modal workspace-modal-dataset" onMouseDown={(e) => e.stopPropagation()}>
-            <DatasetSelector
-              tenant={workspace?.tenant}
-              protocolId={trainModal.protocolId}
-              selectedExperimentIds={parseExperimentIdsText(trainModal.experimentIdsText)}
-              onSelectionChange={(ids) => {
-                setTrainModal((prev) => ({
-                  ...prev,
-                  experimentIdsText: ids.join("\n"),
-                }));
-              }}
-              onClose={() => setDatasetSelectorOpen(false)}
-              disabled={trainModal.running}
-            />
-          </div>
-        </div>
-      )}
-
-      {/* Modal do Training Studio */}
-      {trainingStudioOpen && (
-        <div
-          className="workspace-modal-overlay"
-          role="dialog"
-          aria-modal="true"
-          onMouseDown={() => setTrainingStudioOpen(false)}
-        >
-          <div className="workspace-modal workspace-modal-training" onMouseDown={(e) => e.stopPropagation()}>
-            <TrainingStudio
-              tenant={workspace?.tenant}
-              pipeline={workspace?.pipeline}
-              pipelineData={buildPipelineData()}
-              version={workspace?.version}
-              nodes={nodes}
-              onClose={() => setTrainingStudioOpen(false)}
-              onOpenDatasetSelector={() => setDatasetSelectorOpen(true)}
-              onOpenCandidates={(sessionPath, stepId) => {
-                setTrainingStudioOpen(false);
-                setCandidatesModal({ open: true, sessionPath, stepId });
-              }}
-              onReloadPipeline={async () => {
-                if (workspace?.tenant && workspace?.pipeline) {
-                  try {
-                    const res = await axios.get(`${API_URL}/pipelines/workspaces/${workspace.tenant}/${workspace.pipeline}`);
-                    loadPipelineFromJson(res.data, { tenant: workspace.tenant, pipeline: workspace.pipeline, version: workspace.version });
-                  } catch (err) {
-                    console.error("Erro ao recarregar pipeline:", err);
-                  }
-                }
-              }}
-              initialProtocolId={trainModal.protocolId}
-              initialExperimentIds={parseExperimentIdsText(trainModal.experimentIdsText)}
-            />
-          </div>
-        </div>
-      )}
+      <PipelineTrainingModals
+        t={t}
+        trainModal={trainModal}
+        setTrainModal={setTrainModal}
+        trainModelsDraft={trainModelsDraft}
+        setTrainModelsDraft={setTrainModelsDraft}
+        parseExperimentIdsText={parseExperimentIdsText}
+        nodes={nodes}
+        setNodes={setNodes}
+        setDatasetSelectorOpen={setDatasetSelectorOpen}
+        setTrainBlockModal={setTrainBlockModal}
+        setCandidatesModal={setCandidatesModal}
+        trainBlockModal={trainBlockModal}
+        runTraining={runTraining}
+        candidatesModal={candidatesModal}
+        datasetSelectorOpen={datasetSelectorOpen}
+        trainingStudioOpen={trainingStudioOpen}
+        setTrainingStudioOpen={setTrainingStudioOpen}
+        workspace={workspace}
+        loadPipelineFromJson={loadPipelineFromJson}
+        buildPipelineData={buildPipelineData}
+      />
 
       {/* Input oculto para carregar arquivo */}
       <input
@@ -5367,160 +4772,60 @@ function App() {
         />
 
         {/* PAINEL 3: Canvas */}
-        <section className="canvas" ref={reactFlowWrapper}>
-              <ReactFlowProvider>
-              <ReactFlow
-              nodes={canvasNodes}
-              edges={canvasEdges}
-              onNodesChange={onNodesChange}
-              onEdgesChange={onEdgesChange}
-              onConnect={onConnect}
-              onReconnectStart={onReconnectStart}
-              onReconnect={onReconnect}
-              onReconnectEnd={onReconnectEnd}
-              onNodeClick={handleSelect}
-              onEdgeClick={handleEdgeClick}
-              onPaneClick={handlePaneClick}
-              onDragOver={onDragOver}
-              onDrop={onDrop}
-              onInit={(instance) => {
-                reactFlowInstance.current = instance;
-                try {
-                  setViewport(instance.getViewport());
-                } catch {
-                  // ignore
-                }
-              }}
-              onMove={(_, vp) => setViewport(vp)}
-              fitView
-              minZoom={0.05}
-              maxZoom={3}
-              nodeTypes={nodeTypes}
-              reconnectRadius={15}
-              deleteKeyCode={null}
-              selectionOnDrag={true}
-              selectionMode={SelectionMode.Partial}
-              panOnDrag={[1, 2]}
-              elevateNodesOnSelect={true}
-            >
-              <Background gap={16} color="#d0d7ff" />
-              </ReactFlow>
-            </ReactFlowProvider>
-
-          <PipelineCanvasOverlays
-            analysisAreas={analysisAreas}
-            viewport={viewport}
-            t={t}
-            flowLanes={flowLanes}
-          />
-
-          <CanvasSelectionToolbar
-            t={t}
-            selectedNodes={selectedNodes}
-            clipboard={clipboard}
-            copySelectedNodes={copySelectedNodes}
-            pasteNodes={pasteNodes}
-            duplicateSelectedNodes={duplicateSelectedNodes}
-            autoLayoutNodes={autoLayoutNodes}
-            alignNodesLeft={alignNodesLeft}
-            alignNodesCenterH={alignNodesCenterH}
-            alignNodesRight={alignNodesRight}
-            alignNodesTop={alignNodesTop}
-            alignNodesCenterV={alignNodesCenterV}
-            alignNodesBottom={alignNodesBottom}
-            distributeNodesH={distributeNodesH}
-            distributeNodesV={distributeNodesV}
-          />
-
-          {/* Floating actions */}
-          <div className="floating-actions" aria-label="Ações rápidas">
-            <button
-              className="floating-train-button"
-              type="button"
-              onClick={() => setTrainingStudioOpen(true)}
-              disabled={!workspace?.tenant || !workspace?.pipeline || trainModal.running}
-              title={trainModal.running ? t("actions.training") : t("actions.train")}
-            >
-              {trainModal.running ? (
-                <span className="simulate-spinner" aria-hidden="true" />
-              ) : (
-                <svg className="simulate-play" viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M12 3 1 9l11 6 9-4.91V17h2V9L12 3zm0 9.2L4.31 9 12 4.8 19.69 9 12 12.2zM6 12.5V16c0 2.21 2.69 4 6 4s6-1.79 6-4v-3.5l-6 3.27-6-3.27z" />
-                </svg>
-              )}
-              {trainModal.running ? t("actions.training") : t("actions.train")}
-            </button>
-
-            <button
-              className="floating-simulate-button"
-              onClick={handleSimulate}
-              disabled={isRunning || !nodes.length}
-              title={isRunning ? t("actions.simulating") : t("actions.simulate")}
-              aria-busy={isRunning ? "true" : "false"}
-            >
-              {isRunning ? (
-                <span className="simulate-spinner" aria-hidden="true" />
-              ) : (
-                <svg className="simulate-play" viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M8 5v14l11-7z" />
-                </svg>
-              )}
-              {isRunning ? t("actions.simulating") : t("actions.simulate")}
-            </button>
-          </div>
-
-          {/* Context Menu */}
-          {contextMenu && (
-            <>
-              {/* Overlay to close menu when clicking outside */}
-              <div
-                className="context-menu-overlay"
-                onClick={closeContextMenu}
-                style={{
-                  position: 'fixed',
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  zIndex: 999
-                }}
-              />
-              <div
-                className="context-menu"
-                style={{
-                  position: 'fixed',
-                  left: contextMenu.x,
-                  top: contextMenu.y,
-                  zIndex: 1000
-                }}
-              >
-                {contextMenu.type === 'node' ? (
-                  <div className="context-menu-item" onClick={deleteNode}>
-                    {(selectedNodes.length > 1 && selectedNodes.some((n) => n.id === contextMenu.nodeId))
-                      ? t("actions.deleteSelection", { count: selectedNodes.length })
-                      : t("actions.deleteBlock")}
-                  </div>
-                ) : contextMenu.type === 'selection' ? (
-                  <div
-                    className="context-menu-item"
-                    onClick={() => {
-                      const ids = (contextMenu.nodeIds || []).map(String).filter(Boolean);
-                      if (!ids.length) return;
-                      setConfirmDelete({ open: true, nodeId: ids[0] ?? null, nodeIds: ids });
-                      closeContextMenu();
-                    }}
-                  >
-                    {t("actions.deleteSelection", { count: (contextMenu.nodeIds || []).length })}
-                  </div>
-                ) : contextMenu.type === 'edge' ? (
-                  <div className="context-menu-item" onClick={deleteEdge}>
-                    {t("actions.removeConnection")}
-                  </div>
-                ) : null}
-              </div>
-            </>
-          )}
-        </section>
+        <PipelineCanvasSection
+          t={t}
+          nodes={nodes}
+          edges={edges}
+          selectedNodes={selectedNodes}
+          selectedNode={selectedNode}
+          selectedEdge={selectedEdge}
+          nodeFlowMetaById={nodeFlowMetaById}
+          library={library}
+          simulation={simulation}
+          openHelpModal={openHelpModal}
+          openBlockResultsModal={openBlockResultsModal}
+          openConfigModalForNode={openConfigModalForNode}
+          onNodesChange={onNodesChange}
+          onEdgesChange={onEdgesChange}
+          onConnect={onConnect}
+          onReconnectStart={onReconnectStart}
+          onReconnect={onReconnect}
+          onReconnectEnd={onReconnectEnd}
+          handleSelect={handleSelect}
+          handleEdgeClick={handleEdgeClick}
+          handlePaneClick={handlePaneClick}
+          onDragOver={onDragOver}
+          onDrop={onDrop}
+          reactFlowInstance={reactFlowInstance}
+          setViewport={setViewport}
+          reactFlowWrapper={reactFlowWrapper}
+          analysisAreas={analysisAreas}
+          viewport={viewport}
+          flowLanes={flowLanes}
+          clipboard={clipboard}
+          copySelectedNodes={copySelectedNodes}
+          pasteNodes={pasteNodes}
+          duplicateSelectedNodes={duplicateSelectedNodes}
+          autoLayoutNodes={autoLayoutNodes}
+          alignNodesLeft={alignNodesLeft}
+          alignNodesCenterH={alignNodesCenterH}
+          alignNodesRight={alignNodesRight}
+          alignNodesTop={alignNodesTop}
+          alignNodesCenterV={alignNodesCenterV}
+          alignNodesBottom={alignNodesBottom}
+          distributeNodesH={distributeNodesH}
+          distributeNodesV={distributeNodesV}
+          setTrainingStudioOpen={setTrainingStudioOpen}
+          workspace={workspace}
+          trainModal={trainModal}
+          isRunning={isRunning}
+          runSimulation={runSimulation}
+          contextMenu={contextMenu}
+          closeContextMenu={closeContextMenu}
+          deleteNode={deleteNode}
+          setConfirmDelete={setConfirmDelete}
+          deleteEdge={deleteEdge}
+        />
 
         {/* PAINEL 4: Configuração (modal) */}
         {configModalOpen && (selectedNode || selectedEdge) && (
