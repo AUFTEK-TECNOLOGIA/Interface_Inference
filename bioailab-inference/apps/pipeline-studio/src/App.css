@@ -319,7 +319,7 @@ header p {
 
 .header-actions .btn-load:hover:not([disabled]) {
   background: var(--md-sys-color-surface-container);
-  border-color: var(--md-sys-color-outline);
+  border-color: rgba(96, 165, 250, 0.78);
 }
 
 /* Botão Salvar */
@@ -3981,7 +3981,7 @@ aside::-webkit-scrollbar-thumb:hover {
 }
 
 .workspace-pipeline-card:hover {
-  border-color: color-mix(in srgb, var(--md-sys-color-primary) 35%, var(--md-sys-color-outline));
+  border-color: rgba(96, 165, 250, 0.78);
   background: color-mix(in srgb, var(--md-sys-color-surface) 92%, transparent);
 }
 
@@ -5375,7 +5375,7 @@ aside::-webkit-scrollbar-thumb:hover {
 }
 
 .workspace-pipeline-card:hover {
-  border-color: var(--md-sys-color-outline);
+  border-color: rgba(96, 165, 250, 0.78);
   background: color-mix(in srgb, var(--md-sys-color-surface) 88%, transparent);
 }
 
