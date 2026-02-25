@@ -6097,8 +6097,8 @@ function App() {
               elevateNodesOnSelect={true}
             >
               <Background gap={16} color="#d0d7ff" />
-              <MiniMap pannable zoomable position="bottom-left" />
-              <Controls />
+              <MiniMap className="studio-minimap" pannable zoomable position="bottom-left" />
+              <Controls className="studio-map-controls" position="bottom-left" />
               </ReactFlow>
             </ReactFlowProvider>
           </PipelineStudioContext.Provider>
