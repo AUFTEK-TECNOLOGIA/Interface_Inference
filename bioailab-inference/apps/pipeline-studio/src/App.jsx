@@ -25,6 +25,7 @@ import { getFlowColorFromLabel, getBlockCardCategory as getBlockCardCategoryModu
 import { sanitizeColor, resolveWorkspaceLogoSrc as resolveWorkspaceLogoSrcModule, workspaceInitials } from "./modulos/workspaceModule";
 import { buildPreparedSteps as buildPreparedStepsModule, collectSimulationGraphs } from "./modulos/simulationModule";
 import usePipelineStudioState from "./hooks/usePipelineStudioState";
+import useFlowCanvasViewModel from "./hooks/useFlowCanvasViewModel";
 
 const PipelineStudioContext = createContext(null);
 
@@ -4697,6 +4698,19 @@ function App() {
     );
   };
 
+  const {
+    canvasNodes,
+    canvasEdges,
+  } = useFlowCanvasViewModel({
+    nodes,
+    edges,
+    selectedNodes,
+    selectedNode,
+    selectedEdge,
+    nodeFlowMetaById,
+    noneLabel: t("flows.none"),
+  });
+
   return (
     <div className="app-container">
       {workspaceHomeOpen && (
@@ -5765,45 +5779,8 @@ function App() {
           >
               <ReactFlowProvider>
               <ReactFlow
-              nodes={nodes.map((n) => {
-                const isSelected = selectedNodes.some((s) => s.id === n.id) || selectedNode?.id === n.id;
-                const noneLabel = t("flows.none");
-                const flowLabel = nodeFlowMetaById[n.id]?.label || noneLabel;
-
-                return ({
-                  ...n,
-                  selected: isSelected,
-                  data: {
-                    ...n.data,
-                    stepId: n.id,
-                    flowLabel,
-                    flowColor: nodeFlowMetaById[n.id]?.color,
-                    dimmed: false,
-                  },
-                });
-              })}
-               edges={edges.map(e => {
-                 const isSelected = selectedEdge?.id === e.id;
-
-                 const baseColor = nodeFlowMetaById[e.source]?.color || nodeFlowMetaById[e.target]?.color;
-
-                 const activeStyle = baseColor ? {
-                   stroke: baseColor,
-                   strokeWidth: 2,
-                   opacity: 0.9,
-                 } : undefined;
-
-                 return ({
-                   ...e,
-                   selected: isSelected,
-                   reconnectable: true,
-                   style: isSelected ? {
-                     stroke: '#ef4444',
-                     strokeWidth: 3,
-                     opacity: 0.95,
-                   } : (activeStyle || undefined),
-                 });
-               })}
+              nodes={canvasNodes}
+              edges={canvasEdges}
               onNodesChange={onNodesChange}
               onEdgesChange={onEdgesChange}
               onConnect={onConnect}
