@@ -6,3 +6,5 @@ problemas:
 - mudar o i18n para os componentes na interface
 - rezar 10 ave maria
 - criar estrutura nova para os componentes
+
+- colocar verificação para rodar em CPU ou GPU
