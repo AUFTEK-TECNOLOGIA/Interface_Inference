@@ -1,8 +1,7 @@
-import { createContext, useCallback, useContext, useEffect, useMemo, useState, useRef } from "react";
+import { useCallback, useEffect, useMemo, useState, useRef } from "react";
 import {
   ReactFlow,
   ReactFlowProvider,
-  Handle,
   Background,
   reconnectEdge,
   SelectionMode,
@@ -20,6 +19,9 @@ import ModelCandidatesPanel from "./components/ModelCandidatesPanel";
 import DatasetSelector from "./components/DatasetSelector";
 import TrainingStudio from "./components/TrainingStudio";
 import TrainingModalBody from "./components/TrainingModalBody";
+import PipelineNode from "./components/PipelineNode";
+import BlockCard from "./components/BlockCard";
+import CanvasSelectionToolbar from "./components/CanvasSelectionToolbar";
 import { useI18n } from "./locale/i18n";
 import { TRAINING_ALGO_PARAM_SCHEMA, parseExperimentIdsText as parseExperimentIdsInput, buildTrainingParamsForAlgorithm as buildTrainingParamsByAlgorithm } from "./modulos/trainingModule";
 import { getFlowColorFromLabel, getBlockCardCategory as getBlockCardCategoryModule } from "./modulos/flowEditorModule";
@@ -28,7 +30,6 @@ import { buildPreparedSteps as buildPreparedStepsModule, collectSimulationGraphs
 import usePipelineStudioState from "./hooks/usePipelineStudioState";
 import useFlowCanvasViewModel from "./hooks/useFlowCanvasViewModel";
 
-const PipelineStudioContext = createContext(null);
 
 const API_URL = process.env.REACT_APP_API_URL || "http://localhost:8001";
 
@@ -82,257 +83,6 @@ const useResizable = (initialWidth, minWidth = 200, maxWidth = 600) => {
   }, [width, minWidth, maxWidth]);
 
   return { width, startResize };
-};
-
-  const PipelineNode = ({ data }) => {
-  const { t } = useI18n();
-  const studio = useContext(PipelineStudioContext);
-  // Se dataInputs estiver vazio, usar keys do inputSchema como fallback
-  // Filtrar inputs com hidden: true no schema
-  const rawInputs = (data.dataInputs && data.dataInputs.length > 0) 
-    ? data.dataInputs 
-    : Object.keys(data.inputSchema || {});
-  const inputs = rawInputs.filter(key => {
-    const schema = data.inputSchema?.[key];
-    return !schema?.hidden;
-  });
-  const outputs = (data.dataOutputs && data.dataOutputs.length > 0)
-    ? data.dataOutputs
-    : Object.keys(data.outputSchema || {});
-  const isLabelNode = data.blockName === "label";
-  const nodeStyle = data.flowColor ? { "--node-flow-color": data.flowColor } : undefined;
-  const getHandleDisplay = (direction, blockName, key) => {
-    if (!blockName || !key) return key;
-    if (blockName === "condition_branch") {
-      if (direction === "out" && key === "data_if_true") return t("handles.conditionBranch.true");
-      if (direction === "out" && key === "data_if_false") return t("handles.conditionBranch.false");
-      if (direction === "in" && key === "data") return t("handles.common.data");
-      if (direction === "in" && key === "condition") return t("handles.common.condition");
-    }
-    if (blockName === "value_in_list") {
-      if (direction === "in" && key === "value") return t("handles.valueInList.value");
-      if (direction === "out" && key === "condition") return t("handles.common.condition");
-    }
-    if (blockName === "numeric_compare") {
-      if (direction === "in" && key === "value") return "valor";
-      if (direction === "out" && key === "condition") return t("handles.common.condition");
-    }
-    if (["amplitude_detector", "derivative_detector", "ratio_detector"].includes(blockName)) {
-      if (direction === "out" && key === "has_growth") return t("handles.detectors.hasGrowth");
-    }
-    if (blockName === "ml_detector") {
-      if (direction === "out" && key === "detected") return t("handles.detectors.hasGrowth");
-    }
-    if (blockName === "sensor_fusion") {
-      if (direction === "in" && key.startsWith("sensor_data_")) {
-        const idx = Number(String(key).split("_").pop());
-        if (Number.isFinite(idx)) return t("handles.sensorFusion.sensor", { index: idx });
-      }
-    }
-    return key;
-  };
-
-  // Determine node category and styling
-  const getNodeCategory = (blockName) => {
-    const name = blockName.toLowerCase();
-    if (name.includes('experiment_fetch') || name.includes('data') || name.includes('input')) return 'data';
-    if (name.includes('filter') || name.includes('process') || name.includes('normalize') || name.includes('smooth') || name.includes('fusion')) return 'process';
-    if (name.includes('growth') || name.includes('detect') || name.includes('analysis') || name.includes('feature')) return 'analysis';
-    if (name.includes('curve') || name.includes('model') || name.includes('ml') || name.includes('predict') || name.includes('regression')) return 'ml';
-    // Controle de fluxo
-    if (name.includes('gate') || name.includes('branch') || name.includes('merge') || name.includes('boolean') || name.includes('condition') || name === 'label') return 'flow';
-    return 'default';
-  };
-
-  const category = getNodeCategory(data.blockName);
-
-  const categoryConfig = {
-    data: {
-      color: 'var(--block-data)',
-      bgColor: '#f3e8ff',
-      icon: "D",
-      label: t("nodeCategories.data"),
-    },
-    process: {
-      color: 'var(--block-process)',
-      bgColor: '#ecfeff',
-      icon: "P",
-      label: t("nodeCategories.process"),
-    },
-    analysis: {
-      color: 'var(--block-analysis)',
-      bgColor: '#fffbeb',
-      icon: "A",
-      label: t("nodeCategories.analysis"),
-    },
-    ml: {
-      color: 'var(--block-ml)',
-      bgColor: '#fdf2f8',
-      icon: "ML",
-      label: t("nodeCategories.ml"),
-    },
-    flow: {
-      color: 'var(--block-flow)',
-      bgColor: '#f0fdf4',
-      icon: "F",
-      label: t("nodeCategories.flow"),
-    },
-    default: {
-      color: 'var(--color-gray-400)',
-      bgColor: '#f8fafc',
-      icon: "B",
-      label: t("nodeCategories.block"),
-    }
-  };
-
-  const config = categoryConfig[category];
-
-  return (
-    <div
-      className={`pipeline-node ${category} ${isLabelNode ? "pipeline-node--label" : ""} ${data.dimmed ? "is-dimmed" : ""}`}
-      style={nodeStyle}
-    >
-      {/* Node Header */}
-      <div className="node-header">
-        <div
-          className="node-icon"
-          style={{ backgroundColor: isLabelNode && data.flowColor ? data.flowColor : config.color }}
-          title={isLabelNode ? (data.flowLabel || t("flows.none")) : undefined}
-        >
-          {config.icon}
-        </div>
-        <div className="node-title-section">
-          <div className="node-title-row">
-            <div className="node-title" title={data.label}>
-              {data.label}
-            </div>
-          </div>
-          <div className="node-meta">
-            <div className="node-category">{config.label}</div>
-            <span
-              className="node-flow-badge"
-              title={data.flowLabel || t("flows.none")}
-              style={data.flowColor ? { borderColor: data.flowColor, color: data.flowColor } : undefined}
-            >
-              {data.flowLabel || t("flows.none")}
-            </span>
-          </div>
-        </div>
-      </div>
-
-      {/* Node Body */}
-      <div className="node-body">
-        <div className="node-description">{data.description}</div>
-
-        {/* Input Handles */}
-        {inputs.length > 0 && (
-          <div className="node-section">
-            <div className="section-label">Inputs</div>
-            <div className="handles-list">
-              {inputs.map((key, index) => (
-                <div key={key} className="handle-item input-handle">
-                  <Handle
-                    type="target"
-                    position="left"
-                    id={`${data.blockName}-in-${key}`}
-                    className="node-handle input"
-                    style={{ left: '-6px' }}
-                  />
-                  <span className="handle-label">{getHandleDisplay("in", data.blockName, key)}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* Output Handles */}
-        {outputs.length > 0 && (
-          <div className="node-section">
-            <div className="section-label">Outputs</div>
-            <div className="handles-list">
-              {outputs.map((key, index) => (
-                <div key={key} className="handle-item output-handle">
-                  <span className="handle-label">{getHandleDisplay("out", data.blockName, key)}</span>
-                  <Handle
-                    type="source"
-                    position="right"
-                    id={`${data.blockName}-out-${key}`}
-                    className="node-handle output"
-                    style={{ right: '-6px' }}
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-      </div>
-
-      <div className="node-footer">
-        <div className="node-actions">
-          {studio?.openConfigModalForNode && (
-            <button
-              type="button"
-              className="node-action node-config"
-              aria-label={t("configuration.openLabel")}
-              title={t("configuration.openLabel")}
-              onMouseDown={(e) => e.stopPropagation()}
-              onClick={(e) => {
-                e.stopPropagation();
-                studio.openConfigModalForNode(data.stepId);
-              }}
-            >
-              C
-            </button>
-          )}
-          {studio?.openBlockResultsModal && (
-            <button
-              type="button"
-              className="node-action node-results"
-              aria-label={t("blockResults.openLabel")}
-              title={t("blockResults.openLabel")}
-              disabled={!studio.simulation?.step_results?.[data.stepId]}
-              onMouseDown={(e) => e.stopPropagation()}
-              onClick={(e) => {
-                e.stopPropagation();
-                studio.openBlockResultsModal(data.stepId);
-              }}
-            >
-              R
-            </button>
-          )}
-          {studio?.openHelpModal && (
-            <button
-              type="button"
-              className="node-action node-help"
-              aria-label={t("helper.openLabel")}
-              title={t("helper.openLabel")}
-              onMouseDown={(e) => e.stopPropagation()}
-              onClick={(e) => {
-                e.stopPropagation();
-                const blockFromLibrary = studio.library?.blocks?.find((b) => b.name === data.blockName);
-                const fallbackBlock = {
-                  name: data.blockName,
-                  description: data.description || "",
-                  data_inputs: inputs,
-                  data_outputs: outputs,
-                  config_inputs: [],
-                  input_schema: data.inputSchema || {},
-                  output_schema: data.outputSchema || {},
-                };
-                studio.openHelpModal(blockFromLibrary || fallbackBlock);
-              }}
-            >
-              ?
-            </button>
-          )}
-        </div>
-      </div>
-    </div>
-  );
-};
-
-const nodeTypes = {
-  pipelineNode: PipelineNode,
 };
 
 const defaultLibrary = {
@@ -1493,60 +1243,20 @@ function App() {
       };
 
       return (
-        <div
-          key={block.name}
-          className={`block-card${isActive ? " active" : ""}`}
-          style={{ "--block-accent": visual.color }}
-          draggable
-          role="button"
-          tabIndex={0}
-          title={`${displayName} (${block.name})`}
-          onClick={() => setInspectedBlock(block)}
-          onDoubleClick={handleAdd}
+        <BlockCard
+          block={block}
+          displayName={displayName}
+          visual={visual}
+          isPinned={isPinned}
+          isActive={isActive}
+          tags={tags}
+          onInspect={() => setInspectedBlock(block)}
+          onAdd={handleAdd}
+          onHelp={handleHelp}
+          onTogglePin={handleTogglePin}
           onDragStart={(e) => onDragStartBlock(e, block)}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") return handleAdd(e);
-            if (e.key === "?" || e.key === "F1") return handleHelp(e);
-            return undefined;
-          }}
-        >
-          <div className="block-card-icon" aria-hidden="true">
-            {visual.icon}
-          </div>
-          <div className="block-card-content">
-            <strong>{displayName}</strong>
-            {block.description ? <small>{block.description}</small> : null}
-            {tags.length ? (
-              <div className="block-card-tags">
-                {tags.map((tag) => (
-                  <span key={tag} className="block-card-tag is-accent">
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            ) : null}
-          </div>
-          <button
-            className={`block-card-pin${isPinned ? " is-active" : ""}`}
-            type="button"
-            onClick={handleTogglePin}
-            aria-label={isPinned ? t("actions.unpin") : t("actions.pin")}
-            title={isPinned ? t("actions.unpin") : t("actions.pin")}
-          >
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M14 3h-4v2l1 1v6l-3 3v2h8v-2l-3-3V6l1-1V3Z" />
-            </svg>
-          </button>
-          <button
-            className="block-card-help"
-            type="button"
-            onClick={handleHelp}
-            aria-label={t("helper.openLabel")}
-            title={t("helper.openLabel")}
-          >
-            ?
-          </button>
-        </div>
+          t={t}
+        />
       );
     },
     [
@@ -1585,36 +1295,18 @@ function App() {
       };
 
       return (
-        <div
-          key={block.name}
-          className="block-card mini"
-          style={{ "--block-accent": visual.color }}
-          draggable
-          role="button"
-          tabIndex={0}
-          title={`${displayName} (${block.name})`}
-          onClick={() => setInspectedBlock(block)}
-          onDoubleClick={() => addBlockToCanvas(block)}
+        <BlockCard
+          block={block}
+          displayName={displayName}
+          visual={visual}
+          isPinned={isPinned}
+          isMini
+          onInspect={() => setInspectedBlock(block)}
+          onAdd={() => addBlockToCanvas(block)}
+          onTogglePin={togglePin}
           onDragStart={(e) => onDragStartBlock(e, block)}
-        >
-          <div className="block-card-icon" aria-hidden="true">
-            {visual.icon}
-          </div>
-          <div className="block-card-content">
-            <strong>{displayName}</strong>
-          </div>
-          <button
-            className={`block-card-pin${isPinned ? " is-active" : ""}`}
-            type="button"
-            onClick={togglePin}
-            aria-label={isPinned ? t("actions.unpin") : t("actions.pin")}
-            title={isPinned ? t("actions.unpin") : t("actions.pin")}
-          >
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M14 3h-4v2l1 1v6l-3 3v2h8v-2l-3-3V6l1-1V3Z" />
-            </svg>
-          </button>
-        </div>
+          t={t}
+        />
       );
     },
     [
@@ -4712,6 +4404,18 @@ function App() {
     noneLabel: t("flows.none"),
   });
 
+  const pipelineStudioContextValue = useMemo(
+    () => ({ openHelpModal, openBlockResultsModal, openConfigModalForNode, library, simulation }),
+    [openHelpModal, openBlockResultsModal, openConfigModalForNode, library, simulation]
+  );
+
+  const nodeTypes = useMemo(
+    () => ({
+      pipelineNode: (props) => <PipelineNode {...props} studio={pipelineStudioContextValue} />,
+    }),
+    [pipelineStudioContextValue]
+  );
+
   return (
     <div className="app-container">
       {workspaceHomeOpen && (
@@ -5708,14 +5412,14 @@ function App() {
         ref={fileInputRef}
         onChange={loadPipeline}
         accept=".json"
-        style={{ display: "none" }}
+        className="visually-hidden-input"
       />
       {/* Input oculto para upload de logo */}
       <input
         type="file"
         ref={workspaceLogoFileInputRef}
         accept="image/*"
-        style={{ display: "none" }}
+        className="visually-hidden-input"
         onChange={(e) => {
           const f = e.target.files?.[0];
           if (f) handleUploadWorkspaceLogo(f);
@@ -5727,7 +5431,7 @@ function App() {
         type="file"
         ref={duplicateLogoFileInputRef}
         accept="image/*"
-        style={{ display: "none" }}
+        className="visually-hidden-input"
         onChange={(e) => {
           const f = e.target.files?.[0];
           setDuplicateModal((prev) => ({ ...prev, logoFile: f || null }));
@@ -5769,15 +5473,6 @@ function App() {
 
         {/* PAINEL 3: Canvas */}
         <section className="canvas" ref={reactFlowWrapper}>
-          <PipelineStudioContext.Provider
-            value={{
-              openHelpModal,
-              openBlockResultsModal,
-              openConfigModalForNode,
-              library,
-              simulation,
-            }}
-          >
               <ReactFlowProvider>
               <ReactFlow
               nodes={canvasNodes}
@@ -5816,7 +5511,6 @@ function App() {
               <Background gap={16} color="#d0d7ff" />
               </ReactFlow>
             </ReactFlowProvider>
-          </PipelineStudioContext.Provider>
 
           <PipelineCanvasOverlays
             analysisAreas={analysisAreas}
@@ -5825,87 +5519,23 @@ function App() {
             flowLanes={flowLanes}
           />
 
-          {/* Selection Toolbar - shown when nodes are selected */}
-          {(selectedNodes.length >= 1 || selectedNode) && (
-            <div className="alignment-toolbar">
-              <div className="alignment-toolbar-label">
-                {(() => {
-                  const count = selectedNodes.length || 1;
-                  return count > 1
-                    ? t("canvas.selectionPlural", { count })
-                    : t("canvas.selection", { count });
-                })()}
-              </div>
-              <div className="alignment-toolbar-buttons">
-                {/* Copiar/Colar/Duplicar - sempre visível */}
-                <div className="alignment-group">
-                  <span className="alignment-group-label">Editar</span>
-                  <button onClick={copySelectedNodes} title="Copiar (Ctrl+C)">
-                    <svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
-                  </button>
-                  <button onClick={pasteNodes} title="Colar (Ctrl+V)" disabled={clipboard.nodes.length === 0}>
-                    <svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M19 2h-4.18C14.4.84 13.3 0 12 0c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm7 18H5V4h2v3h10V4h2v16z"/></svg>
-                  </button>
-                  <button onClick={duplicateSelectedNodes} title="Duplicar (Ctrl+D)">
-                    <svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M11 17H4a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h12v2H4v12h7v2m11-2V7a2 2 0 0 0-2-2H8v2h12v10a2 2 0 0 0 2 2h-1v-2M9 7v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2H11a2 2 0 0 0-2 2m2 0h10v10H11V7z"/></svg>
-                  </button>
-                </div>
-                
-                {/* Alinhamento - só quando 2+ nós selecionados */}
-                {selectedNodes.length >= 2 && (
-                  <>
-                    <div className="alignment-separator" />
-                    <div className="alignment-group">
-                      <span className="alignment-group-label">{t("actions.autoLayout")}</span>
-                      <button onClick={autoLayoutNodes} title={t("actions.autoLayoutTitle")}>
-                        <svg viewBox="0 0 24 24" width="16" height="16">
-                          <path fill="currentColor" d="M4 4h6v4H4V4zm10 0h6v4h-6V4zM4 10h6v4H4v-4zm10 0h6v4h-6v-4zM4 16h6v4H4v-4zm10 0h6v4h-6v-4z" />
-                        </svg>
-                      </button>
-                    </div>
-                    <div className="alignment-group">
-                      <span className="alignment-group-label">Alinhar</span>
-                      <button onClick={alignNodesLeft} title="Alinhar à esquerda">
-                        <svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M4 22H2V2h2v20zM22 7H6v3h16V7zm-6 7H6v3h10v-3z"/></svg>
-                      </button>
-                      <button onClick={alignNodesCenterH} title="Centralizar horizontalmente">
-                        <svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M11 2h2v5h8v3H13v4h6v3h-6v5h-2v-5H5v-3h6V10H3V7h8V2z"/></svg>
-                      </button>
-                      <button onClick={alignNodesRight} title="Alinhar à direita">
-                        <svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M20 2h2v20h-2V2zM2 7h16v3H2V7zm6 7h10v3H8v-3z"/></svg>
-                      </button>
-                      <div className="alignment-separator" />
-                      <button onClick={alignNodesTop} title="Alinhar ao topo">
-                        <svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M22 2v2H2V2h20zM7 22V6h3v16H7zm7-6V6h3v10h-3z"/></svg>
-                      </button>
-                      <button onClick={alignNodesCenterV} title="Centralizar verticalmente">
-                        <svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M2 11v2h5v8h3V13h4v6h3v-6h5v-2h-5V5h-3v6h-4V3H7v8H2z"/></svg>
-                      </button>
-                      <button onClick={alignNodesBottom} title="Alinhar abaixo">
-                        <svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M22 22v-2H2v2h20zM7 2v16h3V2H7zm7 6v10h3V8h-3z"/></svg>
-                      </button>
-                    </div>
-                  </>
-                )}
-                
-                {/* Distribuir - só quando 3+ nós selecionados */}
-                {selectedNodes.length >= 3 && (
-                  <>
-                    <div className="alignment-separator" />
-                    <div className="alignment-group">
-                      <span className="alignment-group-label">Distribuir</span>
-                      <button onClick={distributeNodesH} title="Distribuir horizontalmente">
-                        <svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M4 5v14H2V5h2zm4 2v10h3V7H8zm5 2v6h3V9h-3zm5-2v10h3V7h-3zm4-2v14h2V5h-2z"/></svg>
-                      </button>
-                      <button onClick={distributeNodesV} title="Distribuir verticalmente">
-                        <svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M5 4h14V2H5v2zm2 4h10v3H7V8zm2 5h6v3H9v-3zm-2 5h10v3H7v-3zm-2 4h14v2H5v-2z"/></svg>
-                      </button>
-                    </div>
-                  </>
-                )}
-              </div>
-            </div>
-          )}
+          <CanvasSelectionToolbar
+            t={t}
+            selectedNodes={selectedNodes}
+            clipboard={clipboard}
+            copySelectedNodes={copySelectedNodes}
+            pasteNodes={pasteNodes}
+            duplicateSelectedNodes={duplicateSelectedNodes}
+            autoLayoutNodes={autoLayoutNodes}
+            alignNodesLeft={alignNodesLeft}
+            alignNodesCenterH={alignNodesCenterH}
+            alignNodesRight={alignNodesRight}
+            alignNodesTop={alignNodesTop}
+            alignNodesCenterV={alignNodesCenterV}
+            alignNodesBottom={alignNodesBottom}
+            distributeNodesH={distributeNodesH}
+            distributeNodesV={distributeNodesV}
+          />
 
           {/* Floating actions */}
           <div className="floating-actions" aria-label="Ações rápidas">

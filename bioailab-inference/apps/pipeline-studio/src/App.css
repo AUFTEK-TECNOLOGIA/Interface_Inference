@@ -9564,3 +9564,5 @@ aside::-webkit-scrollbar-thumb:hover {
     width: 100%;
   }
 }
+
+.visually-hidden-input { display: none; }
