@@ -4,8 +4,6 @@ import {
   ReactFlowProvider,
   Handle,
   Background,
-  Controls,
-  MiniMap,
   reconnectEdge,
   SelectionMode,
 } from "@xyflow/react";
@@ -23,6 +21,7 @@ import ModelCandidatesPanel from "./components/ModelCandidatesPanel";
 import DatasetSelector from "./components/DatasetSelector";
 import TrainingStudio from "./components/TrainingStudio";
 import TrainingModalBody from "./components/TrainingModalBody";
+import FlowViewportNavigator from "./components/FlowViewportNavigator";
 import { useI18n } from "./locale/i18n";
 import { TRAINING_ALGO_PARAM_SCHEMA, parseExperimentIdsText as parseExperimentIdsInput, buildTrainingParamsForAlgorithm as buildTrainingParamsByAlgorithm } from "./modulos/trainingModule";
 import { getFlowColorFromLabel, getBlockCardCategory as getBlockCardCategoryModule } from "./modulos/flowEditorModule";
@@ -6097,8 +6096,7 @@ function App() {
               elevateNodesOnSelect={true}
             >
               <Background gap={16} color="#d0d7ff" />
-              <MiniMap className="studio-minimap" pannable zoomable position="bottom-left" />
-              <Controls className="studio-map-controls" position="bottom-left" />
+              <FlowViewportNavigator />
               </ReactFlow>
             </ReactFlowProvider>
           </PipelineStudioContext.Provider>
