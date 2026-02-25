@@ -3530,23 +3530,24 @@ aside::-webkit-scrollbar-thumb:hover {
 
 .workspace-pipeline-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: 14px;
   margin-top: 14px;
-  max-height: 300px;
+  max-height: 340px;
   overflow: auto;
-  padding-right: 4px;
+  padding-right: 8px;
+  padding-bottom: 4px;
 }
 
 .workspace-pipeline-card {
   border-radius: 14px;
   border: 1px solid color-mix(in srgb, var(--md-sys-color-outline-variant) 90%, transparent);
   background: color-mix(in srgb, var(--md-sys-color-surface-container) 86%, transparent);
-  padding: 14px;
+  padding: 12px;
   cursor: pointer;
   text-align: left;
   display: grid;
-  gap: 12px;
+  gap: 10px;
   min-height: 124px;
   position: relative;
   overflow: hidden;
@@ -3558,36 +3559,40 @@ aside::-webkit-scrollbar-thumb:hover {
 }
 
 .workspace-pipeline-card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 12px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
 }
 
 .workspace-pipeline-identity {
   display: flex;
   align-items: center;
-  gap: 12px;
-  flex: 1;
+  gap: 10px;
+  width: 100%;
   min-width: 0;
 }
 
 .workspace-pipeline-main {
   flex: 1;
   min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
 }
 
 .workspace-pipeline-actions {
   display: flex;
-  gap: 8px;
+  gap: 6px;
   align-items: center;
   flex-shrink: 0;
   position: relative;
+  padding-left: 2px;
 }
 
 .workspace-pipeline-action-btn {
-  width: 36px;
-  height: 36px;
+  width: 34px;
+  height: 34px;
   border-radius: 12px;
   border: 1px solid var(--md-sys-color-outline-variant);
   background: color-mix(in srgb, var(--md-sys-color-surface) 88%, transparent);
