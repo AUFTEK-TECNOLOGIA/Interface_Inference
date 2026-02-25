@@ -4763,7 +4763,6 @@ function App() {
                     <div className="workspace-pipeline-grid" role="list">
                       {workspaceList.map((w) => {
                         const key = `${w.tenant}/${w.pipeline}`;
-                        const accent = sanitizeColor(w.accent_color || "#1e90ff");
                         const tenantId = String(w.tenant || "").trim();
                         const pipelineId = String(w.pipeline || "").trim();
                         const subtitle =
@@ -4780,16 +4779,21 @@ function App() {
                               setSelectedWorkspaceKey(key);
                               setWorkspaceCardMenuKey("");
                             }}
-                            style={{ borderColor: selectedWorkspaceKey === key ? accent : undefined }}
                             title={`${w.tenant} / ${w.pipeline}`}
                           >
                             <div className="workspace-pipeline-card-header">
-                              <div className="workspace-pipeline-logo" style={{ borderColor: accent }}>
-                                {w.logo ? (
-                                  <img src={resolveWorkspaceLogoSrc(w.logo, w.tenant, w.pipeline)} alt={w.title || w.pipeline} />
-                                ) : (
-                                  <span className="workspace-pipeline-logo-fallback">{workspaceInitials(w)}</span>
-                                )}
+                              <div className="workspace-pipeline-identity">
+                                <div className="workspace-pipeline-logo">
+                                  {w.logo ? (
+                                    <img src={resolveWorkspaceLogoSrc(w.logo, w.tenant, w.pipeline)} alt={w.title || w.pipeline} />
+                                  ) : (
+                                    <span className="workspace-pipeline-logo-fallback">{workspaceInitials(w)}</span>
+                                  )}
+                                </div>
+                                <div className="workspace-pipeline-main">
+                                  <div className="workspace-pipeline-title">{w.title || w.pipeline}</div>
+                                  <div className="workspace-pipeline-sub">{String(subtitle || "").replace(/[^\u0020-\u007E]+/g, " | ")}</div>
+                                </div>
                               </div>
                               <div className="workspace-pipeline-actions" onMouseDown={(e) => e.stopPropagation()}>
                                 <button
@@ -4892,12 +4896,10 @@ function App() {
                               </div>
                             </div>
                             <div className="workspace-pipeline-meta">
-                              <div className="workspace-pipeline-title">{w.title || w.pipeline}</div>
                               <div className="workspace-pipeline-tags">
                                 <span className="workspace-pill">{w.active_version || "v1"}</span>
                                 <span className="workspace-pill muted">{typeof w.versions_count === "number" ? `${w.versions_count} ${t("workspace.versionsLabel")}` : t("workspace.versionsLabel")}</span>
                               </div>
-                              <div className="workspace-pipeline-sub">{String(subtitle || "").replace(/[^\u0020-\u007E]+/g, " | ")}</div>
                             </div>
                           </button>
                         );
