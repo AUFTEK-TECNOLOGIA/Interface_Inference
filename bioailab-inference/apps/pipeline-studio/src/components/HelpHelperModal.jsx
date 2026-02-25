@@ -1,3 +1,5 @@
+import { memo } from "react";
+
 const HELP_TABS = [
   { id: "overview", labelKey: "helper.tabs.overview" },
   { id: "io", labelKey: "helper.tabs.io" },
@@ -6,7 +8,52 @@ const HELP_TABS = [
   { id: "troubleshooting", labelKey: "helper.tabs.troubleshooting" },
 ];
 
-export default function HelpHelperModal({
+function HelpSchemaCard({ title, items, emptyText, schema }) {
+  return (
+    <div className="help-card">
+      <div className="help-card-title">{title}</div>
+      <ul className="schema-list">
+        {items?.length ? (
+          items.map((key) => (
+            <li key={key}>
+              <span className="schema-key">{key}</span>
+              <small>{schema(key)}</small>
+            </li>
+          ))
+        ) : (
+          <li className="empty">{emptyText}</li>
+        )}
+      </ul>
+    </div>
+  );
+}
+
+function HelpComponentOptionsCard({ title, hint, items, onSelect }) {
+  if (!items?.length) return null;
+
+  return (
+    <div className="help-card">
+      <div className="help-card-title">{title}</div>
+      <p className="component-hint">{hint}</p>
+      <ul className="component-list">
+        {items.map((item) => (
+          <li
+            key={item.name}
+            role="button"
+            tabIndex={0}
+            onClick={() => onSelect(item)}
+            onKeyDown={(e) => e.key === "Enter" && onSelect(item)}
+          >
+            <span>{item.name}</span>
+            <small>{item.description}</small>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+function HelpHelperModal({
   t,
   helpModal,
   closeHelpModal,
@@ -18,6 +65,8 @@ export default function HelpHelperModal({
 }) {
   if (!helpModal.open || !helpModal.block) return null;
 
+  const block = helpModal.block;
+
   return (
     <div className="helper-modal" onClick={closeHelpModal} role="dialog" aria-modal="true">
       <div className="helper-modal-inner helper-modal-inner--help" onClick={(e) => e.stopPropagation()}>
@@ -27,12 +76,12 @@ export default function HelpHelperModal({
               {activeHelpModel?.icon || "B"}
             </div>
             <div>
-              <div className="help-modal-title-text">{activeHelpModel?.title || helpModal.block.name}</div>
-              <div className="help-modal-subtitle">{activeHelpModel?.subtitle || helpModal.block.name}</div>
+              <div className="help-modal-title-text">{activeHelpModel?.title || block.name}</div>
+              <div className="help-modal-subtitle">{activeHelpModel?.subtitle || block.name}</div>
             </div>
           </div>
           <div className="help-modal-actions">
-            <button className="btn" type="button" onClick={() => addBlockToCanvas(helpModal.block)}>
+            <button className="btn" type="button" onClick={() => addBlockToCanvas(block)}>
               {t("actions.add")}
             </button>
             <button className="helper-modal-close" type="button" onClick={closeHelpModal}>
@@ -60,7 +109,7 @@ export default function HelpHelperModal({
           <div className="help-content">
             <div className="help-card">
               <div className="help-card-title">{t("helper.sections.what")}</div>
-              <div className="help-card-text">{activeHelpModel?.what || helpModal.block.description}</div>
+              <div className="help-card-text">{activeHelpModel?.what || block.description}</div>
             </div>
 
             {activeHelpModel?.when?.length ? (
@@ -100,57 +149,29 @@ export default function HelpHelperModal({
 
         {helpTab === "io" && (
           <div className="help-content">
-            <div className="help-card">
-              <div className="help-card-title">{t("helper.sections.inputs")}</div>
-              <ul className="schema-list">
-                {helpModal.block.data_inputs?.length ? (
-                  helpModal.block.data_inputs.map((key) => (
-                    <li key={key}>
-                      <span className="schema-key">{key}</span>
-                      <small>{helpModal.block.input_schema?.[key]?.type || "any"}</small>
-                    </li>
-                  ))
-                ) : (
-                  <li className="empty">{t("summary.noneInput")}</li>
-                )}
-              </ul>
-            </div>
-
-            <div className="help-card">
-              <div className="help-card-title">{t("helper.sections.outputs")}</div>
-              <ul className="schema-list">
-                {helpModal.block.data_outputs?.length ? (
-                  helpModal.block.data_outputs.map((key) => (
-                    <li key={key}>
-                      <span className="schema-key">{key}</span>
-                      <small>{helpModal.block.output_schema?.[key]?.type || "any"}</small>
-                    </li>
-                  ))
-                ) : (
-                  <li className="empty">{t("summary.noneOutput")}</li>
-                )}
-              </ul>
-            </div>
+            <HelpSchemaCard
+              title={t("helper.sections.inputs")}
+              items={block.data_inputs}
+              emptyText={t("summary.noneInput")}
+              schema={(key) => block.input_schema?.[key]?.type || "any"}
+            />
+            <HelpSchemaCard
+              title={t("helper.sections.outputs")}
+              items={block.data_outputs}
+              emptyText={t("summary.noneOutput")}
+              schema={(key) => block.output_schema?.[key]?.type || "any"}
+            />
           </div>
         )}
 
         {helpTab === "config" && (
           <div className="help-content">
-            <div className="help-card">
-              <div className="help-card-title">{t("helper.sections.configs")}</div>
-              <ul className="schema-list">
-                {helpModal.block.config_inputs?.length ? (
-                  helpModal.block.config_inputs.map((key) => (
-                    <li key={key}>
-                      <span className="schema-key">{key}</span>
-                      <small>{helpModal.block.input_schema?.[key]?.description || helpModal.block.input_schema?.[key]?.type || ""}</small>
-                    </li>
-                  ))
-                ) : (
-                  <li className="empty">{t("summary.noneConfig")}</li>
-                )}
-              </ul>
-            </div>
+            <HelpSchemaCard
+              title={t("helper.sections.configs")}
+              items={block.config_inputs}
+              emptyText={t("summary.noneConfig")}
+              schema={(key) => block.input_schema?.[key]?.description || block.input_schema?.[key]?.type || ""}
+            />
           </div>
         )}
 
@@ -167,67 +188,31 @@ export default function HelpHelperModal({
               </div>
             ) : null}
 
-            {helpModal.block.name === "signal_filters" && library.filters?.length > 0 && (
-              <div className="help-card">
-                <div className="help-card-title">{t("summary.availableFilters")}</div>
-                <p className="component-hint">{t("summary.componentHint")}</p>
-                <ul className="component-list">
-                  {library.filters.map((f) => (
-                    <li
-                      key={f.name}
-                      role="button"
-                      tabIndex={0}
-                      onClick={() => addBlockToCanvas(helpModal.block, { filter_type: f.name })}
-                      onKeyDown={(e) => e.key === "Enter" && addBlockToCanvas(helpModal.block, { filter_type: f.name })}
-                    >
-                      <span>{f.name}</span>
-                      <small>{f.description}</small>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+            {block.name === "signal_filters" && (
+              <HelpComponentOptionsCard
+                title={t("summary.availableFilters")}
+                hint={t("summary.componentHint")}
+                items={library.filters}
+                onSelect={(item) => addBlockToCanvas(block, { filter_type: item.name })}
+              />
             )}
 
-            {helpModal.block.name === "curve_fitting" && library.curve_models?.length > 0 && (
-              <div className="help-card">
-                <div className="help-card-title">{t("summary.availableModels")}</div>
-                <p className="component-hint">{t("summary.componentHint")}</p>
-                <ul className="component-list">
-                  {library.curve_models.map((m) => (
-                    <li
-                      key={m.name}
-                      role="button"
-                      tabIndex={0}
-                      onClick={() => addBlockToCanvas(helpModal.block, { model_type: m.name })}
-                      onKeyDown={(e) => e.key === "Enter" && addBlockToCanvas(helpModal.block, { model_type: m.name })}
-                    >
-                      <span>{m.name}</span>
-                      <small>{m.description}</small>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+            {block.name === "curve_fitting" && (
+              <HelpComponentOptionsCard
+                title={t("summary.availableModels")}
+                hint={t("summary.componentHint")}
+                items={library.curve_models}
+                onSelect={(item) => addBlockToCanvas(block, { model_type: item.name })}
+              />
             )}
 
-            {helpModal.block.name === "feature_extraction" && library.feature_extractors?.length > 0 && (
-              <div className="help-card">
-                <div className="help-card-title">{t("summary.availableExtractors")}</div>
-                <p className="component-hint">{t("summary.componentHint")}</p>
-                <ul className="component-list">
-                  {library.feature_extractors.map((e) => (
-                    <li
-                      key={e.name}
-                      role="button"
-                      tabIndex={0}
-                      onClick={() => addBlockToCanvas(helpModal.block, { extractor_type: e.name })}
-                      onKeyDown={(ev) => ev.key === "Enter" && addBlockToCanvas(helpModal.block, { extractor_type: e.name })}
-                    >
-                      <span>{e.name}</span>
-                      <small>{e.description}</small>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+            {block.name === "feature_extraction" && (
+              <HelpComponentOptionsCard
+                title={t("summary.availableExtractors")}
+                hint={t("summary.componentHint")}
+                items={library.feature_extractors}
+                onSelect={(item) => addBlockToCanvas(block, { extractor_type: item.name })}
+              />
             )}
           </div>
         )}
@@ -255,3 +240,5 @@ export default function HelpHelperModal({
     </div>
   );
 }
+
+export default memo(HelpHelperModal);

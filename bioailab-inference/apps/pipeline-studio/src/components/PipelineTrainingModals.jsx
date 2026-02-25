@@ -72,7 +72,6 @@ export default function PipelineTrainingModals({
               sessionPath={candidatesModal.sessionPath}
               stepId={candidatesModal.stepId}
               onSelect={async (candidateId) => {
-                console.log("Candidato selecionado:", candidateId);
                 setCandidatesModal({ open: false, sessionPath: "", stepId: "" });
                 if (workspace?.tenant && workspace?.pipeline) {
                   try {

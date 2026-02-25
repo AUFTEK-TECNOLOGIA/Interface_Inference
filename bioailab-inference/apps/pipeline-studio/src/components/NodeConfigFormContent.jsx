@@ -31,8 +31,7 @@ export default function NodeConfigFormContent({
                 <div className="config-form">
                   {selectedNode && selectedNode.data && selectedNode.data.blockName === "experiment_fetch" ? (
                     <>
-                      {console.log('Rendering experiment_fetch config for node:', selectedNode.id)}
-                      {/* Grupo 1: Fonte de Dados */}
+                                            {/* Grupo 1: Fonte de Dados */}
                       <fieldset className="config-group">
                         <legend>{t("configuration.dataSource")}</legend>
                         {["experimentId", "tenant"].map((f) => renderConfigField(f))}
@@ -45,7 +44,6 @@ export default function NodeConfigFormContent({
                               checked={useDefaultExperiment}
                               onChange={(e) => {
                                 const newValue = e.target.checked;
-                                console.log('Toggle changed:', newValue);
                                 setUseDefaultExperiment(newValue);
                                 
                                 // Atualizar todos os campos de uma vez para evitar problemas de estado

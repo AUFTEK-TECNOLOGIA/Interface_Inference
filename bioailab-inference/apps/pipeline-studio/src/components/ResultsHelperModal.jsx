@@ -1,6 +1,8 @@
+import { memo } from "react";
+
 import ResultsPanel from "./ResultsPanel";
 
-export default function ResultsHelperModal({
+function ResultsHelperModal({
   t,
   resultsModalOpen,
   closeResultsModal,
@@ -36,3 +38,5 @@ export default function ResultsHelperModal({
     </div>
   );
 }
+
+export default memo(ResultsHelperModal);
